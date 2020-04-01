@@ -3,7 +3,7 @@
 
 <head>
 
-    <?php include 'headImports.php'?>
+    <?php include 'imports/headImports.php'?>
     <Title>Timeline</Title>
     
 </head>
@@ -12,7 +12,7 @@
 
     <?php include 'navbar.php'?>
 
-    <?php include 'bodyImports.php'?>
+    <?php include 'imports/bodyImports.php'?>
 
 </body>
 
