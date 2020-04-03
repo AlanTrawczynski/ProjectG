@@ -1,0 +1,22 @@
+#navbar-profile-pic {
+    border-radius: 5%;
+}
+
+@media (min-width: 768px) {
+    #navbar-search-bar {
+        width: 200px;
+    }
+}
+
+@media (min-width: 1400px) {
+    #navbar-search-bar {
+        width: 300px;
+    }
+}
+
+@media (min-width: 1500px) {
+    #navbar-search-bar {
+        width: 400px;
+    }
+}
+

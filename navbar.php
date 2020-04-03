@@ -1,37 +1,35 @@
-<div class='navbar navbar-expand-sm navbar-dark bg-dark' role='navigation'>
+<nav class='navbar sticky-top navbar-expand-md navbar-dark bg-dark'>
     
-    <a class='navbar-brand' href="#">&ltimg&gt</a>
+    <a class='navbar-brand' href="index.php">&ltimg&gt</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
+        <span class="navbar-toggler-icon"></span>
     </button>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-                <a class="nav-link" href="#">GTimeline</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">MyTimeline</a>
-            </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Trending
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                    <a class="dropdown-item" href="#">Photos</a>
-                    <a class="dropdown-item" href="#">Users</a>
-                </div>
-            </li>
-        </ul>
-
-        <form class="form-inline">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-            <button type="submit">
-                <i class="fa fa-search" aria-hidden="true"></i>
+        <div class="navbar-nav mr-auto">
+            <a class="nav-item nav-link" href="index.php">gTimeline</a>
+            <a class="nav-item nav-link" href="#">myTimeline</a>
+            <a class="nav-item nav-link" href="#">Trending</a>
+        </div>
+        
+        <form class="form-inline ml-auto mr-4">
+            <input id='navbar-search-bar' class="form-control mr-2" type="search" placeholder="Search" aria-label="Search">
+            <button type="submit" class="btn btn-light">
+                <span class="fa fa-search" aria-hidden="true"></span>
             </button>
         </form>
 
+        <a class='mr-auto ml-auto' href="#">
+            <button type="button" class="btn btn-light">
+                <span class="fa fa-plus-square"></span>
+            </button>
+        </a>
+        
+        <a class='ml-4' href="#" >
+            <img id='navbar-profile-pic' src="images/user.jpg" alt="Profile picture" title='Profile' width='40px'>
+        </a>
+
     </div>
 
-</div>
+</nav>
