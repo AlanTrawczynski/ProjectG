@@ -1,10 +1,41 @@
-#navbar-profile-pic {
-    border-radius: 5%;
+.navbar-image {
+    border-radius: 10%;
+}
+
+.navbar-brand {
+    padding: 0px;
+}
+
+.form-inline {
+    flex-flow: initial;
+}
+
+.gal {
+    column-count: 1;
+    column-gap: 1.25%;
+    margin: 1.5%;
+}
+
+.gal img {
+    width: 100%;
+    margin-bottom: 5%;
+}
+
+@media (min-width: 650px) {
+    .gal {
+        column-count: 2;
+    }
 }
 
 @media (min-width: 768px) {
     #navbar-search-bar {
-        width: 200px;
+        width: 175px;
+    }
+}
+
+@media (min-width: 1050px) {
+    .gal {
+        column-count: 3;
     }
 }
 
@@ -12,9 +43,12 @@
     #navbar-search-bar {
         width: 300px;
     }
+    .gal {
+        column-count: 4;
+    }
 }
 
-@media (min-width: 1500px) {
+@media (min-width: 1800px) {
     #navbar-search-bar {
         width: 400px;
     }
