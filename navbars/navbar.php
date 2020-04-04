@@ -10,7 +10,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
         <div class="navbar-nav mr-auto">
-            <a class="nav-item nav-link" href="index.php">Global Timeline</a>
+            <a class="nav-item nav-link active" href="index.php">Global Timeline</a>
             <a class="nav-item nav-link" href="#">My Timeline</a>
             <a class="nav-item nav-link" href="#">Trending</a>
         </div>

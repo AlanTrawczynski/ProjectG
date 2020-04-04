@@ -10,7 +10,7 @@
 
 <body>
 
-    <?php include 'navbar.php'?>
+    <?php include 'navbars/indexNavbar.php'?>
     
     <div class='container-fluid'>
         <div class='row text-center mt-4'>

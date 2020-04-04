@@ -10,6 +10,23 @@
     flex-flow: initial;
 }
 
+.nav-link:hover {
+    color: #FFB5C0 !important;
+}
+
+#navbar-login-button {
+    background-color: #FFB5C0;
+    border-color: #FFB5C0;
+    color: white;
+    font-weight: 500;
+}
+
+#navbar-signup-button {
+    border-color: #FFB5C0;
+    color: #FFB5C0;
+    font-weight: 500;
+}
+
 .gal {
     column-count: 1;
     column-gap: 1.25%;
