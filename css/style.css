@@ -6,25 +6,31 @@
     padding: 0px;
 }
 
-.form-inline {
-    flex-flow: initial;
-}
-
 .nav-link:hover {
     color: #FFB5C0 !important;
 }
 
-#navbar-login-button {
+.btn-pink {
     background-color: #FFB5C0;
     border-color: #FFB5C0;
-    color: white;
+    color: #343a40;
     font-weight: 500;
 }
 
-#navbar-signup-button {
+.btn-pink:hover {
+    background-color: #ff95a5;
+    border-color: #ff95a5;
+}
+
+.btn-outline-pink {
     border-color: #FFB5C0;
     color: #FFB5C0;
     font-weight: 500;
+}
+
+.btn-outline-pink:hover {
+    background-color: #ff95a5;
+    border-color: #ff95a5;
 }
 
 .gal {

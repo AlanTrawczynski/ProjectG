@@ -11,11 +11,11 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
-        <form class="form-inline ml-auto">
-            <input class="form-control mr-2" type="email" placeholder="email" aria-label="email">
-            <input class="form-control mr-2" type="password" placeholder="password" aria-label="password">
-            <button class="btn btn-light mr-4" id='navbar-login-button' type="submit">Log In</button>
-            <button class="btn btn-outline-light" id='navbar-signup-button' type="button" data-toggle="modal" data-target="#navbar-signup-modal">Sign Up</button>
+        <form class="form-inline ml-auto mb-md-0 mb-2">
+            <input class="form-control mr-2 mt-3 mt-md-0" type="email" placeholder="Email" aria-label="email">
+            <input class="form-control mr-2 mt-3 mt-md-0" type="password" placeholder="Password" aria-label="password">
+            <button class="btn btn-pink mr-4 mt-3 mt-md-0" id='navbar-login-button' type="submit">Log In</button>
+            <button class="btn btn-outline-pink mt-3 mt-md-0" id='navbar-signup-button' type="button" data-toggle="modal" data-target="#navbar-signup-modal">Sign Up</button>
         </form>
 
     </div>
