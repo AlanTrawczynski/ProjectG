@@ -4,7 +4,7 @@
 
 
         <div class="modal-header">
-        <h5 class="modal-title">Add new photo</h5>
+        <h5 class="modal-title">Upload photo</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
         </button>
@@ -55,7 +55,7 @@
                     <div class="invalid-feedback">Please provide a valid file.</div>
                 </div>
 
-                <button class="btn btn-pink btn-lg btn-block mt-4" type="submit">Add photo</button>
+                <button class="btn btn-pink btn-lg btn-block mt-4" type="submit">Upload photo</button>
             
             </form>
 

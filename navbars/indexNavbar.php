@@ -5,18 +5,20 @@
     <a class='navbar-brand' href="index.php">
         <img src="images/logo.png" alt="Logo" width='40px'>
     </a>
+
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-
-        <form class="form-inline ml-auto mb-md-0 mb-2">
-            <input class="form-control mr-2 mt-3 mt-md-0" type="email" placeholder="Email" aria-label="email">
-            <input class="form-control mr-2 mt-3 mt-md-0" type="password" placeholder="Password" aria-label="password">
-            <button class="btn btn-pink mr-4 mt-3 mt-md-0" id='navbar-login-button' type="submit">Log In</button>
-            <button class="btn btn-outline-pink mt-3 mt-md-0" id='navbar-signup-button' type="button" data-toggle="modal" data-target="#navbar-signup-modal">Sign Up</button>
+        
+        <form id='indexNavbar-form' class="form-inline ml-auto">
+            <input class="form-control mr-md-2 mt-3 mt-md-0" type="email" placeholder="Email" aria-label="email">
+            <input class="form-control mr-md-2 mt-3 mt-md-0" type="password" placeholder="Password" aria-label="password">
+            <button class="btn btn-pink mr-md-4 mt-3 mt-md-0" type="submit">Log In</button>
         </form>
+
+        <button id='indexNavbar-signupBtn' class="btn btn-outline-pink mt-3 mt-md-0 mb-md-0 mb-2" type="button" data-toggle="modal" data-target="#navbar-signup-modal">Sign Up</button>
 
     </div>
 

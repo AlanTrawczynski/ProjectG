@@ -11,28 +11,28 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
-        <div class="navbar-nav mr-auto">
-            <a class="nav-item nav-link active" href="index.php">Global Timeline</a>
-            <a class="nav-item nav-link" href="#">My Timeline</a>
+        <div class="navbar-nav mt-3 mt-md-0">
+            <a class="nav-item nav-link active" href="index.php">Home</a>
+            <a class="nav-item nav-link" href="#">Following</a>
             <a class="nav-item nav-link" href="#">Trending</a>
+            <a class="nav-item nav-link" href="#">@username</a>
         </div>
         
-        <form class="form-inline ml-auto mr-4 mb-2 mb-md-0">
-            <input id='navbar-search-bar' class="form-control mr-2" type="search" placeholder="Search" aria-label="Search">
-            <button type="submit" class="btn btn-light">
-                <span class="fa fa-search" aria-hidden="true"></span>
-            </button>
+        <form id='navbar-search-bar' class="form mx-auto mt-3 mt-md-0">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Search...">
+                <div class="input-group-append">
+                    <button class="search-btn pink-hover btn btn-default" type="submit">
+                        <span class="fa fa-search" aria-hidden="true"></span>
+                    </button>
+                </div>
+            </div>
         </form>
 
-        <span class='mr-auto ml-auto'>
-            <button type="button" class="btn btn-light mr-auto ml-auto" data-toggle="modal" data-target="#navbar-new-photo-modal">
-                <span class="fa fa-plus-square"></span>
-            </button>
-        </span>
-        
-        <a class='ml-4' href="#" >
-            <img class='profile-pic' src="images/user.jpg" alt="Profile picture" title='Profile' width='40px'>
-        </a>
+        <button id='navbar-uploadBtn-ico' type="button" class="btn btn-light pink-hover mt-3 mt-md-0 mb-md-0 mb-2" data-toggle="modal" data-target="#navbar-new-photo-modal">
+            <span class="fa fa-plus-square"></span>
+        </button>
+        <button id='navbar-uploadBtn-text' type="button" class="btn btn-block btn-light pink-hover mt-3 mt-md-0 mb-md-0 mb-2" data-toggle="modal" data-target="#navbar-new-photo-modal">Upload photo</button>
 
     </div>
 
