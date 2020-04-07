@@ -9,11 +9,11 @@
         </div>
 
         <div class='col pl-0 text-right'>
-            <button type='button' class='btn btn-sm'>
+            <button type='button' class='btn btn p-1'>
                 <img src="images/downvote.svg" width='22.5px'>
             </button>
             <span>25324</span>
-            <button type='button' class='btn btn-sm'>
+            <button type='button' class='btn p-1'>
                 <img src="images/upvote.svg" width='22.5px'>
             </button>
         </div>

@@ -1,3 +1,5 @@
+<?php include 'modals/newPhotoModal.php' ?>
+
 <nav class='navbar sticky-top navbar-expand-md navbar-dark bg-dark'>
     
     <a class='navbar-brand' href="index.php">
@@ -22,11 +24,11 @@
             </button>
         </form>
 
-        <a class='mr-auto ml-auto' href="#">
-            <button type="button" class="btn btn-light">
+        <span class='mr-auto ml-auto'>
+            <button type="button" class="btn btn-light mr-auto ml-auto" data-toggle="modal" data-target="#navbar-new-photo-modal">
                 <span class="fa fa-plus-square"></span>
             </button>
-        </a>
+        </span>
         
         <a class='ml-4' href="#" >
             <img class='profile-pic' src="images/user.jpg" alt="Profile picture" title='Profile' width='40px'>

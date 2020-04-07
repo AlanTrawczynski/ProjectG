@@ -42,7 +42,9 @@
     column-count: 1;
     column-gap: 1rem;
     margin: 1.5%;
+    margin-top: 25px;
 }
+
 .image-block > a {
     display: block;
 }

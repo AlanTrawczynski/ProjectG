@@ -12,16 +12,16 @@
 
 
       <div class="modal-body">
-        <!-- SignUp Form -->
+        <!-- Sign up Form -->
         <form class="needs-validation" novalidate>
 
           <div class="form-row">
-            <div class="col-md mb-3">
+            <div class="form-group form-group col-md">
               <label>First name</label>
               <input type="text" class="form-control" required>
               <div class="invalid-feedback">Please provide a first name.</div>
             </div>
-            <div class="col-md mb-3">
+            <div class="form-group col-md">
               <label>Last name</label>
               <input type="text" class="form-control" required>
               <div class="invalid-feedback">Please provide a last name.</div>
@@ -29,12 +29,12 @@
           </div>
 
           <div class='form-row'>
-            <div class="col-md mb-3">
+            <div class="form-group col-md">
               <label>Email</label>
               <input type="email" class="form-control" required>
               <div class="invalid-feedback">Please provide a valid email.</div>
             </div>
-            <div class="col-md mb-3">
+            <div class="form-group col-md">
               <label>Username</label>
               <div class="input-group">
                 <div class="input-group-prepend">
@@ -49,12 +49,12 @@
           </div>
 
           <div class="form-row">
-            <div class="col-md mb-3">
+            <div class="form-group col-md">
               <label>Password</label>
               <input type="password" class="form-control" required>
               <div class="invalid-feedback">Please provide a password.</div>
             </div>
-            <div class="col-md mb-3">
+            <div class="form-group col-md">
               <label>Phone Number</label>
               <input type="tel" pattern="[0-9]{9}" class="form-control" required>
               <div class="invalid-feedback">Please provide a valid phone number.</div>

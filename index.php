@@ -10,18 +10,10 @@
 
 <body>
 
-    <?php include 'navbars/indexNavbar.php'?>
+    <?php include 'navbars/navbar.php'?>
     
     <div class='container-fluid'>
-        <div class='row text-center mt-4'>
-            <div class='col p-0'>
-                <h4>Day Month</h4>
-                <hr class='m-0'>
-            </div>
-        </div>
-
         <?php include 'galExample/gal.php'?>
-        
     </div>
     
 

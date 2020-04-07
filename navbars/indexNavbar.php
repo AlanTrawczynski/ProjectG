@@ -1,4 +1,4 @@
-<?php include 'signUpModal.php' ?>
+<?php include 'modals/signUpModal.php' ?>
 
 <nav class='navbar sticky-top navbar-expand-md navbar-dark bg-dark'>
     
