@@ -1,8 +1,8 @@
-<div class='container image-overlay'>
+<div class='container-fluid image-overlay'>
     <div class='row'>
 
         <div class='col pr-0 text-left' style='padding-top:0.35rem'>
-            <a href="#">
+            <a href="profile.php">
                     <img class='profile-pic mr-2' src="images/user.jpg" width='27.5px'>
                     <span>@username</span>
             </a>

@@ -1,3 +1,7 @@
+* {
+    
+}
+
 /* Navbars */
 .profile-pic {
     border-radius: 10%;
@@ -7,7 +11,7 @@
     padding: 0px;
 }
 
-.nav-link:hover {
+.navbar .nav-link:hover {
     color: #FFB5C0 !important;
 }
 
@@ -114,7 +118,6 @@
     }
 }
 
-
 #navbar-uploadBtn-ico {
     display: none;
 }
@@ -158,4 +161,30 @@
     .gal {
         column-count: 4;
     }
+}
+
+
+.profile-container {
+    margin: 3rem auto;
+    justify-content: center;
+    display: flex;
+}
+
+.profile-info {
+    margin: 3rem auto;
+    justify-content: center;
+    display: flex;
+}
+
+.pink-profile-nav .active {
+    border-bottom: 0.15rem solid #FFB5C0;
+}
+
+.pink-profile-nav a {
+    color: #5e5e5e;
+    font-weight: 600;
+}
+
+.pink-profile-nav a:hover {
+    color: #FFB5C0;
 }

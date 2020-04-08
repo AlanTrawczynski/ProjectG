@@ -13,7 +13,7 @@
     <?php include 'navbars/navbar.php'?>
     
     <div class='container-fluid'>
-        <?php include 'galExample/gal.php'?>
+        <?php include 'gal/gal.php'?>
     </div>
     
 

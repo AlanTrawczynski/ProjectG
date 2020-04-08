@@ -12,10 +12,10 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
         <div class="navbar-nav mt-3 mt-md-0">
-            <a class="nav-item nav-link active" href="index.php">Home</a>
+            <a class="nav-item nav-link" href="index.php">Home</a>
             <a class="nav-item nav-link" href="#">Following</a>
             <a class="nav-item nav-link" href="#">Trending</a>
-            <a class="nav-item nav-link" href="#">@username</a>
+            <a class="nav-item nav-link" href="profile.php">@username</a>
         </div>
         
         <form id='navbar-search-bar' class="form mx-auto mt-3 mt-md-0">
