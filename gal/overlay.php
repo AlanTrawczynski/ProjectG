@@ -1,4 +1,4 @@
-<div class='container-fluid image-overlay'>
+<div class='container-fluid photo-overlay'>
     <div class='row'>
 
         <div class='col pr-0 text-left' style='padding-top:0.35rem'>

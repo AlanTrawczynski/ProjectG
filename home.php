@@ -10,7 +10,7 @@
 
 <body>
 
-    <?php include 'navbars/indexNavbar.php'?>
+    <?php include 'navbars/navbar.php'?>
     
     <div class='custom-container py-4'>
         <?php include 'gal/gal.php'?>

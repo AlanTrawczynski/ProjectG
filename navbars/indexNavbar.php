@@ -2,7 +2,7 @@
 
 <nav class='navbar sticky-top navbar-expand-md navbar-dark bg-dark'>
     
-    <a class='navbar-brand' href="index.php">
+    <a class='navbar-brand' href="home.php">
         <img src="images/logo.png" alt="Logo" width='40px'>
     </a>
 
@@ -12,13 +12,13 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         
-        <form id='indexNavbar-form' class="form-inline ml-auto">
+        <form id='indexNavbar-login-form' class="form-inline ml-auto">
             <input class="form-control mr-md-2 mt-3 mt-md-0" type="email" placeholder="Email" aria-label="email">
             <input class="form-control mr-md-2 mt-3 mt-md-0" type="password" placeholder="Password" aria-label="password">
             <button class="btn btn-pink mr-md-4 mt-3 mt-md-0" type="submit">Log In</button>
         </form>
 
-        <button id='indexNavbar-signupBtn' class="btn btn-outline-pink mt-3 mt-md-0 mb-md-0 mb-2" type="button" data-toggle="modal" data-target="#navbar-signup-modal">Sign Up</button>
+        <button id='indexNavbar-signup-btn' class="btn btn-outline-pink mt-3 mt-md-0 mb-md-0 mb-2" type="button" data-toggle="modal" data-target="#navbar-signup-modal">Sign Up</button>
 
     </div>
 
