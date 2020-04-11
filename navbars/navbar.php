@@ -1,4 +1,4 @@
-<?php include 'modals/newPhotoModal.php' ?>
+<?php include 'modals/uploadPhotoModal.php'?>
 
 <nav class='navbar sticky-top navbar-expand-md navbar-dark bg-dark'>
     
@@ -13,8 +13,8 @@
 
         <div class="navbar-nav mt-3 mt-md-0">
             <a class="nav-item nav-link" href="home.php">Home</a>
-            <a class="nav-item nav-link" href="#">Following</a>
-            <a class="nav-item nav-link" href="#">Trending</a>
+            <a class="nav-item nav-link" href="home.php">Following</a>
+            <a class="nav-item nav-link" href="trending.php">Trending</a>
             <a class="nav-item nav-link" href="profile.php">@username</a>
         </div>
         
