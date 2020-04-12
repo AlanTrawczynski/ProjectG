@@ -109,6 +109,29 @@
 
 
 
+/* Trending */
+.trending-top-users {
+    margin-top: 2rem;
+}
+
+.trending-top-users > .row {
+    margin-bottom: 1.5rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid lightgrey;
+}
+
+.trending-top-users > .row > .container{
+    margin: 1.5rem 0;
+}
+
+@media (max-width: 767px) {
+    .trending-top-users > .row > .container{
+        margin-top: 0;
+    }
+}
+
+
+
 /* Profile */
 .profile-container {
     margin: 3rem 0;
@@ -189,16 +212,22 @@
     margin-top: 0.5rem;
 }
 
-.photo-modal-stats .btn {
+.photo-modal-stats button {
     display: block;
     width: 90%;
     background-color: #e9ecef;
+}
+
+.photo-modal-stats button > i {
+    vertical-align: middle;
+    color: #4a4b4d;
 }
 
 .custom-progress-bar {
     background-color: #FFB5C0;
     color: #212529;
     font-size: .9rem;
+    font-weight: 550;
 }
 
 
@@ -265,7 +294,6 @@
 
 .photo-overlay:hover {
     color: white;
-    text-decoration: none;
 }
 
 .photo-overlay > span {
@@ -301,4 +329,13 @@
 
 .bg-pink {
     background-color: #FFB5C0;
+}
+
+a {
+    color: inherit;
+}
+
+a:hover {
+    color: inherit;
+    text-decoration: inherit;
 }
