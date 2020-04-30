@@ -50,6 +50,7 @@
     </div>
 
     <?php include 'imports/bodyImports.php'?>
+    <?php include 'footer.php'?>
 
 </body>
 

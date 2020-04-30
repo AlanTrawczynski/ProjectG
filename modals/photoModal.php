@@ -7,7 +7,7 @@
             <div class='photo-modal-user'>
                 <a href="profile.php">
                     <img class='profile-pic mr-2' src="images/user.jpg" width='35px'>
-                    <span class='mr-4'>@username</span>
+                    <span id='photo-modal-username' class='mr-4'>@username</span>
                 <a>
                 <button class='btn btn-pink btn-sm' type='button'>Follow</button>
             </div>
@@ -20,7 +20,7 @@
         <div class="modal-body">
 
             <div class='photo-modal-container'>
-                <img src="https://images.pexels.com/photos/3935702/pexels-photo-3935702.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260">
+                <img id='photo-modal-img' src="https://images.pexels.com/photos/3935702/pexels-photo-3935702.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260">
             </div>
 
             <div class='photo-modal-stats container mb-2'>
@@ -32,7 +32,7 @@
                     </div>
                     <div class='col'>
                         <div class="progress" style='height: 100%'>
-                            <div class="progress-bar custom-progress-bar" role="progressbar" style="width: 84.4%" aria-valuenow="25324" aria-valuemin="0" aria-valuemax="30000">25324/30000 (84,4%) positive votes</div>
+                            <div id='photo-modal-votes' class="progress-bar custom-positive-progress-bar" role="progressbar" style="width: 84.4%">25324/30000 (84,4%) positive votes</div>
                         </div>
                     </div>
                     <div class='col-1 p-0'>
@@ -53,8 +53,8 @@
             </ul>
 
             <div class='photo-modal-info'>
-                <h5>Photo title</h5>
-                <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin id tortor eget diam molestie rhoncus. Pellentesque bibendum mauris non arcu venenatis lacinia. Morbi in feugiat erat, ut sodales quam. Phasellus gravida molestie mauris, sed mattis enim. Morbi bibendum arcu ligula, non ullamcorper urna laoreet sit amet. Fusce sem sapien, porttitor convallis neque a, facilisis porta nisl. Maecenas felis odio, pellentesque ut eros id, feugiat scelerisque dui. Sed cursus magna quis lacus viverra dictum.</span>
+                <h5 id='photo-modal-title'>Photo title</h5>
+                <span id='photo-modal-description'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin id tortor eget diam molestie rhoncus. Pellentesque bibendum mauris non arcu venenatis lacinia. Morbi in feugiat erat, ut sodales quam. Phasellus gravida molestie mauris, sed mattis enim. Morbi bibendum arcu ligula, non ullamcorper urna laoreet sit amet. Fusce sem sapien, porttitor convallis neque a, facilisis porta nisl. Maecenas felis odio, pellentesque ut eros id, feugiat scelerisque dui. Sed cursus magna quis lacus viverra dictum.</span>
             </div>
 
         </div>

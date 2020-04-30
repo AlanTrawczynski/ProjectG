@@ -200,6 +200,7 @@
 .photo-modal-container {
     max-width: 100%;
     margin-bottom: 1rem;
+    text-align: center;
 }
 
 .photo-modal-container > img {
@@ -223,9 +224,16 @@
     color: #4a4b4d;
 }
 
-.custom-progress-bar {
+.custom-positive-progress-bar {
     background-color: #FFB5C0;
     color: #212529;
+    font-size: .9rem;
+    font-weight: 550;
+}
+
+.custom-negative-progress-bar {
+    background-color: #212529;
+    color: white;
     font-size: .9rem;
     font-weight: 550;
 }
