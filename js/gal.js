@@ -1,5 +1,3 @@
-'use strict';
-
 axios.get('http://localhost:3000/photos?_sort=id&_order=desc&_limit=30').then(function (response) {
     if (response.status == 200) {
         let photos = response.data;

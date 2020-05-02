@@ -1,6 +1,4 @@
-<?php include 'modals/uploadPhotoModal.php'?>
-
-<nav class='navbar sticky-top navbar-expand-md navbar-dark bg-dark'>
+<nav id='navbar' class='navbar sticky-top navbar-expand-md navbar-dark bg-dark'>
     
     <a class='navbar-brand' href="index.php">
         <img src="images/logo.png" alt="Logo" width='40px'>
@@ -29,10 +27,15 @@
             </div>
         </form>
 
-        <button id='navbar-upload-btn-ico' type="button" class="btn btn-light pink-hover mt-3 mt-md-0 mb-md-0 mb-2" data-toggle="modal" data-target="#navbar-new-photo-modal">
+        <button type="button" class="btn btn-light collapse-ico-btn pink-hover mr-auto" title="upload photo" data-toggle="modal" data-target="#upload-photo-modal">
             <span class="fa fa-plus-square"></span>
         </button>
-        <button id='navbar-upload-btn-text' type="button" class="btn btn-block btn-light pink-hover mt-3 mt-md-0 mb-md-0 mb-2" data-toggle="modal" data-target="#navbar-new-photo-modal">Upload photo</button>
+        <button type="button" class="btn btn-block btn-light pink-hover collapse-text-btn mt-3 mb-2" data-toggle="modal" data-target="#upload-photo-modal">Upload photo</button>
+
+        <button type="button" onclick="logout(true)" class="btn btn-light collapse-ico-btn pink-hover" title="logout">
+            <span class="fa fa-sign-out" aria-hidden="true"></span>
+        </button>
+        <button type="button" onclick="logout(true)" class="btn btn-block btn-light collapse-text-btn pink-hover mt-3 mb-2" data-toggle="modal" data-target="#upload-photo-modal">Logout</button>
 
     </div>
 

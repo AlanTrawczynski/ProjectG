@@ -1,4 +1,4 @@
-<div class="modal fade" id="navbar-signup-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal fade" id="signup-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-lg" role="form">
     <div class="modal-content">
 
@@ -13,26 +13,26 @@
 
       <div class="modal-body">
         <!-- Sign up Form -->
-        <form class="needs-validation" novalidate>
+        <form id="signup-form" class="needs-validation" novalidate>
 
           <div class="form-row">
-            <div class="form-group form-group col-md">
+            <div class="form-group col-md">
               <label>First name</label>
-              <input type="text" class="form-control" required>
-              <div class="invalid-feedback">Please provide a first name.</div>
+              <input id="signup-firstName" type="text" minlength="3" maxlength="25" class="form-control" required>
+              <div class="invalid-feedback">First name must contain at least 3 characters.</div>
             </div>
             <div class="form-group col-md">
               <label>Last name</label>
-              <input type="text" class="form-control" required>
-              <div class="invalid-feedback">Please provide a last name.</div>
+              <input id="signup-lastName" type="text" minlength="3" maxlength="40" class="form-control" required>
+              <div class="invalid-feedback">Last name must contain at least 3 characters.</div>
             </div>
           </div>
 
           <div class='form-row'>
             <div class="form-group col-md">
               <label>Email</label>
-              <input type="email" class="form-control" required>
-              <div class="invalid-feedback">Please provide a valid email.</div>
+              <input id="signup-email" type="email" class="form-control" required>
+              <div class="invalid-feedback">Email must contain "@".</div>
             </div>
             <div class="form-group col-md">
               <label>Username</label>
@@ -40,10 +40,8 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text">@</span>
                 </div>
-                <input type="text" class="form-control" aria-describedby="inputGroupPrepend" required>
-                <div class="invalid-feedback">
-                  Please choose a username.
-                </div>
+                <input id="signup-username" type="text" minlength="5" maxlength="15" class="form-control" aria-describedby="inputGroupPrepend" required>
+                <div class="invalid-feedback">Username must contain at least 5 characters.</div>
               </div>
             </div>
           </div>
@@ -51,12 +49,12 @@
           <div class="form-row">
             <div class="form-group col-md">
               <label>Password</label>
-              <input type="password" class="form-control" required>
-              <div class="invalid-feedback">Please provide a password.</div>
+              <input id="signup-password" type="password" minlength="5" maxlength="25" class="form-control" required>
+              <div class="invalid-feedback">Password must contain at least 5 characters.</div>
             </div>
             <div class="form-group col-md">
               <label>Phone Number</label>
-              <input type="tel" pattern="[0-9]{9}" class="form-control" required>
+              <input id="signup-phoneNum" type="tel" pattern="^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-s./0-9]*$" class="form-control" required>
               <div class="invalid-feedback">Please provide a valid phone number.</div>
             </div>
           </div>
