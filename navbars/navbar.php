@@ -10,10 +10,10 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
         <div class="navbar-nav mt-3 mt-md-0">
-            <a class="nav-item nav-link" href="home.php">Home</a>
-            <a class="nav-item nav-link" href="home.php">Following</a>
-            <a class="nav-item nav-link" href="trending.php">Trending</a>
-            <a class="nav-item nav-link" href="profile.php">@username</a>
+            <a id='navbar-home' class="nav-item nav-link" href="index.php">Home</a>
+            <a id='navbar-following' class="nav-item nav-link" href="following.php">Following</a>
+            <a id='navbar-trending' class="nav-item nav-link" href="trending.php">Trending</a>
+            <a id='navbar-profile' class="nav-item nav-link" href="profile.php">@username</a>
         </div>
         
         <form id='navbar-search-bar' class="form mx-auto mt-3 mt-md-0">

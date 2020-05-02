@@ -1,4 +1,4 @@
-$(function(){
+function loadLogin() {
     $("#indexNavbar-login-form").submit(function (event) {
         event.preventDefault();
     
@@ -33,7 +33,7 @@ $(function(){
             //informar de que no se han introducido datos correctos
         }
     });
-});
+}
 
 function handleLogin(data) {
     let token = data.accessToken;

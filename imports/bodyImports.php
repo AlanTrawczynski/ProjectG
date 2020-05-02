@@ -1,10 +1,10 @@
 <script src='js/auth/auth.js'></script>
 <script src='js/auth/jwt-decode.js'></script>
-<script src='js/loadNavbar.js'></script>
+<script src='js/login.js'></script>
+<script src='js/signup.js'></script>
 <script src='js/photoModal.js'></script>
 <script src='js/gal.js'></script>
-<script src='js/signup.js'></script>
-<script src='js/login.js'></script>
+<script src='js/loadNavbar.js'></script>
 
 <!-- Bootsrap scripts -->
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"

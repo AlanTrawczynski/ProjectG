@@ -27,10 +27,15 @@ function getToken() {
 }
 
 
+function getUser() {
+    return axios.get(`http://localhost:3000/users/` + localStorage.getItem("userId"));
+}
+
+
 function logout(reload = false) {
     localStorage.removeItem("token");
     localStorage.removeItem("tokenTime");
-    localStorage.removeItem("id");
+    localStorage.removeItem("userId");
 
     if (reload) {
         location.reload();

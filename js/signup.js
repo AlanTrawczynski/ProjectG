@@ -1,60 +1,76 @@
-$(function(){
+function loadSignup() {
     $("#signup-form").submit(function (event) {
         event.preventDefault();
-    
+
         let errors = false;
-        let firstName = $("#signup-firstName").val().trim();
-        let lastName = $("#signup-lastName").val().trim();
-        let email = $("#signup-email").val().trim();
-        let username = $("#signup-username").val().trim();
-        let password = $("#signup-password").val();
-        let phoneNum = $("#signup-phoneNum").val().trim();
-    
-        if (lastName.split(" ").length > 1) {
-            let splt = lastName.split(" ");
-            lastName = "";
-    
-            for (let i = 0; i < splt.length; i++) {
-                if (splt[i] != "") {
-                    lastName += splt[i] + " ";
-                }
-            } lastName = lastName.trim();
-        }
-    
-        if (firstName.length < 3 || firstName.length > 25) {
+
+        let firstName = $("#signup-firstName");
+        let lastName = $("#signup-lastName");
+        let email = $("#signup-email");
+        let username = $("#signup-username");
+        let password = $("#signup-password");
+        let phoneNum = $("#signup-phoneNum");
+
+        let firstNameVal = firstName.val().trim().replace(/\s\s+/g, ' ');
+        let lastNameVal = lastName.val().trim().replace(/\s\s+/g, ' ');
+        let emailVal = email.val().trim().replace(/\s+/g, '');
+        let usernameVal = username.val().trim().replace(/\s+/g, '');
+        let passwordVal = password.val();
+        let phoneNumVal = phoneNum.val().trim().replace(/\s\s+/g, ' ');
+
+        firstName.val(firstNameVal);
+        lastName.val(lastNameVal);
+        email.val(emailVal);
+        username.val(usernameVal);
+        password.val(passwordVal);
+        phoneNum.val(phoneNumVal);
+
+        if (!checkFirstName(firstNameVal)) {
             errors = true;
+            firstName.addClass("is-invalid");
+            addInputEvent(firstName, checkFirstName);
         }
-    
-        if (lastName.length < 3 || firstName.length > 40) {
+
+        if (!checkLastName(lastNameVal)) {
             errors = true;
+            lastName.addClass("is-invalid");
+            addInputEvent(lastName, checkLastName);
         }
-    
-        if (!(email.includes("@"))) {
+
+        if (!checkEmail(emailVal)) {
             errors = true;
+            email.addClass("is-invalid");
+            addInputEvent(email, checkEmail);
         }
-    
-        if (username.length < 5 || username.length > 15) {
+
+        if (!checkUsername(usernameVal)) {
             errors = true;
+            username.addClass("is-invalid");
+            addInputEvent(username, checkUsername);
         }
-    
-        if (password.length < 5 || password.length > 25) {
+
+        if (!checkPassword(passwordVal)) {
             errors = true;
+            password.addClass("is-invalid");
+            addInputEvent(password, checkPassword);
         }
-    
-        if (!new RegExp("^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-s./0-9]*$").test(phoneNum)) {
+
+        if (!checkPhoneNum(phoneNumVal)) {
             errors = true;
+            phoneNum.addClass("is-invalid");
+            addInputEvent(phoneNum, checkPhoneNum);
         }
-    
+
         if (!errors) {
             let signup_data = {
-                "name": firstName,
-                "surname": lastName,
-                "phone": phoneNum,
-                "email": email,
-                "password": password,
-                "user": username
+                "name": firstNameVal,
+                "surname": lastNameVal,
+                "phone": phoneNumVal,
+                "email": emailVal,
+                "password": passwordVal,
+                "user": usernameVal
             }
-    
+
             $.ajax({
                 url: "http://localhost:3000/register",
                 method: "POST",
@@ -65,7 +81,7 @@ $(function(){
             });
         }
     });
-});
+}
 
 
 function handleRegister(data) {
@@ -74,8 +90,45 @@ function handleRegister(data) {
     window.location.href = "index.php";
 }
 
-
 //temporal
 function handleSignupError(error) {
     console.log("Ha ocurrido un error en el registro: " + error);
+}
+
+
+function checkFirstName(data) {
+    return data !== "" && data.length >= 3 && data.length <= 25;
+}
+
+function checkLastName(data) {
+    return data !== "" && data.length >= 3 && data.length <= 40;
+}
+
+function checkEmail(data) {
+    return data !== "" && data.includes("@");
+}
+
+function checkUsername(data) {
+    return data !== "" && data.length >= 5 && data.length <= 15;
+}
+
+function checkPassword(data) {
+    return data !== "" && data.length >= 5 && data.length <= 25;
+}
+
+function checkPhoneNum(data) {
+    return data !== "" && new RegExp("^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-s./0-9]*$").test(data);
+}
+
+
+function addInputEvent(input, checker){
+    input.on("input", function () {
+        if(checker(this.value)){
+            input.removeClass("is-invalid");
+            input.addClass("is-valid");
+        }   else{
+            input.addClass("is-invalid");
+            input.removeClass("is-valid");
+        }
+    });
 }

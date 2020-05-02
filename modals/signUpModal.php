@@ -13,7 +13,7 @@
 
       <div class="modal-body">
         <!-- Sign up Form -->
-        <form id="signup-form" class="needs-validation" novalidate>
+        <form id="signup-form" novalidate>
 
           <div class="form-row">
             <div class="form-group col-md">
@@ -33,6 +33,7 @@
               <label>Email</label>
               <input id="signup-email" type="email" class="form-control" required>
               <div class="invalid-feedback">Email must contain "@".</div>
+              <small class="form-text text-muted">Whitespaces will be removed from email.</small>
             </div>
             <div class="form-group col-md">
               <label>Username</label>
@@ -43,6 +44,7 @@
                 <input id="signup-username" type="text" minlength="5" maxlength="15" class="form-control" aria-describedby="inputGroupPrepend" required>
                 <div class="invalid-feedback">Username must contain at least 5 characters.</div>
               </div>
+              <small class="form-text text-muted">Whitespaces will be removed from username.</small>
             </div>
           </div>
 
@@ -72,25 +74,3 @@
     </div>
   </div>
 </div>
-
-
-
-<!-- Bootstrap validation script -->
-<script>
-(function() {
-  window.addEventListener('load', function() {
-    // Fetch all the forms we want to apply custom Bootstrap validation styles to
-    var forms = document.getElementsByClassName('needs-validation');
-    // Loop over them and prevent submission
-    var validation = Array.prototype.filter.call(forms, function(form) {
-      form.addEventListener('submit', function(event) {
-        if (form.checkValidity() === false) {
-          event.preventDefault();
-          event.stopPropagation();
-        }
-        form.classList.add('was-validated');
-      }, false);
-    });
-  }, false);
-})();
-</script>
