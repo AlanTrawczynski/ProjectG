@@ -7,7 +7,7 @@ axios.get('http://localhost:3000/photos?_sort=id&_order=desc&_limit=30').then(fu
                 if (response.status == 200) {
                     let user = response.data;
 
-                    showGal(photo, user);
+                    generatePhoto(photo, user);
                 }
             }).catch(function (error) {
                 console.log("Error al pedir el username: " + error);
@@ -19,16 +19,8 @@ axios.get('http://localhost:3000/photos?_sort=id&_order=desc&_limit=30').then(fu
 });
 
 
-function showGal(photo, user) {
-    $("#index-gal").append(generatePhoto(photo, user));
-
-    $("#index-gal > :last-child > :first-child").on("click", function () {
-        updatePhotoModal(this.lastElementChild.textContent);
-    });
-}
-
 function generatePhoto(photo, user) {
-    let html = `
+    let photoHtml = `
         <div class='gal-photo-container'>
             <div class='pointer photo-modal-listener' data-toggle="modal" data-target="#photo-modal">  
                 <img class='gal-photo' src="${photo.url}">
@@ -49,6 +41,10 @@ function generatePhoto(photo, user) {
                 </button>
             </div>   
         </div>`;
+    
+    $("#index-gal").append(photoHtml);
 
-    return html;
+    $("#index-gal > :last-child > :first-child").on("click", function () {
+        updatePhotoModal(this.lastElementChild.textContent);
+    });
 }

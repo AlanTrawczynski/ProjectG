@@ -61,6 +61,7 @@
             </div>
           </div>
 
+          <div id='signup-error' class="invalid-feedback pointer">An error occurred. Please try again.</div>
           <div class="form-row mt-2">
             <div class="col-md">
               <button class="btn btn-pink btn-lg btn-block" type="submit">Sign Up</button>

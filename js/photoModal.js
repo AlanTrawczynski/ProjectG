@@ -1,5 +1,3 @@
-'use strict';
-
 function updatePhotoModal(photoId) {
     axios.get(`http://localhost:3000/photos/${photoId}`).then(function (response) {
         if (response.status == 200) {
@@ -30,6 +28,7 @@ function showData(photo, user) {
     let votesHtml = $("#photo-modal-votes");
     let sumVotes = photo.upvotes + photo.downvotes;
     let percVotes = ((photo.upvotes*100)/sumVotes).toFixed(2);
+
     if(photo.upvotes < photo.downvotes){
         votesHtml.text(`${photo.downvotes}/${sumVotes} (${100 - percVotes}%) negative votes`);
         votesHtml.attr("style",`width: ${100 - percVotes}%`);

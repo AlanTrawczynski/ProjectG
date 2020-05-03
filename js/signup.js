@@ -2,7 +2,7 @@ function loadSignup() {
     $("#signup-form").submit(function (event) {
         event.preventDefault();
 
-        let errors = false;
+        let errors = 0;
 
         let firstName = $("#signup-firstName");
         let lastName = $("#signup-lastName");
@@ -25,43 +25,14 @@ function loadSignup() {
         password.val(passwordVal);
         phoneNum.val(phoneNumVal);
 
-        if (!checkFirstName(firstNameVal)) {
-            errors = true;
-            firstName.addClass("is-invalid");
-            addInputEvent(firstName, checkFirstName);
-        }
+        errors += checkInput(firstName, checkFirstName);
+        errors += checkInput(lastName, checkLastName);
+        errors += checkInput(email, checkEmail);
+        errors += checkInput(username, checkUsername);
+        errors += checkInput(password, checkPassword);
+        errors += checkInput(phoneNum, checkPhoneNum);
 
-        if (!checkLastName(lastNameVal)) {
-            errors = true;
-            lastName.addClass("is-invalid");
-            addInputEvent(lastName, checkLastName);
-        }
-
-        if (!checkEmail(emailVal)) {
-            errors = true;
-            email.addClass("is-invalid");
-            addInputEvent(email, checkEmail);
-        }
-
-        if (!checkUsername(usernameVal)) {
-            errors = true;
-            username.addClass("is-invalid");
-            addInputEvent(username, checkUsername);
-        }
-
-        if (!checkPassword(passwordVal)) {
-            errors = true;
-            password.addClass("is-invalid");
-            addInputEvent(password, checkPassword);
-        }
-
-        if (!checkPhoneNum(phoneNumVal)) {
-            errors = true;
-            phoneNum.addClass("is-invalid");
-            addInputEvent(phoneNum, checkPhoneNum);
-        }
-
-        if (!errors) {
+        if (errors === 0) {
             let signup_data = {
                 "name": firstNameVal,
                 "surname": lastNameVal,
@@ -90,9 +61,9 @@ function handleRegister(data) {
     window.location.href = "index.php";
 }
 
-//temporal
 function handleSignupError(error) {
-    console.log("Ha ocurrido un error en el registro: " + error);
+    $("#signup-error").css("display", "block");
+    $("#signup-error").click(function () { $(this).css("display", "none") });
 }
 
 
@@ -121,12 +92,25 @@ function checkPhoneNum(data) {
 }
 
 
-function addInputEvent(input, checker){
+// Returns 1 when input is not in a correct format.
+function checkInput(input, checker) {
+    addInputEvent(input, checker);
+
+    if (checker(input.val())) {
+        input.addClass("is-valid");
+        return 0;
+    } else{
+        input.addClass("is-invalid");
+        return 1;
+    }
+}
+
+function addInputEvent(input, checker) {
     input.on("input", function () {
-        if(checker(this.value)){
+        if (checker(this.value)) {
             input.removeClass("is-invalid");
             input.addClass("is-valid");
-        }   else{
+        } else {
             input.addClass("is-invalid");
             input.removeClass("is-valid");
         }

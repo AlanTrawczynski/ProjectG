@@ -194,6 +194,17 @@
     padding-bottom: .65rem;
 }
 
+.fade {
+    transition: opacity .25s linear;
+}
+
+
+
+/* Photo modal */
+#signup-error {
+    font-size: 100%;
+}
+
 
 
 /* Photo modal */

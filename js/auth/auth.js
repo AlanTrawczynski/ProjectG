@@ -27,7 +27,7 @@ function getToken() {
 }
 
 
-function getUser() {
+function getLoggedUser() {
     return axios.get(`http://localhost:3000/users/` + localStorage.getItem("userId"));
 }
 

@@ -27,7 +27,7 @@ function updateNavbar() {
     let trending = $("#navbar-trending");
     let profile = $("#navbar-profile");
 
-    getUser().then(function (response) {
+    getLoggedUser().then(function (response) {
         if (response.status == 200) {
             profile.text("@" + response.data.user)
         }
