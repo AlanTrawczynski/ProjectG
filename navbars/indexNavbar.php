@@ -9,15 +9,8 @@
     </button>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        
-        <form id='indexNavbar-login-form' class="form-inline ml-auto">
-            <input id="login-email" class="form-control mr-md-2 mt-3 mt-md-0" type="email" placeholder="Email" aria-label="email" required>
-            <input id="login-password" minlength="5" maxlength="25" class="form-control mr-md-2 mt-3 mt-md-0" type="password" placeholder="Password" aria-label="password" required>
-            <button class="btn btn-pink mr-md-4 mt-3 mt-md-0" type="submit">Log In</button>
-        </form>
-
-        <button id='indexNavbar-signup-btn' class="btn btn-outline-pink mt-3 mt-md-0 mb-md-0 mb-2" type="button" data-toggle="modal" data-target="#signup-modal">Sign Up</button>
-
+        <button class="btn btn-pink ml-md-auto mr-md-4 mt-3 mt-md-0 index-navbar-btn"  type="button" data-toggle="modal" data-target="#login-modal">Log In</button>
+        <button class="btn btn-outline-pink mt-3 mt-md-0 mb-md-0 mb-2 index-navbar-btn" type="button" data-toggle="modal" data-target="#signup-modal">Sign Up</button>
     </div>
 
 </nav>

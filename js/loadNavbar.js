@@ -9,13 +9,16 @@ $(function () {
         });
     }
     else {
-        $("#navbar-container").load("navbars/indexNavbar.php", function(){
-            loadLogin();
-        });
+        $("#navbar-container").load("navbars/indexNavbar.php");
 
         $.get("modals/signupModal.php", function (data) {
             $("body").append(data);
             loadSignup();
+        });
+
+        $.get("modals/loginModal.php", function (data) {
+            $("body").append(data);
+            loadLogin();
         });
     }
 });

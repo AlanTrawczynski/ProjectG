@@ -63,7 +63,6 @@ function handleRegister(data) {
 
 function handleSignupError(error) {
     $("#signup-error").css("display", "block");
-    $("#signup-error").click(function () { $(this).css("display", "none") });
 }
 
 

@@ -1,5 +1,6 @@
 <script src='js/auth/jwt-decode.js'></script>
 <script src='js/auth/auth.js'></script>
+<script src='js/utils.js'></script>
 <script src='js/login.js'></script>
 <script src='js/signup.js'></script>
 <script src='js/photoModal.js'></script>

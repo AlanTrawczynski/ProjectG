@@ -97,14 +97,16 @@
 
 /* indexNavbar.php */
 @media (max-width: 768px) {
-    #indexNavbar-login-form {
-        display: grid;
-    }
     
-    #indexNavbar-signup-btn {
+    .index-navbar-btn {
         width: 100%;
         display: block;
     }
+}
+
+.index-navbar-btn {
+    padding-right: 1rem;
+    padding-left: 1rem;
 }
 
 
@@ -196,13 +198,6 @@
 
 .fade {
     transition: opacity .25s linear;
-}
-
-
-
-/* Photo modal */
-#signup-error {
-    font-size: 100%;
 }
 
 
@@ -358,4 +353,8 @@ a {
 a:hover {
     color: inherit;
     text-decoration: inherit;
+}
+
+.not-small-feedback {
+    font-size: 100%;
 }

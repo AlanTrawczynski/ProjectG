@@ -1,25 +1,26 @@
 function loadLogin() {
-    $("#indexNavbar-login-form").submit(function (event) {
+    $("#login-form").submit(function (event) {
         event.preventDefault();
-    
-        let errors = false;
+
+        let errors = 0;
+
         let email = $("#login-email").val();
         let password = $("#login-password").val();
-    
-        if (!(email.includes("@"))) {
-            errors = true;
+
+        if (email === "" || !(email.includes("@"))) {
+            errors++;
         }
-    
-        if (password.length < 5 || password.length > 25) {
-            errors = true;
+
+        if (password === "" || password.length < 5 || password.length > 25) {
+            errors++;
         }
-    
-        if (!errors){
+
+        if (errors === 0) {
             let login_data = {
                 email,
                 password,
             };
-        
+
             $.ajax({
                 url: "http://localhost:3000/login",
                 method: "POST",
@@ -29,8 +30,9 @@ function loadLogin() {
                 error: handleLoginError
             });
         }
-        else{
-            //informar de que no se han introducido datos correctos
+        else {
+            $("#login-input-error").css("display", "block");
+            $("#login-password").val("");
         }
     });
 }
@@ -41,8 +43,7 @@ function handleLogin(data) {
     window.location.href = "index.php";
 }
 
-
-//temporal
 function handleLoginError(error) {
-    console.log("Ha ocurrido un error en el login: " + error);
+    $("#login-error").css("display", "block");
+    $("#login-input-error").css("display", "none");
 }
