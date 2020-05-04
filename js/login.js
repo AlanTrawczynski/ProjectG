@@ -31,8 +31,7 @@ function loadLogin() {
             });
         }
         else {
-            $("#login-input-error").css("display", "block");
-            $("#login-password").val("");
+            incorrectLoginInput();
         }
     });
 }
@@ -44,6 +43,16 @@ function handleLogin(data) {
 }
 
 function handleLoginError(error) {
-    $("#login-error").css("display", "block");
-    $("#login-input-error").css("display", "none");
+    if (error.status == 400) {
+        incorrectLoginInput();
+    } else {
+        $("#login-error").show();
+        $("#login-input-error").hide();
+    }
+}
+
+function incorrectLoginInput() {
+    $("#login-error").hide();
+    $("#login-input-error").show();
+    $("#login-password").val("");
 }

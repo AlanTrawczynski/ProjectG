@@ -331,6 +331,18 @@
 
 
 
+/* Pagination */
+.pink-pagination a {
+    border: 0;
+}
+
+.pink-pagination li.active > a {
+    color: #5e5e5e !important;
+    background-color: white !important;
+}
+
+
+
 /* -------- */
 .custom-container {
     padding: 0 2rem;
