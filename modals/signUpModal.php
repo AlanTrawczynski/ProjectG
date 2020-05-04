@@ -61,7 +61,8 @@
             </div>
           </div>
 
-          <div id="signup-error" onclick="$(this).hide()" class="invalid-feedback pointer not-small-feedback">An error occurred. Please try again.</div>
+          <div id="signup-unique-inputs-error" class="invalid-feedback pointer not-small-feedback signup-hide-when-submit"></div>
+          <div id="signup-error" onclick="$(this).hide()" class="invalid-feedback pointer not-small-feedback signup-hide-when-submit pointer">An error occurred. Please try again.</div>
           <div class="form-row mt-2">
             <div class="col-md">
               <button class="btn btn-pink btn-lg btn-block" type="submit">Sign Up</button>

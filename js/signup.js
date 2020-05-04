@@ -1,6 +1,7 @@
 function loadSignup() {
     $("#signup-form").submit(function (event) {
         event.preventDefault();
+        $(".signup-hide-when-submit").hide();
 
         let errors = 0;
 
@@ -33,23 +34,48 @@ function loadSignup() {
         errors += checkInput(phoneNum, checkPhoneNum);
 
         if (errors === 0) {
-            let signup_data = {
-                "name": firstNameVal,
-                "surname": lastNameVal,
-                "phone": phoneNumVal,
-                "email": emailVal,
-                "password": passwordVal,
-                "user": usernameVal
-            }
+            let uniqueInputs = true;
 
-            $.ajax({
-                url: "http://localhost:3000/register",
-                method: "POST",
-                data: JSON.stringify(signup_data),
-                contentType: "application/json",
-                success: handleRegister,
-                error: handleSignupError
+            axios.get(`http://localhost:3000/users?email=${emailVal}`)
+            .then(function (response) {
+                uniqueInputsErrorContainer = $("#signup-unique-inputs-error");
+
+                if(response.data.length !== 0){
+                    uniqueInputs = false;
+                    uniqueInputsErrorContainer.text(response.data[0].email + " is already taken.");
+                    uniqueInputsErrorContainer.show();
+
+                }   else {
+                    axios.get(`http://localhost:3000/users?user=${usernameVal}`)
+                    .then(function (response) {
+                        if(response.data.length !== 0){
+                            uniqueInputs = false;
+                            uniqueInputsErrorContainer.text("@" + response.data[0].user + " is already taken.");
+                            uniqueInputsErrorContainer.show();
+                        }
+                    });
+                }
             });
+
+            if(!uniqueInputs) {
+                let signup_data = {
+                    "name": firstNameVal,
+                    "surname": lastNameVal,
+                    "phone": phoneNumVal,
+                    "email": emailVal,
+                    "password": passwordVal,
+                    "user": usernameVal
+                }
+    
+                $.ajax({
+                    url: "http://localhost:3000/register",
+                    method: "POST",
+                    data: JSON.stringify(signup_data),
+                    contentType: "application/json",
+                    success: handleRegister,
+                    error: $("#signup-error").show()
+                });
+            }
         }
     });
 }
@@ -61,9 +87,6 @@ function handleRegister(data) {
     window.location.href = "index.php";
 }
 
-function handleSignupError(error) {
-    $("#signup-error").css("display", "block");
-}
 
 
 function checkFirstName(data) {
@@ -98,7 +121,7 @@ function checkInput(input, checker) {
     if (checker(input.val())) {
         input.addClass("is-valid");
         return 0;
-    } else{
+    } else {
         input.addClass("is-invalid");
         return 1;
     }

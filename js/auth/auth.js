@@ -32,12 +32,10 @@ function getLoggedUser() {
 }
 
 
-function logout(reload = false) {
+function logout() {
     localStorage.removeItem("token");
     localStorage.removeItem("tokenTime");
     localStorage.removeItem("userId");
 
-    if (reload) {
-        location.reload();
-    }
+    window.location.href = "index.php";
 }

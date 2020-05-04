@@ -1,22 +1,40 @@
-axios.get('http://localhost:3000/photos?_sort=id&_order=desc&_limit=30').then(function (response) {
-    if (response.status == 200) {
-        let photos = response.data;
+loadRecentPhotos();
 
-        for (let photo of photos) {
-            axios.get(`http://localhost:3000/users/${photo.userId}`).then(function (response) {
-                if (response.status == 200) {
-                    let user = response.data;
+function loadRecentPhotos(fromPhoto = 0) {
+    axios.get(`http://localhost:3000/photos?_sort=id&_order=desc&_start=${fromPhoto}&_limit=10`)
+        .then(function (response) {
+            if (response.status == 200) {
+                let photos = response.data;
 
-                    generatePhoto(photo, user);
+                for (let photo of photos) {
+                    axios.get(`http://localhost:3000/users/${photo.userId}`)
+                        .then(function (response) {
+                            if (response.status == 200) {
+                                let user = response.data;
+
+                                generatePhoto(photo, user);
+                            }
+                        })
+                        .catch(function (error) {
+                            console.log("Error al pedir el username: " + error);
+                        })
                 }
-            }).catch(function (error) {
-                console.log("Error al pedir el username: " + error);
+            }
+        })
+        .catch(function (error) {
+            console.log("Error al pedir las fotos: " + error);
+        });
+}
+
+/*
+        .then(function () {
+            $(window).scroll(function () {
+                if ($(window).scrollTop() == $(document).height() - $(window).height()) {
+                    loadRecentPhotos(fromPhoto + 11);
+                }
             });
-        }
-    }
-}).catch(function (error) {
-    console.log("Error al pedir las fotos: " + error);
-});
+        })
+*/
 
 
 function generatePhoto(photo, user) {
@@ -41,7 +59,7 @@ function generatePhoto(photo, user) {
                 </button>
             </div>   
         </div>`;
-    
+
     $("#index-gal").append(photoHtml);
 
     $("#index-gal > :last-child > :first-child").on("click", function () {

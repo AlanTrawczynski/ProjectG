@@ -32,10 +32,10 @@
         </button>
         <button type="button" class="btn btn-block btn-light pink-hover collapse-text-btn mt-3 mb-2" data-toggle="modal" data-target="#upload-photo-modal">Upload photo</button>
 
-        <button type="button" onclick="logout(true)" class="btn btn-light collapse-ico-btn pink-hover" title="logout">
+        <button type="button" onclick="logout()" class="btn btn-light collapse-ico-btn pink-hover" title="logout">
             <span class="fa fa-sign-out" aria-hidden="true"></span>
         </button>
-        <button type="button" onclick="logout(true)" class="btn btn-block btn-light collapse-text-btn pink-hover mt-3 mb-2" data-toggle="modal" data-target="#upload-photo-modal">Logout</button>
+        <button type="button" onclick="logout()" class="btn btn-block btn-light collapse-text-btn pink-hover mt-3 mb-2" data-toggle="modal" data-target="#upload-photo-modal">Logout</button>
 
     </div>
 
