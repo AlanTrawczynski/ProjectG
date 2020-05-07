@@ -5,7 +5,7 @@ $(function() {
 
     let currentPageNum = urlPage == null ? 1 : parseInt(urlPage, 10);
 
-    let max = 6;
+    let max = 50;
     let from = (currentPageNum - 1)*max;
 
     loadRecentPhotos(from, max);
@@ -13,7 +13,7 @@ $(function() {
 
 
 function loadRecentPhotos(from = 0, max = 50) {
-    axios.get(`http://localhost:3000/photos?_sort=id&_order=desc&_start=${from}&_end=${from + max + 1}`)
+    axios.get(`http://localhost:3000/photos?public=true&_sort=id&_order=desc&_start=${from}&_end=${from + max + 1}`)
         .then(function (response) {
             if (response.status == 200) {
                 let photos = response.data;

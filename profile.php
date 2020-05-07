@@ -18,7 +18,7 @@
         <div class='profile-container'>
 
             <div class='profile-pic-container'>
-                <img src="images/user.jpg" class='profile-pic' width='100%'>
+                <img src="images/user.jpg" class='profile-pic' width='150px' height='150px'>
             </div>
 
             <div class='profile-data-container'>

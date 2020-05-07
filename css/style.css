@@ -8,6 +8,7 @@
 /* Images */
 .profile-pic {
     border-radius: 50%;
+    object-fit: cover;
 }
 
 
@@ -53,7 +54,7 @@
 }
 
 .nav-pink a:hover {
-    color: #FFB5C0;
+    color: #ff95a5;
 }
 
 
@@ -64,7 +65,7 @@
 }
 
 .navbar .nav-link:hover {
-    color: #FFB5C0 !important;
+    color: #ff95a5 !important;
 }
 
 
@@ -76,7 +77,7 @@
     border-left: 0;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
     .collapse-ico-btn {
         display: none;
     }
@@ -96,7 +97,7 @@
 
 
 /* indexNavbar.php */
-@media (max-width: 768px) {
+@media (max-width: 767px) {
     
     .index-navbar-btn {
         width: 100%;
@@ -228,29 +229,37 @@
     margin-top: 0.5rem;
 }
 
+.photo-modal-stats > .row {
+    height: 35px;
+}
+
 .photo-modal-stats button {
-    display: block;
-    width: 90%;
     background-color: #e9ecef;
 }
 
 .photo-modal-stats button > i {
     vertical-align: middle;
     color: #4a4b4d;
+    padding-left: .3rem;
+    padding-right: .3rem;
+}
+
+.progress-bar {
+    font-size: .9rem;
+    font-weight: 550;
+    color: #212529;
 }
 
 .custom-positive-progress-bar {
     background-color: #FFB5C0;
-    color: #212529;
-    font-size: .9rem;
-    font-weight: 550;
 }
 
 .custom-negative-progress-bar {
-    background-color: #212529;
-    color: white;
-    font-size: .9rem;
-    font-weight: 550;
+    background-color: #ABADB0;
+}
+
+.custom-zero-progress-bar {
+    background-color: #e9ecef;
 }
 
 
@@ -351,6 +360,25 @@
 
 
 
+/* Tags */
+.badge-pink {
+    background-color: #FFB5C0;
+    margin-bottom: .5rem;
+    margin-right: .5rem;
+}
+
+.badge-pink > span {
+    font-size: 0.9rem;
+    vertical-align: middle;
+}
+
+.badge-pink > span.large-font {
+    font-size: 1.2rem;
+}
+
+
+
+
 /* -------- */
 .custom-container {
     padding: 0 2rem;
@@ -375,6 +403,16 @@ a:hover {
     text-decoration: inherit;
 }
 
+a.disabled {
+    pointer-events: none;
+    cursor: auto;
+}
+
 .not-small-feedback {
     font-size: 100%;
+}
+
+.required-input {
+    color: #dc3545;
+    font-size: 115%;
 }

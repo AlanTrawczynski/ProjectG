@@ -1,31 +1,29 @@
-function loadLogin() {
+function loadLoginValidation() {
     $("#login-form").submit(function (event) {
         event.preventDefault();
 
         let errors = 0;
 
-        let email = $("#login-email").val();
-        let password = $("#login-password").val();
+        let email = $("#login-email");
+        let password = $("#login-password");
 
-        if (email === "" || !(email.includes("@"))) {
-            errors++;
-        }
+        let emailVal = email.val();
+        let passwordVal = password.val();
 
-        if (password === "" || password.length < 5 || password.length > 25) {
-            errors++;
-        }
+        errors += checkErrors(email, checkEmail, false);
+        errors += checkErrors(password, checkPassword, false);
 
         if (errors === 0) {
-            let login_data = {
-                email,
-                password,
+            let loginData = {
+                "email": emailVal,
+                "password": passwordVal
             };
 
             $.ajax({
                 url: "http://localhost:3000/login",
                 method: "POST",
                 contentType: "application/json",
-                data: JSON.stringify(login_data),
+                data: JSON.stringify(loginData),
                 success: handleLogin,
                 error: handleLoginError
             });
@@ -36,10 +34,12 @@ function loadLogin() {
     });
 }
 
+
 function handleLogin(data) {
     let token = data.accessToken;
-    storeToken(token);
-    window.location.href = "index.php";
+    storeToken(token).then(function() {
+        window.location.href = "index.php";
+    });
 }
 
 function handleLoginError(error) {

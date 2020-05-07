@@ -25,17 +25,66 @@ function showData(photo, user) {
     $("#photo-modal-title").text(photo.title);
     $("#photo-modal-description").text(photo.description);
 
-    let votesHtml = $("#photo-modal-votes");
+    let progressBar = $("#photo-modal-votes");
     let sumVotes = photo.upvotes + photo.downvotes;
-    let percVotes = ((photo.upvotes*100)/sumVotes).toFixed(2);
+    let percVotes = ((photo.upvotes * 100) / sumVotes).toFixed(2);
+    let isLoggedUserPhoto = user.id == getLoggedUserId();
 
-    if(photo.upvotes < photo.downvotes){
-        votesHtml.text(`${photo.downvotes}/${sumVotes} (${100 - percVotes}%) negative votes`);
-        votesHtml.attr("style",`width: ${100 - percVotes}%`);
-        votesHtml.addClass("custom-negative-progress-bar");
-    }   else{
-        votesHtml.text(`${photo.upvotes}/${sumVotes} (${percVotes}%) positive votes`);
-        votesHtml.attr("style",`width: ${percVotes}%`);
-        votesHtml.removeClass("custom-negative-progress-bar");
+    if (sumVotes > 0) {
+        if (photo.upvotes < photo.downvotes) {
+            updateVotes((100 - percVotes), `${100 - percVotes}% negative votes`);
+            isNegative(progressBar);
+        } else {
+            updateVotes(percVotes, `${percVotes}% positive votes`);
+            isPositive(progressBar);
+        }
     }
+    else {
+        if (isLoggedUserPhoto || !isLogged()) {
+            updateVotes(100, `This photo has no votes`);
+        } else {
+            updateVotes(100, `Be the first to vote this photo`);
+        }
+        isZero(progressBar);
+    }
+
+    if (isLogged()) {
+        $(".able-when-logged").removeClass("disabled");
+
+        if(isLoggedUserPhoto){
+            $(".show-when-logged").hide();
+        } else {
+            $(".show-when-logged").show();
+        }
+    }
+    else {
+        $(".show-when-logged").hide();
+        $(".able-when-logged").addClass("disabled");
+    }
+}
+
+function updateVotes(percentage, text) {
+    let progressBar = $("#photo-modal-votes");
+
+    progressBar.text(text);
+    progressBar.attr("style", `width: ${percentage}%`);
+}
+
+
+function isPositive(progressBar) {
+    progressBar.addClass("custom-negative-progress-bar");
+    progressBar.removeClass("custom-negative-progress-bar");
+    progressBar.removeClass("custom-zero-progress-bar");
+}
+
+function isNegative(progressBar) {
+    progressBar.removeClass("custom-negative-progress-bar");
+    progressBar.addClass("custom-negative-progress-bar");
+    progressBar.removeClass("custom-zero-progress-bar");
+}
+
+function isZero(progressBar) {
+    progressBar.removeClass("custom-negative-progress-bar");
+    progressBar.removeClass("custom-negative-progress-bar");
+    progressBar.addClass("custom-zero-progress-bar");
 }

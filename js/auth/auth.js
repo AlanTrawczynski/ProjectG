@@ -1,7 +1,21 @@
 function storeToken(token) {
-    localStorage.setItem("token", token);
-    localStorage.setItem("tokenTime", new Date().getTime());
-    localStorage.setItem("userId", jwt_decode(token).sub);
+    return new Promise(function(resolve, reject) {
+        let userId = jwt_decode(token).sub;
+
+        localStorage.setItem("token", token);
+        localStorage.setItem("tokenTime", new Date().getTime());
+        localStorage.setItem("userId", userId);
+    
+        $.ajax({
+            url: "http://localhost:3000/users/" + userId,
+            success: function(data) {
+                let username = data.user;
+                localStorage.setItem("username", username);
+                resolve();
+            },
+            error: reject,
+        });
+    });
 }
 
 
@@ -28,7 +42,15 @@ function getToken() {
 
 
 function getLoggedUser() {
-    return axios.get(`http://localhost:3000/users/` + localStorage.getItem("userId"));
+    return axios.get(`http://localhost:3000/users/` + getLoggedUserId());
+}
+
+function getLoggedUserId() {
+    return localStorage.getItem("userId");
+}
+
+function getLoggedUsername() {
+    return localStorage.getItem("username");
 }
 
 

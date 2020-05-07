@@ -5,11 +5,11 @@
 
         <div class="modal-header">
             <div class='photo-modal-user'>
-                <a href="profile.php">
+                <a class='able-when-logged' href="profile.php">
                     <img class='profile-pic mr-2' src="images/user.jpg" width='35px'>
                     <span id='photo-modal-username' class='mr-4'>@username</span>
                 <a>
-                <button class='btn btn-pink btn-sm' type='button'>Follow</button>
+                <button class='btn btn-pink btn-sm show-when-logged' type='button'>Follow</button>
             </div>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -25,17 +25,17 @@
 
             <div class='photo-modal-stats container mb-2'>
                 <div class='row'>
-                    <div class='col-1 p-0'>
+                    <div class='col-auto pl-0 show-when-logged'>
                         <button type='button' class='btn pink-hover'>
                             <i class="fa fa-minus" aria-hidden="true"></i>
                         </button>
                     </div>
-                    <div class='col'>
+                    <div class='col p-0'>
                         <div class="progress" style='height: 100%'>
                             <div id='photo-modal-votes' class="progress-bar custom-positive-progress-bar" role="progressbar" style="width: 84.4%">25324/30000 (84,4%) positive votes</div>
                         </div>
                     </div>
-                    <div class='col-1 p-0'>
+                    <div class='col-auto pr-0 show-when-logged'>
                         <button type='button' class='btn pink-hover ml-auto'>
                             <i class="fa fa-plus" aria-hidden="true"></i>
                         </button>

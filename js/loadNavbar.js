@@ -4,8 +4,9 @@ $(function () {
             updateNavbar();
         });
 
-        $.get("modals/uploadPhotoModal.php", function (data) {
+        $.get("modals/newPhotoModal.php", function (data) {
             $("body").append(data);
+            loadNewPhotoValidation();
         });
     }
     else {
@@ -13,12 +14,11 @@ $(function () {
 
         $.get("modals/signupModal.php", function (data) {
             $("body").append(data);
-            loadSignup();
+            loadSignupValidation();
         });
-
         $.get("modals/loginModal.php", function (data) {
             $("body").append(data);
-            loadLogin();
+            loadLoginValidation();
         });
     }
 });
