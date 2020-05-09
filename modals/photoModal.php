@@ -23,7 +23,7 @@
                 <img id='photo-modal-img' src="https://images.pexels.com/photos/3935702/pexels-photo-3935702.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260">
             </div>
 
-            <div class='photo-modal-stats container mb-2'>
+            <div class='photo-modal-stats container mb-4'>
                 <div class='row'>
                     <div class='col-auto pl-0 show-when-logged'>
                         <button type='button' class='btn pink-hover'>
@@ -32,7 +32,7 @@
                     </div>
                     <div class='col p-0'>
                         <div class="progress" style='height: 100%'>
-                            <div id='photo-modal-votes' class="progress-bar custom-positive-progress-bar" role="progressbar" style="width: 84.4%">25324/30000 (84,4%) positive votes</div>
+                            <div id='photo-modal-votes-bar' class="progress-bar custom-positive-progress-bar" role="progressbar" style="width: 84.4%">25324/30000 (84,4%) positive votes</div>
                         </div>
                     </div>
                     <div class='col-auto pr-0 show-when-logged'>
@@ -54,7 +54,13 @@
 
             <div class='photo-modal-info'>
                 <h5 id='photo-modal-title'>Photo title</h5>
-                <span id='photo-modal-description'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin id tortor eget diam molestie rhoncus. Pellentesque bibendum mauris non arcu venenatis lacinia. Morbi in feugiat erat, ut sodales quam. Phasellus gravida molestie mauris, sed mattis enim. Morbi bibendum arcu ligula, non ullamcorper urna laoreet sit amet. Fusce sem sapien, porttitor convallis neque a, facilisis porta nisl. Maecenas felis odio, pellentesque ut eros id, feugiat scelerisque dui. Sed cursus magna quis lacus viverra dictum.</span>
+                <p id='photo-modal-description'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin id tortor eget diam molestie rhoncus. Pellentesque bibendum mauris non arcu venenatis lacinia. Morbi in feugiat erat, ut sodales quam. Phasellus gravida molestie mauris, sed mattis enim. Morbi bibendum arcu ligula, non ullamcorper urna laoreet sit amet. Fusce sem sapien, porttitor convallis neque a, facilisis porta nisl. Maecenas felis odio, pellentesque ut eros id, feugiat scelerisque dui. Sed cursus magna quis lacus viverra dictum.</p>
+                <div id='photoModal-tags-container' class='my-2'></div>
+                <div id='photo-modal-votes-info'  class='mt-1'>
+                    Total votes: <span id='photo-modal-total-votes' class='mr-3'></span>
+                    Positive votes: <span id='photo-modal-positive-votes' class='mr-3'></span>
+                    Negative votes: <span id='photo-modal-negative-votes'></span>
+                </div>
             </div>
 
         </div>

@@ -262,6 +262,10 @@
     background-color: #e9ecef;
 }
 
+#photo-modal-votes-info {
+    font-size: .8rem;
+}
+
 
 
 /* Gallery display */
@@ -361,19 +365,27 @@
 
 
 /* Tags */
-.badge-pink {
+.badge {
     background-color: #FFB5C0;
     margin-bottom: .5rem;
     margin-right: .5rem;
 }
 
-.badge-pink > span {
+.badge > span {
     font-size: 0.9rem;
     vertical-align: middle;
 }
 
-.badge-pink > span.large-font {
+.badge > span.large-font {
     font-size: 1.2rem;
+}
+
+.badge-pink {
+    background-color: #FFB5C0;
+}
+
+.badge-grey {
+    background-color: #e9ecef;
 }
 
 

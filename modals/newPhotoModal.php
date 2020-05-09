@@ -39,7 +39,7 @@
                 </div>
                 <div id='newPhoto-tags-container' class="mt-1"></div>
 
-                <label class='mt-3'>Visibility<span class='required-input ml-1'>*</span></label>
+                <label class='mt-2'>Visibility<span class='required-input ml-1'>*</span></label>
                 <div id='newPhoto-visibility' class="form-group">
                     <div class="form-check form-check-inline ml-1">
                         <input class="form-check-input" type="radio" name="photoVisibility" value="public" checked>

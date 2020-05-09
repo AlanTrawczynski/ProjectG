@@ -25,7 +25,16 @@ function showData(photo, user) {
     $("#photo-modal-title").text(photo.title);
     $("#photo-modal-description").text(photo.description);
 
-    let progressBar = $("#photo-modal-votes");
+    // Insert photo tags
+    let tags = photo.tags;
+    let tagsContainer = $("#photoModal-tags-container");
+    tagsContainer.empty();
+    tags.forEach(function (tag) {
+        tagsContainer.append(generateGreyTag(tag));
+    });
+
+    // Update progress bar
+    let progressBar = $("#photo-modal-votes-bar");
     let sumVotes = photo.upvotes + photo.downvotes;
     let percVotes = ((photo.upvotes * 100) / sumVotes).toFixed(2);
     let isLoggedUserPhoto = user.id == getLoggedUserId();
@@ -61,10 +70,25 @@ function showData(photo, user) {
         $(".show-when-logged").hide();
         $(".able-when-logged").addClass("disabled");
     }
+
+    // Update votes info
+    $("#photo-modal-total-votes").text(sumVotes);
+    $("#photo-modal-positive-votes").text(photo.upvotes);
+    $("#photo-modal-negative-votes").text(photo.downvotes);
+
 }
 
+
+function generateGreyTag(tagText) {
+    return `
+        <div class="badge badge-grey">
+            <span class='newPhoto-tagContent'>${tagText}</span>
+        </div>`;
+}
+
+
 function updateVotes(percentage, text) {
-    let progressBar = $("#photo-modal-votes");
+    let progressBar = $("#photo-modal-votes-bar");
 
     progressBar.text(text);
     progressBar.attr("style", `width: ${percentage}%`);

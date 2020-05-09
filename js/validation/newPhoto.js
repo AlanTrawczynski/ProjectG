@@ -53,23 +53,33 @@ function loadNewPhotoValidation() {
     });
 
 
+    // Tags insertion
     $("#newPhoto-tags-input").keydown(function (event) {
-        if (event.keyCode == 32) {
+        if (event.keyCode == 32 || event.keyCode == 13) {
             let tagsArray = getTagsArray();
             let tagText = $(this).val().trim();
 
             $(this).val("");
 
+            // Prevent form submit
+            if(event.keyCode == 13) {
+                event.preventDefault();
+                $(this).blur();
+            }
+
             if (tagText !== "" && !tagsArray.includes(tagText)) {
-                let tagHtml = generateTag(tagText);
+                let tagHtml = generatePinkTag(tagText);
 
                 $("#newPhoto-tags-container").append(tagHtml);
 
+                // Edit a tag
                 $("#newPhoto-tags-container div:last-child").click(function() {
+                    let tagsInput = $("#newPhoto-tags-input");
                     let tagText = $(this).children()[0].textContent;
 
-                    $("#newPhoto-tags-input").val(tagText);
+                    tagsInput.val(tagText);
                     $(this).remove();
+                    tagsInput.focus();
                 });
             }
         }
@@ -86,7 +96,7 @@ function handleNewPhotoError() {
 }
 
 
-function generateTag(tagText) {
+function generatePinkTag(tagText) {
     return `
         <div class="badge badge-pink">
             <span class='newPhoto-tagContent pointer'>${tagText}</span>
