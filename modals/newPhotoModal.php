@@ -51,7 +51,7 @@
                     </div>
                 </div>
 
-                <div id="newPhoto-error" onclick="$(this).hide()" class="invalid-feedback pointer not-small-feedback">An error occurred. Please try again.</div>
+                <div id="newPhoto-error" onclick="$(this).hide()" class="invalid-feedback pointer not-small-feedback"></div>
                 <button class="btn btn-pink btn-lg btn-block mt-4" type="submit">Upload photo</button>
             
             </form>

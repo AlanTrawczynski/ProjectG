@@ -26,7 +26,7 @@
             <div class='photo-modal-stats container mb-4'>
                 <div class='row'>
                     <div class='col-auto pl-0 show-when-logged'>
-                        <button type='button' class='btn pink-hover'>
+                        <button id='photo-modal-negative-vote-btn' type='button' class='btn pink-hover'>
                             <i class="fa fa-minus" aria-hidden="true"></i>
                         </button>
                     </div>
@@ -36,7 +36,7 @@
                         </div>
                     </div>
                     <div class='col-auto pr-0 show-when-logged'>
-                        <button type='button' class='btn pink-hover ml-auto'>
+                        <button id='photo-modal-positive-vote-btn' type='button' class='btn pink-hover ml-auto'>
                             <i class="fa fa-plus" aria-hidden="true"></i>
                         </button>
                     </div>

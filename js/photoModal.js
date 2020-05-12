@@ -1,25 +1,48 @@
 function updatePhotoModal(photoId) {
-    axios.get(`http://localhost:3000/photos/${photoId}`).then(function (response) {
+    // Get photo
+    axios.get(`http://localhost:3000/photos/${photoId}`)
+    .then(function (response) {
         if (response.status == 200) {
             let photo = response.data;
 
-            axios.get(`http://localhost:3000/users/${photo.userId}`).then(function (response) {
+            // Get photo owner (user)
+            axios.get(`http://localhost:3000/users/${photo.userId}`)
+            .then(function (response) {
                 if (response.status == 200) {
                     let user = response.data;
 
-                    showData(photo, user);
+                    // If current user is logged and is not the photo owner, get his vote info
+                    if (isLogged() && getLoggedUserId() != user.id) {
+                        axios.get(`http://localhost:3000/votes?userId=${getLoggedUserId()}&photoId=${photo.id}`)
+                        .then(function (response) {
+                            if (response.status == 200) {
+                                let userVote = response.data.length > 0 ? response.data[0] : null;
+
+                                showData(photo, user, userVote);
+                            }
+                        })
+                        .catch(function (error) {
+                            console.log("Error al pedir el voto del usuario: " + error);
+                        });
+                    }
+                    // Else there is not vote info
+                    else {
+                        showData(photo, user, null);
+                    }
                 }
-            }).catch(function (error) {
+            })
+            .catch(function (error) {
                 console.log("Error al pedir el username: " + error);
             });
         }
-    }).catch(function (error) {
+    })
+    .catch(function (error) {
         console.log("Error al pedir la foto: " + error);
     });
 }
 
 
-function showData(photo, user) {
+function showData(photo, user, userVote) {
     $("#photo-modal-username").text("@" + user.user);
     $("#photo-modal-img").attr("src", photo.url);
     $("#photo-modal-title").text(photo.title);
@@ -29,9 +52,25 @@ function showData(photo, user) {
     let tags = photo.tags;
     let tagsContainer = $("#photoModal-tags-container");
     tagsContainer.empty();
+
     tags.forEach(function (tag) {
         tagsContainer.append(generateGreyTag(tag));
     });
+
+    // Update voting btns
+    let positiveBtn = $("#photo-modal-positive-vote-btn");
+    let negativeBtn = $("#photo-modal-negative-vote-btn");
+
+    positiveBtn.removeClass("voted");
+    negativeBtn.removeClass("voted");
+
+    if (userVote !== null) {
+        if (userVote.positive) {
+            positiveBtn.addClass("voted");
+        } else {
+            negativeBtn.addClass("voted");
+        }
+    }
 
     // Update progress bar
     let progressBar = $("#photo-modal-votes-bar");
@@ -60,7 +99,7 @@ function showData(photo, user) {
     if (isLogged()) {
         $(".able-when-logged").removeClass("disabled");
 
-        if(isLoggedUserPhoto){
+        if (isLoggedUserPhoto) {
             $(".show-when-logged").hide();
         } else {
             $(".show-when-logged").show();
