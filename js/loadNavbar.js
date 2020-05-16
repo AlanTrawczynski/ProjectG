@@ -31,6 +31,7 @@ function updateNavbar() {
     let profile = $("#navbar-profile");
 
     profile.text("@" + getLoggedUsername());
+    profile.attr("href", `profile.php?userId=${getLoggedUserId()}`)
 
     let sPath = window.location.pathname;
     let sPage = sPath.substring(sPath.lastIndexOf('/') + 1);
@@ -54,7 +55,12 @@ function updateNavbar() {
             break;
 
         case "profile.php":
-            profile.addClass("active");
+            const queryString = window.location.search;
+            const urlParams = new URLSearchParams(queryString);
+            const urlUserId = urlParams.get('userId');
+            if (urlUserId == getLoggedUserId()){
+                profile.addClass("active");
+            }
             break;
 
         default:

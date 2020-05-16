@@ -10,46 +10,58 @@
 
 <body>
 
-    <?php include 'navbars/navbar.php'?>
+    <?php include 'modals/photoModal.php'?>
+
+    <div id='navbar-container' class='sticky-top'>
+        <!-- navbar -->
+    </div>
 
     <div class='custom-container'>
-
     
         <div class='profile-container'>
 
             <div class='profile-pic-container'>
                 <img src="images/user.jpg" class='profile-pic' width='150px' height='150px'>
             </div>
-
-            <div class='profile-data-container'>
-                <div class='profile-nf-container d-flex'>
-                    <h1>Full name</h1>
-                    <span id='profile-follow-btn'>
-                        <button class='btn btn-pink' type='button'>Follow</button>
-                    </span>
+            <div class='my-auto'>
+                <div class='profile-data-container'>
+                    <div class='profile-nf-container d-flex'>
+                        <h2 id='profile-name'>Full name</h2>
+                        <span id='profile-follow-btn'>
+                            <button class='btn btn-pink' type='button'>Follow</button>
+                        </span>
+                    </div>
+                    <h5 id='profile-email'>username@gmail.com</h5>
+                    <h5 id='profile-username'>@username</h5>
                 </div>
-                <h5>username@gmail.com</h5>
-                <h5>@username</h5>
             </div>
-            
         </div>   
 
         <ul class="nav nav-pink">
-            <li class="nav-item">
-                <a class="nav-link active" href="#">Public photos</a>
+            <li id='profile-public-photos-link' class="nav-item">
+                <a class="nav-link active pointer"  onclick='showPublicPhotos()'>Public photos</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Private photos</a>
+            <li id='profile-private-photos-link' class="nav-item">
+                <a class="nav-link pointer" onclick='showPrivatePhotos()'>Private photos</a>
             </li>
         </ul>
 
-        <div class='py-4'>
-            <?php include 'gal/gal.php'?>
+        <div id='profile-public-gal-container' class='py-4'>
+            <div id='profile-public-gal' class='gal'>
+                <!-- photos -->
+            </div>
+        </div>
+
+        <div id='profile-private-gal-container' class='py-4'>
+            <div id='profile-private-gal' class='gal'>
+                <!-- photos -->
+            </div>
         </div>
 
     </div>
 
     <?php include 'imports/bodyImports.php'?>
+    <script src='js/profile.js'></script>
 
 </body>
 

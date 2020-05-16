@@ -19,6 +19,12 @@ function patchPhoto(id, data) {
     });
 }
 
+function getUserPhotos(userId, public = true) {
+    return axios.get(`http://localhost:3000/photos?userId=${userId}&public=${public}`)
+        .catch(function (error) {
+            console.log(`Error al pedir las fotos del usuario con id ${userId}: ` + error);
+        });
+}
 
 
 // Users

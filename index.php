@@ -49,6 +49,7 @@
     </nav>
 
     <?php include 'imports/bodyImports.php'?>
+    <script src='js/index.js'></script>
 
 </body>
 
