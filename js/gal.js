@@ -1,4 +1,4 @@
-$(function() {
+$(function () {
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
     const urlPage = urlParams.get('page');
@@ -6,7 +6,7 @@ $(function() {
     let currentPageNum = urlPage == null ? 1 : parseInt(urlPage, 10);
 
     let max = 50;
-    let from = (currentPageNum - 1)*max;
+    let from = (currentPageNum - 1) * max;
 
     loadRecentPhotos(from, max);
 });
@@ -22,7 +22,8 @@ function loadRecentPhotos(from = 0, max = 50) {
                 if (photos.length > max) {
                     remainingPhotos = true;
                     photos.pop();
-                } else if (photos.length == 0){
+                }
+                else if (photos.length == 0) {
                     window.location.href = "index.php";
                 }
 
@@ -38,35 +39,52 @@ function loadRecentPhotos(from = 0, max = 50) {
 
 function appendPhotos(photos) {
     for (let photo of photos) {
-        axios.get(`http://localhost:3000/users/${photo.userId}`)
+        // Get photo owner info
+        getUser(photo.userId)
             .then(function (response) {
                 if (response.status == 200) {
                     let user = response.data;
 
-                    let photoHtml = generatePhoto(photo, user);
-                    $("#index-gal").append(photoHtml);
+                    // If current user is logged, get his vote info
+                    if (isLogged()) {
+                        getVote(photo.id, getLoggedUserId())
+                            .then(function (response) {
+                                let isPositive = response.data.length == 0 ? null : response.data[0].positive;
+                                let photoHtml = generatePhoto(photo, user, isPositive);
 
-                    $("#index-gal > :last-child > :first-child").click(function () {
-                        updatePhotoModal(this.lastElementChild.textContent);
-                    });
+                                appendPhoto(photoHtml);
+                            });
+                    }
+                    // Else there is not vote info
+                    else {
+                        let photoHtml = generatePhoto(photo, user, null);
+
+                        appendPhoto(photoHtml);
+                    }
                 }
-            })
-            .catch(function (error) {
-                console.log("Error al pedir el username: " + error);
-            })
+            });
     }
 }
 
 
-function generatePhoto(photo, user) {
+// Appends the photo and add event handler
+function appendPhoto(photoHtml) {
+    $("#index-gal").append(photoHtml);
+    $("#index-gal > :last-child > :nth-child(2)").click(function () {
+        updatePhotoModal($(this).siblings().first().text());
+    });
+}
+
+
+function generatePhoto(photo, user, isPositive) {
     let photoHtml;
 
-    if (isLogged()) {
+    if (isLogged() && getLoggedUserId() != photo.userId) {
         photoHtml = `
             <div class='gal-photo-container'>
+                <span hidden>${photo.id}</span>
                 <div class='pointer' data-toggle="modal" data-target="#photo-modal">  
                     <img class='gal-photo' src="${photo.url}">
-                    <span hidden>${photo.id}</span>
                 </div>
                 <a class='photo-overlay photo-overlay-l' href="profile.php">
                     <img class='profile-pic mr-2 ml-1' src="images/user.jpg" width='27.5px'>
@@ -74,26 +92,39 @@ function generatePhoto(photo, user) {
                 </a>
 
                 <div class='photo-overlay photo-overlay-r'>
-                    <button type='button' class='btn btn-vote'>
-                        <i class="fa fa-minus-circle fa-inverse" aria-hidden="true"></i>
+                    <button type='button' class='btn btn-vote' onclick='downvote($(this).parent().siblings().first().text())'>`
+
+        photoHtml += !isPositive && isPositive !== null ?
+            `       <i id='gal-negative-vote-ico-${photo.id}' class="fa fa-minus-circle fa-inverse color-pink" aria-hidden="true"></i>` :
+            `       <i id='gal-negative-vote-ico-${photo.id}' class="fa fa-minus-circle fa-inverse" aria-hidden="true"></i>`;
+
+        photoHtml += `    
                     </button>
-                    <span>${photo.upvotes - photo.downvotes}</span>
-                    <button type='button' class='btn btn-vote'>
-                        <i class="fa fa-plus-circle fa-inverse" aria-hidden="true"></i>
+                    <span id='gal-photo-score-${photo.id}'>${photo.upvotes - photo.downvotes}</span>
+                    <button type='button' class='btn btn-vote' onclick='upvote($(this).parent().siblings().first().text())'>`
+
+        photoHtml += isPositive ?
+            `       <i id='gal-positive-vote-ico-${photo.id}' class="fa fa-plus-circle fa-inverse color-pink" aria-hidden="true"></i>` :
+            `       <i id='gal-positive-vote-ico-${photo.id}' class="fa fa-plus-circle fa-inverse" aria-hidden="true"></i>`;
+
+        photoHtml += `
                     </button>
                 </div>   
             </div>`;
-    } else {
+    }
+    else {
+        let disabled = isLogged() ? "" : "disabled";
+
         photoHtml = `
             <div class='gal-photo-container'>
+                <span hidden>${photo.id}</span>
                 <div class='pointer' data-toggle="modal" data-target="#photo-modal">  
                     <img class='gal-photo' src="${photo.url}">
-                    <span hidden>${photo.id}</span>
                 </div>
-                <div class='photo-overlay photo-overlay-l'>
+                <a class='photo-overlay photo-overlay-l ${disabled}' href="profile.php">
                     <img class='profile-pic mr-2 ml-1' src="images/user.jpg" width='27.5px'>
                     <span>@${user.user}</span>
-                </div>
+                </a>
             </div>`;
     }
 
@@ -129,7 +160,7 @@ function updatePagination(nextPage = false) {
     }
     else {
         prevIco.removeClass("disabled");
-        prev.show();       
+        prev.show();
     }
 
     if (nextPage) {

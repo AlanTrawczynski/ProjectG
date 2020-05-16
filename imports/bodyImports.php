@@ -1,9 +1,11 @@
 <script src='js/auth/jwt-decode.js'></script>
 <script src='js/auth/auth.js'></script>
-<script src='js/validation/utils.js'></script>
+<script src='js/utils.js'></script>
+<script src='js/validation/validationUtils.js'></script>
 <script src='js/validation/login.js'></script>
 <script src='js/validation/signup.js'></script>
 <script src='js/validation/newPhoto.js'></script>
+<script src='js/voting.js'></script>
 <script src='js/photoModal.js'></script>
 <script src='js/gal.js'></script>
 <script src='js/loadNavbar.js'></script>

@@ -237,10 +237,6 @@
     background-color: #e9ecef;
 }
 
-.photo-modal-stats button.voted {
-    background-color: #FFB5C0;
-}
-
 .photo-modal-stats button > i {
     vertical-align: middle;
     color: #4a4b4d;
@@ -266,7 +262,7 @@
     background-color: #e9ecef;
 }
 
-#photo-modal-votes-info {
+#photo-modal-votes-and-date {
     font-size: .8rem;
 }
 
@@ -407,7 +403,11 @@
 }
 
 .bg-pink {
-    background-color: #FFB5C0;
+    background-color: #FFB5C0 !important;
+}
+
+.color-pink {
+    color: #FFB5C0 !important;
 }
 
 a {
