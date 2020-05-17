@@ -78,12 +78,15 @@ function showPhotoModalData(photo, user, userVote) {
     }
 
     // Insert photo tags
-    let tags = photo.tags;
+    let tagsIds = photo.tags;
     let tagsContainer = $("#photoModal-tags-container");
     tagsContainer.empty();
 
-    tags.forEach(function (tag) {
-        tagsContainer.append(generateGreyTag(tag));
+    tagsIds.forEach(function (tagId) {
+        getTag(tagId).then(function (response) {
+            let tag = response.data;
+            tagsContainer.append(generateGreyTag(tag.name));
+        });
     });
 }
 
@@ -143,6 +146,6 @@ function updateProgressBarData(percentage, text, switchTo) {
 function generateGreyTag(tagText) {
     return `
         <div class="badge badge-grey">
-            <span class='newPhoto-tagContent'>${tagText}</span>
+            <span>${tagText}</span>
         </div>`;
 }

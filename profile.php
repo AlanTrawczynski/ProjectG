@@ -39,7 +39,7 @@
 
         <ul class="nav nav-pink">
             <li id='profile-public-photos-link' class="nav-item">
-                <a class="nav-link active pointer"  onclick='showPublicPhotos()'>Public photos</a>
+                <a class="nav-link active pointer" onclick='showPublicPhotos()'>Public photos</a>
             </li>
             <li id='profile-private-photos-link' class="nav-item">
                 <a class="nav-link pointer" onclick='showPrivatePhotos()'>Private photos</a>
@@ -47,16 +47,18 @@
         </ul>
 
         <div id='profile-public-gal-container' class='py-4'>
+            <div id='profile-no-public-photos-info' class='profile-no-photos-info'>No photos found.</div>
             <div id='profile-public-gal' class='gal'>
-                <!-- photos -->
+                <!-- public photos -->
+            </div>
+        </div>
+        <div id='profile-private-gal-container' class='py-4'>
+            <div id='profile-no-private-photos-info' class='profile-no-photos-info'>No photos found.</div>
+            <div id='profile-private-gal' class='gal'>
+                <!-- private photos -->
             </div>
         </div>
 
-        <div id='profile-private-gal-container' class='py-4'>
-            <div id='profile-private-gal' class='gal'>
-                <!-- photos -->
-            </div>
-        </div>
 
     </div>
 

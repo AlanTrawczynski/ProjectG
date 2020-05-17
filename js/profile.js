@@ -19,26 +19,37 @@ function updateProfile(user) {
     $("#profile-email").text(user.email);
     $("#profile-username").text("@" + user.user);
 
+    $("#profile-follow-btn").hide();
+    $("#profile-private-photos-link").hide();
+
     // Load public photos
     getUserPhotos(user.id).then(function (response) {
         let publicPhotos = response.data;
-        appendPhotos("profile-public-gal", publicPhotos, true);
-    });
-    showPublicPhotos()
 
+        if (publicPhotos.length > 0) {
+            $("#profile-no-public-photos-info").hide();
+            appendPhotos("profile-public-gal", publicPhotos, true);
+        }
+    });
+    
     if (user.id != getLoggedUserId()) {
         $("#profile-follow-btn").show();
-        $("#profile-private-photos-link").hide();
-    } else {
-        $("#profile-follow-btn").hide();
+    }
+    else {
         $("#profile-private-photos-link").show();
 
-        // Load private photos
+       // Load private photos
         getUserPhotos(user.id, false).then(function (response) {
             let privatePhotos = response.data;
-            appendPhotos("profile-private-gal", privatePhotos, true);
+
+            if (privatePhotos.length > 0) {
+                $("#profile-no-private-photos-info").hide();
+                appendPhotos("profile-private-gal", privatePhotos, true);
+            }
         });
     }
+
+    showPublicPhotos();
 }
 
 

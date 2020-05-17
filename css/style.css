@@ -189,6 +189,12 @@
     }
 }
 
+.profile-no-photos-info {
+    text-align: center;
+    margin: 1rem 0;
+    font-size: 120%;
+}
+
 
 
 /* Modals */
@@ -366,7 +372,6 @@
 
 /* Tags */
 .badge {
-    background-color: #FFB5C0;
     margin-bottom: .5rem;
     margin-right: .5rem;
 }

@@ -1,6 +1,7 @@
 <script src='js/auth/jwt-decode.js'></script>
 <script src='js/auth/auth.js'></script>
 <script src='js/utils.js'></script>
+<script src='js/tags.js'></script>
 <script src='js/validation/validationUtils.js'></script>
 <script src='js/validation/login.js'></script>
 <script src='js/validation/signup.js'></script>

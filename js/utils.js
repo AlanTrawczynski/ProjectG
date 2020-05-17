@@ -1,3 +1,30 @@
+// Users
+function getUser(id) {
+    return axios.get(`http://localhost:3000/users/${id}`)
+        .catch(function (error) {
+            console.log(`Error al pedir el username con id ${id}: ` + error);
+        });
+}
+
+
+
+// Tags
+function getTag(id) {
+    return axios.get(`http://localhost:3000/tags/${id}`)
+        .catch(function (error) {
+            console.log(`Error al pedir la etiqueta con id ${id}: ` + error);
+        });
+}
+
+function getTagByName(tagName) {
+    return axios.get(`http://localhost:3000/tags?name=${tagName}`)
+        .catch(function (error) {
+            console.log(`Error al pedir la etiqueta con nombre ${tagName}: ` + error);
+        });
+}
+
+
+
 // Photos
 function getPhoto(id) {
     return axios.get(`http://localhost:3000/photos/${id}`)
@@ -23,15 +50,6 @@ function getUserPhotos(userId, public = true) {
     return axios.get(`http://localhost:3000/photos?userId=${userId}&public=${public}`)
         .catch(function (error) {
             console.log(`Error al pedir las fotos del usuario con id ${userId}: ` + error);
-        });
-}
-
-
-// Users
-function getUser(id) {
-    return axios.get(`http://localhost:3000/users/${id}`)
-        .catch(function (error) {
-            console.log(`Error al pedir el username con id ${id}: ` + error);
         });
 }
 
