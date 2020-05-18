@@ -8,6 +8,7 @@ function loadNewPhotoValidation() {
                 if (response.status == 200) {
                     if (response.data.length <= 50) {
                         let errors = 0;
+                        let badword = null;
 
                         let url = $("#newPhoto-url");
                         let title = $("#newPhoto-title");
@@ -30,31 +31,48 @@ function loadNewPhotoValidation() {
                         errors += checkErrors(url, checkUrl);
 
                         if (errors === 0) {
-                            resolveTagsIds(tagsNames).then(function (tagsIds) {
-                                let photoData = {
-                                    "url": urlVal,
-                                    "title": titleVal,
-                                    "description": descriptionVal,
-                                    "date": date,
-                                    "upvotes": 0,
-                                    "downvotes": 0,
-                                    "tags": tagsIds,
-                                    "public": publicVal,
-                                    "userId": userId
-                                };
 
-                                $.ajax({
-                                    url: "http://localhost:3000/photos/",
-                                    method: "POST",
-                                    headers: {
-                                        'Content-Type': 'application/json',
-                                        'Authorization': 'Bearer ' + getToken(),
-                                    },
-                                    data: JSON.stringify(photoData),
-                                    success: handleNewPhoto,
-                                    error: handleNewPhotoError
-                                });
-                            });
+                            badword = checkBadwords(titleVal);
+                            if (badword === null) {
+
+                                badword = checkBadwords(descriptionVal);
+                                if (badword === null) {
+
+                                    resolveTagsIds(tagsNames).then(function (tagsIds) {
+                                        let photoData = {
+                                            "url": urlVal,
+                                            "title": titleVal,
+                                            "description": descriptionVal,
+                                            "date": date,
+                                            "upvotes": 0,
+                                            "downvotes": 0,
+                                            "tags": tagsIds,
+                                            "public": publicVal,
+                                            "userId": userId
+                                        };
+
+                                        $.ajax({
+                                            url: "http://localhost:3000/photos/",
+                                            method: "POST",
+                                            headers: {
+                                                'Content-Type': 'application/json',
+                                                'Authorization': 'Bearer ' + getToken(),
+                                            },
+                                            data: JSON.stringify(photoData),
+                                            success: handleNewPhoto,
+                                            error: handleNewPhotoError
+                                        });
+                                    });
+                                }
+                                else {
+                                    $("#newPhoto-error").text("Please, do not use offensive words in description: " + badword);
+                                    $("#newPhoto-error").show();
+                                }
+                            }
+                            else {
+                                $("#newPhoto-error").text("Please, do not use offensive words in title: " + badword);
+                                $("#newPhoto-error").show();
+                            }
                         }
                     }
                     else {
