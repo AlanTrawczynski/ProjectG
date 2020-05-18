@@ -14,7 +14,6 @@ async function resolveTagsIds(tagsNames) {
     return tagsIds;
 }
 
-
 function resolveTagId(tagName) {
     return new Promise(function (resolve, reject) {
         axios.get(`http://localhost:3000/tags?name=${tagName}`)
@@ -53,7 +52,6 @@ function resolveTagId(tagName) {
     });
 }
 
-
 async function waitForResponse(tagName) {
     let tag = null;
 
@@ -66,4 +64,15 @@ async function waitForResponse(tagName) {
     }
 
     return tag;
+}
+
+
+/////////////////////////////////////////////////////////////////////////////////////////
+
+
+function generateGreyTag(tagName) {
+    return `
+        <div class="badge badge-grey">
+            <span>${tagName}</span>
+        </div>`;
 }

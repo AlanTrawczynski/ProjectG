@@ -1,7 +1,8 @@
 $(function () {
     if (isLogged()) {
-        $("#navbar-container").load("navbars/navbar.php", function(){
+        $("#navbar-container").load("navbars/navbar.php", function () {
             updateNavbar();
+            loadSearchByTag();
         });
 
         $.get("modals/newPhotoModal.php", function (data) {
@@ -58,7 +59,7 @@ function updateNavbar() {
             const queryString = window.location.search;
             const urlParams = new URLSearchParams(queryString);
             const urlUserId = urlParams.get('userId');
-            if (urlUserId == getLoggedUserId()){
+            if (urlUserId == getLoggedUserId()) {
                 profile.addClass("active");
             }
             break;
@@ -66,4 +67,16 @@ function updateNavbar() {
         default:
             break;
     }
+}
+
+
+function loadSearchByTag() {
+    $("#navbar-search-bar").submit(function (event) {
+        event.preventDefault();
+        let tagName = $("#navbar-search-bar-input").val().trim().replace(/\s+/g, '');
+
+        if (tagName != "") {
+            window.location.href = `search.php?tag=${tagName}`;
+        }
+    });
 }

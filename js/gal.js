@@ -52,12 +52,13 @@ function generatePhoto(photo, user, isPositive, appendingInProfile) {
             `<i id='gal-positive-vote-ico-${photo.id}' class="fa fa-plus-circle fa-inverse color-pink" aria-hidden="true"></i>` :
             `<i id='gal-positive-vote-ico-${photo.id}' class="fa fa-plus-circle fa-inverse" aria-hidden="true"></i>`;
 
-        photoHtml += `
+        photoHtml += appendingInProfile ? "" : `
                 <a class='photo-overlay photo-overlay-l' href="${profileLink}">
                     <img class='profile-pic mr-2 ml-1' src="images/user.jpg" width='27.5px'>
                     <span>@${user.user}</span>
-                </a>
+                </a>`;
 
+        photoHtml += `
                 <div class='photo-overlay photo-overlay-r'>
                     <button type='button' class='btn btn-vote' onclick='downvote($(this).parent().siblings().first().text())'>
                         ${negativeIco}

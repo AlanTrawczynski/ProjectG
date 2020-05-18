@@ -138,14 +138,3 @@ function updateProgressBarData(percentage, text, switchTo) {
             break;
     }
 }
-
-
-/////////////////////////////////////////////////////////////////////////////////////////
-
-
-function generateGreyTag(tagText) {
-    return `
-        <div class="badge badge-grey">
-            <span>${tagText}</span>
-        </div>`;
-}
