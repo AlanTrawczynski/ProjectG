@@ -18,7 +18,7 @@
         
         <form id='navbar-search-bar' class="form mx-auto mt-3 mt-md-0">
             <div class="input-group">
-                <input id='navbar-search-bar-input' type="text" class="form-control" placeholder="Search..." autocomplete="off">
+                <input id='navbar-search-bar-input' type="text" class="form-control" placeholder="Search photos by tag" autocomplete="off">
                 <div class="input-group-append">
                     <button id='navbar-search-btn' class="btn pink-hover btn-default" type="submit">
                         <span class="fa fa-search" aria-hidden="true"></span>

@@ -25,8 +25,7 @@ function upvote(photoId) {
             patchVote(voteId, data).then(function (response) {
                 if (response.status == 200) {
                     HLVotingBtns(photoId, 1);
-                    updatePhotoVotes(photoId, 1, -1)
-                        ;
+                    updatePhotoVotes(photoId, 1, -1);
                 }
             });
         }
