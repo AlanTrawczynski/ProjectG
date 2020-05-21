@@ -73,6 +73,10 @@ function checkUrl(data) {
     return data !== "" && new RegExp("(https?:\/\/.*\.(?:png|jpg))").test(data);
 }
 
+function checkIfVoid(data) {
+    return data !== "";
+}
+
 
 // returns bad word if found, else returns null
 async function checkBadwords(text) {

@@ -29,10 +29,29 @@ function updatePhotoModalEdit(photo, tags) {
 }
 
 
-// Submit handler must be updated after editing a photo with the new data
+// Used by delete photo btn
+function deletePhoto() {
+    let photoId = $("#photo-modal-photo-id").text();
+
+    fetch('http://localhost:3000/photos/' + photoId, {
+        method: "DELETE",
+        headers: {
+            'Authorization': 'Bearer ' + getToken()
+        }
+    })
+        .then(function () {
+            location.reload();
+        })
+        .catch(function (error) {
+            console.log(`Error al eliminar el voto con id ${photoId}: ` + error);
+        });
+}
+
+
+// Submit handler must be updated with the new data after editing a photo 
 function updateEditFormSubmit(photo, tags) {
     let editForm = $("#photo-modal-edit-form");
-    
+
     // Remove previous submit handler
     editForm.off();
 
@@ -90,8 +109,8 @@ function updateEditFormSubmit(photo, tags) {
 
                             resolveTags(tagsNamesToResolve).then(function (response) {
                                 let newTags = resolvedTags.concat(response);
-                                let resolvedTagsIds = newTags.map(tag => {return tag.id});
-                                
+                                let resolvedTagsIds = newTags.map(tag => { return tag.id });
+
                                 let photoData = {
                                     "tags": resolvedTagsIds
                                 };

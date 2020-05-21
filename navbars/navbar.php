@@ -27,15 +27,20 @@
             </div>
         </form>
 
-        <button type="button" class="btn btn-light collapse-ico-btn pink-hover mr-auto" title="upload photo" data-toggle="modal" data-target="#newPhoto-modal">
+        <button type="button" class="btn btn-light collapse-ico-btn pink-hover" title="upload photo" data-toggle="modal" data-target="#newPhoto-modal">
             <span class="fa fa-plus-square"></span>
         </button>
         <button type="button" class="btn btn-block btn-light pink-hover collapse-text-btn mt-3 mb-2" data-toggle="modal" data-target="#newPhoto-modal">Upload photo</button>
 
+        <button type="button" class="btn btn-light collapse-ico-btn pink-hover mx-auto" title="edit tags" data-toggle="modal" data-target="#editTags-modal">
+            <span class="fa fa-tags" aria-hidden="true"></span>
+        </button>
+        <button type="button" class="btn btn-block btn-light collapse-text-btn pink-hover mt-3 mb-2" data-toggle="modal" data-target="#editTags-modal">Edit tags</button>
+
         <button type="button" onclick="logout()" class="btn btn-light collapse-ico-btn pink-hover" title="logout">
             <span class="fa fa-sign-out" aria-hidden="true"></span>
         </button>
-        <button type="button" onclick="logout()" class="btn btn-block btn-light collapse-text-btn pink-hover mt-3 mb-2" data-toggle="modal" data-target="#newPhoto-modal">Logout</button>
+        <button type="button" onclick="logout()" class="btn btn-block btn-light collapse-text-btn pink-hover mt-3 mb-2">Logout</button>
 
     </div>
 

@@ -14,6 +14,7 @@ async function resolveTags(tagsNames) {
     return tags;
 }
 
+// If tag with tagName does not exist, creates it. Returns tagId.
 function resolveTag(tagName) {
     return new Promise(function (resolve, reject) {
         axios.get(`http://localhost:3000/tags?name=${tagName}`)

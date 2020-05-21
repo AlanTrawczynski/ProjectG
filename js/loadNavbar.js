@@ -9,6 +9,11 @@ $(function () {
             $("body").append(data);
             loadNewPhotoValidation();
         });
+
+        $.get("modals/editTagModal.php", function (data) {
+            $("body").append(data);
+            loadTagEditValidation();
+        });
     }
     else {
         $("#navbar-container").load("navbars/indexNavbar.php");

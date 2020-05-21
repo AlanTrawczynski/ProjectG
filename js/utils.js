@@ -36,7 +36,6 @@ function getTagByName(tagName) {
 }
 
 
-
 // Photos
 function getPhoto(id) {
     return axios.get(`http://localhost:3000/photos/${id}`)
@@ -44,20 +43,6 @@ function getPhoto(id) {
             console.log(`Error al pedir la foto con id ${id}: ` + error);
         });
 }
-
-function patchPhoto(id, data) {
-    return fetch('http://localhost:3000/photos/' + id, {
-        method: "PATCH",
-        body: JSON.stringify(data),
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + getToken(),
-        }
-    }).catch(function (error) {
-        console.log(`Error al actualizar la foto con id ${id}: ` + error);
-    });
-}
-
 
 async function getPhotosByTagId(tagId) {
     let res = null;
@@ -77,7 +62,6 @@ async function getPhotosByTagId(tagId) {
     return res;
 }
 
-
 function getUserPhotos(userId, public = true) {
     return axios.get(`http://localhost:3000/photos?userId=${userId}&public=${public}`)
         .catch(function (error) {
@@ -85,6 +69,18 @@ function getUserPhotos(userId, public = true) {
         });
 }
 
+function patchPhoto(id, data) {
+    return fetch('http://localhost:3000/photos/' + id, {
+        method: "PATCH",
+        body: JSON.stringify(data),
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + getToken(),
+        }
+    }).catch(function (error) {
+        console.log(`Error al actualizar la foto con id ${id}: ` + error);
+    });
+}
 
 
 // Votes
