@@ -45,26 +45,82 @@
             </div>
 
             <ul class="nav nav-pink">
-                <li class="nav-item">
-                    <a class="nav-link active" href="#">Info</a>
+                <li id='photo-modal-info-link' class="nav-item">
+                    <a class="nav-link active pointer" onclick='switchPhotoModalTo(0)'>Info</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Comments</a>
+                <li id='photo-modal-comments-link' class="nav-item">
+                    <a class="nav-link pointer" onclick='switchPhotoModalTo(1)'>Comments</a>
+                </li>
+                <li id='photo-modal-edit-link' class="nav-item">
+                    <a class="nav-link pointer" onclick='switchPhotoModalTo(2)'>Edit photo</a>
                 </li>
             </ul>
 
-            <div class='photo-modal-info'>
+            <div id='photo-modal-info' class='photo-modal-area'>
                 <h5 id='photo-modal-title'>Photo title</h5>
                 <p id='photo-modal-description'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin id tortor eget diam molestie rhoncus. Pellentesque bibendum mauris non arcu venenatis lacinia. Morbi in feugiat erat, ut sodales quam. Phasellus gravida molestie mauris, sed mattis enim. Morbi bibendum arcu ligula, non ullamcorper urna laoreet sit amet. Fusce sem sapien, porttitor convallis neque a, facilisis porta nisl. Maecenas felis odio, pellentesque ut eros id, feugiat scelerisque dui. Sed cursus magna quis lacus viverra dictum.</p>
                 <div id='photoModal-tags-container' class='my-2'></div>
                 <div id='photo-modal-votes-and-date'  class='mt-1 d-sm-flex'>
                     <div>
-                    Total votes: <span id='photo-modal-total-votes' class='mr-3'></span>
-                    Positive votes: <span id='photo-modal-positive-votes' class='mr-3'></span>
-                    Negative votes: <span id='photo-modal-negative-votes'></span>
+                        Total votes: <span id='photo-modal-total-votes' class='mr-3'></span>
+                        Positive votes: <span id='photo-modal-positive-votes' class='mr-3'></span>
+                        Negative votes: <span id='photo-modal-negative-votes'></span>
                     </div>
                     <span id='photo-modal-date' class='ml-auto'></span>
                 </div>
+            </div>
+
+            <div id='photo-modal-comments' class='photo-modal-area'>
+                <!-- comments -->
+            </div>
+
+            <div id='photo-modal-edit' class='photo-modal-area'>
+                <!-- Photo edit form -->
+                <form id="photo-modal-edit-form" novalidate>
+
+                    <div class="form-row">
+                        <div class="form-group col-lg-5">
+                            <label>Title</label>
+                            <input id='photo-modal-edit-title' type="text" autocomplete="off" class="form-control">
+                        </div>
+                        <div class="form-group col-lg">
+                            <label style='max-height: 24px'>URL<span class='required-input ml-1'>*</span></label>
+                            <input id='photo-modal-edit-url' type="text" autocomplete="off" pattern='(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|png)' class="form-control" required>
+                            <div class="invalid-feedback">Please provide a valid url.</div>
+                        </div>
+                    </div>
+
+                    <div class='form-group'>
+                        <label>Description</label>
+                        <textarea id='photo-modal-edit-description' autocomplete="off" class="form-control" rows="3" maxlength='1000'></textarea>
+                    </div>
+
+                    <div class="form-group mb-0">
+                        <label>Tags</label>
+                        <input id='photo-modal-edit-tags-input' type="text" autocomplete="off" class="form-control">
+                        <small class="form-text text-muted">Write a tag and press space to add it.</small>
+                    </div>
+                    <div id='photo-modal-edit-tags-container' class="mt-1"></div>
+
+                    <label class='mt-2'>Visibility<span class='required-input ml-1'>*</span></label>
+                    <div id='photo-modal-edit-visibility' class="form-group">
+                        <div class="form-check form-check-inline ml-1">
+                            <input id='photo-modal-edit-public' class="form-check-input" type="radio" name="photoVisibility" value="public">
+                            <label class="form-check-label" for="publicVisibility">Public</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input id='photo-modal-edit-private' class="form-check-input" type="radio" name="photoVisibility" value="private">
+                            <label class="form-check-label" for="privateVisibility">Private</label>
+                        </div>
+                    </div>
+
+                    <div id="photo-modal-edit-error" onclick="$(this).hide()" class="invalid-feedback pointer not-small-feedback"></div>
+                    <div class='d-flex'>
+                        <button class="btn btn-grey btn-block pink-hover mr-2" type="button" onclick='switchPhotoModalTo(0)'>Back</button>
+                        <button class="btn btn-pink btn-block ml-2 mt-0" type="submit">Save</button>
+                    </div>
+            
+                </form>
             </div>
 
         </div>

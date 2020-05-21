@@ -12,7 +12,7 @@
 
 
       <div class="modal-body">
-        <!-- Sign up Form -->
+        <!-- Sign up form -->
         <form id="signup-form" novalidate>
 
           <div class="form-row">

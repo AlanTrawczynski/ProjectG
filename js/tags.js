@@ -1,20 +1,20 @@
-async function resolveTagsIds(tagsNames) {
-    let tagsIds = [];
+async function resolveTags(tagsNames) {
+    let tags = [];
 
     for (tagName of tagsNames) {
-        await resolveTagId(tagName)
+        await resolveTag(tagName)
             .then(function (response) {
-                tagsIds.push(response);
+                tags.push(response);
             })
             .catch(function (error) {
                 console.log(error);
             });
     }
 
-    return tagsIds;
+    return tags;
 }
 
-function resolveTagId(tagName) {
+function resolveTag(tagName) {
     return new Promise(function (resolve, reject) {
         axios.get(`http://localhost:3000/tags?name=${tagName}`)
             .then(function (response) {
@@ -22,7 +22,7 @@ function resolveTagId(tagName) {
                 if (response.data.length != 0) {
                     let tag = response.data[0];
 
-                    resolve(tag.id);
+                    resolve(tag);
                 }
                 // Else creates the tag and then gets its id
                 else {
@@ -38,7 +38,7 @@ function resolveTagId(tagName) {
                     })
                         .then(function () {
                             waitForResponse(tagName).then(function (tag) {
-                                resolve(tag.id);
+                                resolve(tag);
                             });
                         })
                         .catch(function (error) {
@@ -67,7 +67,34 @@ async function waitForResponse(tagName) {
 }
 
 
+async function deleteTagIfVoid(ids) {
+    for (id of ids) {
+        await getPhotosByTagId(id).then(function (photos) {
+            if (photos === null) {
+                fetch('http://localhost:3000/tags/' + id, {
+                    method: "DELETE",
+                    headers: {
+                        'Authorization': 'Bearer ' + getToken()
+                    }
+                }).catch(function (error) {
+                    console.log(`Error al eliminar la etiqueta con id ${id}: ` + error);
+                });
+            }
+        });
+    }
+}
+
+
 /////////////////////////////////////////////////////////////////////////////////////////
+
+
+function generatePinkTag(tagName, tagClass) {
+    return `
+        <div class="badge badge-pink">
+            <span class='${tagClass} pointer'>${tagName}</span>
+            <span class='ml-2 pointer large-font' onclick='$(this).parent().remove()' aria-hidden="true">&times;</span>
+        </div>`;
+}
 
 
 function generateGreyTag(tagName) {
@@ -75,4 +102,49 @@ function generateGreyTag(tagName) {
         <div class="badge badge-grey">
             <span>${tagName}</span>
         </div>`;
+}
+
+
+// Allows to auto-append written tags in tagsInput to tagsContainer
+function addTagAutoAppend(tagsInput, tagsContainer, tagsClass) {
+    tagsInput.keydown(function (event) {
+
+        if (event.keyCode == 32 || event.keyCode == 13) {
+            let tagsArray = getTagsArray(tagsClass);
+            let tagText = $(this).val().trim().replace(/\s+/g, '');
+
+            $(this).val("");
+
+            // Prevent form submit
+            if (event.keyCode == 13) {
+                event.preventDefault();
+                $(this).blur();
+            }
+
+            if (tagText !== "" && !tagsArray.includes(tagText)) {
+                let tagHtml = generatePinkTag(tagText, tagsClass);
+
+                tagsContainer.append(tagHtml);
+                addTagEdition($(this), tagsContainer);
+            }
+        }
+    });
+}
+
+// Returns content of all tags that contain tagsClass class
+function getTagsArray(tagsClass) {
+    return jQuery.map($(`.${tagsClass}`), function (element) {
+        return element.textContent;
+    });
+}
+
+// Adds edition to last append tag in tagsContainer
+function addTagEdition(tagsInput, tagsContainer) {
+    tagsContainer.children().last().click(function () {
+        let tagText = $(this).children()[0].textContent;
+
+        tagsInput.val(tagText);
+        $(this).remove();
+        tagsInput.focus();
+    });
 }

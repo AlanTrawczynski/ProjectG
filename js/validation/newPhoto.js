@@ -8,7 +8,6 @@ function loadNewPhotoValidation() {
                 if (response.status == 200) {
                     if (response.data.length <= 50) {
                         let errors = 0;
-                        let badword = null;
 
                         let url = $("#newPhoto-url");
                         let title = $("#newPhoto-title");
@@ -17,7 +16,7 @@ function loadNewPhotoValidation() {
                         let titleVal = title.val().trim().replace(/\s\s+/g, ' ');
                         let descriptionVal = $("#newPhoto-description").val().trim();
                         let date = new Date().toISOString();
-                        let tagsNames = getTagsArray();
+                        let tagsNames = getTagsArray("newPhoto-tag");
                         let publicVal = $("#newPhoto-visibility input:checked").val() == "public" ? true : false;
                         let userId = getLoggedUserId();
 
@@ -38,7 +37,9 @@ function loadNewPhotoValidation() {
                                     checkBadwords(descriptionVal).then(function (badword) {
                                         if (badword === null) {
 
-                                            resolveTagsIds(tagsNames).then(function (tagsIds) {
+                                            resolveTags(tagsNames).then(function (tags) {
+                                                let tagsIds = tags.map(tag => {return tag.id});
+                                                
                                                 let photoData = {
                                                     "url": urlVal,
                                                     "title": titleVal,
@@ -50,7 +51,7 @@ function loadNewPhotoValidation() {
                                                     "public": publicVal,
                                                     "userId": userId
                                                 };
-    
+
                                                 $.ajax({
                                                     url: "http://localhost:3000/photos/",
                                                     method: "POST",
@@ -88,39 +89,7 @@ function loadNewPhotoValidation() {
             });
     });
 
-
-    // Tags insertion
-    $("#newPhoto-tags-input").keydown(function (event) {
-
-        if (event.keyCode == 32 || event.keyCode == 13) {
-            let tagsArray = getTagsArray();
-            let tagText = $(this).val().trim().replace(/\s+/g, '');
-
-            $(this).val("");
-
-            // Prevent form submit
-            if (event.keyCode == 13) {
-                event.preventDefault();
-                $(this).blur();
-            }
-
-            if (tagText !== "" && !tagsArray.includes(tagText)) {
-                let tagHtml = generatePinkTag(tagText);
-
-                $("#newPhoto-tags-container").append(tagHtml);
-
-                // Edit a tag
-                $("#newPhoto-tags-container div:last-child").click(function () {
-                    let tagsInput = $("#newPhoto-tags-input");
-                    let tagText = $(this).children()[0].textContent;
-
-                    tagsInput.val(tagText);
-                    $(this).remove();
-                    tagsInput.focus();
-                });
-            }
-        }
-    });
+    addTagAutoAppend($("#newPhoto-tags-input"), $("#newPhoto-tags-container"), "newPhoto-tag");
 }
 
 
@@ -131,23 +100,4 @@ function handleNewPhoto() {
 function handleNewPhotoError() {
     $("#newPhoto-error").text("An error occurred. Please try again.");
     $("#newPhoto-error").show();
-}
-
-
-/////////////////////////////////////////////////////////////////////////////////////////
-
-
-function generatePinkTag(tagText) {
-    return `
-        <div class="badge badge-pink">
-            <span class='newPhoto-tagContent pointer'>${tagText}</span>
-            <span class='ml-2 pointer large-font' onclick='$(this).parent().remove()' aria-hidden="true">&times;</span>
-        </div>`;
-}
-
-
-function getTagsArray() {
-    return jQuery.map($(".newPhoto-tagContent"), function (element) {
-        return element.textContent;
-    });
 }

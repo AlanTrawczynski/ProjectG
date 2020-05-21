@@ -7,7 +7,9 @@
 <script src='js/validation/signup.js'></script>
 <script src='js/validation/newPhoto.js'></script>
 <script src='js/voting.js'></script>
-<script src='js/photoModal.js'></script>
+<script src='js/photoModal/info.js'></script>
+<script src='js/photoModal/photoEdit.js'></script>
+<script src='js/photoModal/photoModal.js'></script>
 <script src='js/gal.js'></script>
 <script src='js/loadNavbar.js'></script>
 

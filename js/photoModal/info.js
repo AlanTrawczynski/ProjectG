@@ -1,47 +1,13 @@
-function updatePhotoModal(photoId) {
-    // Get photo
-    getPhoto(photoId).then(function (response) {
-        if (response.status == 200) {
-            let photo = response.data;
-
-            // Get photo owner
-            getUser(photo.userId).then(function (response) {
-                if (response.status == 200) {
-                    let user = response.data;
-
-                    // If current user is logged and is not the photo owner, get his vote info
-                    if (isLogged() && getLoggedUserId() != user.id) {
-                        getVote(photo.id, getLoggedUserId()).then(function (response) {
-                            if (response.status == 200) {
-                                let userVote = response.data.length > 0 ? response.data[0] : null;
-
-                                showPhotoModalData(photo, user, userVote);
-                            }
-                        });
-                    }
-                    // Else there is not vote info
-                    else {
-                        showPhotoModalData(photo, user, null);
-                    }
-                }
-            });
-        }
-    });
-}
-
-
-function showPhotoModalData(photo, user, userVote) {
+function updatePhotoModalInfo(photo, user, tags, userVote) {
     let isLoggedUserPhoto = user.id == getLoggedUserId();
     let sumVotes = photo.upvotes + photo.downvotes;
 
     let profileLink = $("#photo-modal-profile-href");
-
     profileLink.attr("href", `profile.php?userId=${user.id}`);
+
+    updateEditableData(photo, tags.map(tag => {return tag.name}));
     $("#photo-modal-photo-id").text(photo.id);
     $("#photo-modal-username").text("@" + user.user);
-    $("#photo-modal-img").attr("src", photo.url);
-    $("#photo-modal-title").text(photo.title);
-    $("#photo-modal-description").text(photo.description);
     $("#photo-modal-total-votes").text(sumVotes);
     $("#photo-modal-positive-votes").text(photo.upvotes);
     $("#photo-modal-negative-votes").text(photo.downvotes);
@@ -54,12 +20,16 @@ function showPhotoModalData(photo, user, userVote) {
     updateProgressBar(photo.upvotes, photo.downvotes, isLoggedUserPhoto);
 
     // Update btns visibility
+    $(".photo-modal-show-when-logged").hide();
+    $("#photo-modal-edit-link").hide()
+
     if (isLogged()) {
         profileLink.removeClass("disabled");
 
         if (isLoggedUserPhoto) {
-            $(".photo-modal-show-when-logged").hide();
-        } else {
+            $("#photo-modal-edit-link").show()
+        }
+        else {
             $(".photo-modal-show-when-logged").show();
 
             // Update voting btns highlight
@@ -73,25 +43,24 @@ function showPhotoModalData(photo, user, userVote) {
         }
     }
     else {
-        $(".photo-modal-show-when-logged").hide();
         profileLink.addClass("disabled");
     }
-
-    // Insert photo tags
-    let tagsIds = photo.tags;
-    let tagsContainer = $("#photoModal-tags-container");
-    tagsContainer.empty();
-
-    tagsIds.forEach(function (tagId) {
-        getTag(tagId).then(function (response) {
-            let tag = response.data;
-            tagsContainer.append(generateGreyTag(tag.name));
-        });
-    });
 }
 
 
-/////////////////////////////////////////////////////////////////////////////////////////
+function updateEditableData(photo, tagsNames) {
+    let tagsContainer = $("#photoModal-tags-container");
+
+    $("#photo-modal-img").attr("src", photo.url);
+    $("#photo-modal-title").text(photo.title);
+    $("#photo-modal-description").text(photo.description);
+
+    tagsContainer.empty();
+    for (tagName of tagsNames) {
+        tagsContainer.append(generateGreyTag(tagName));
+    }
+}
+
 
 function updateProgressBar(upvotes, downvotes, isLoggedUserPhoto) {
     let percVotes = ((upvotes * 100) / (upvotes + downvotes)).toFixed(2);

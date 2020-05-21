@@ -24,6 +24,12 @@ function addAutoValidation(input, checker) {
     });
 }
 
+function removeAutoValidation(input) {
+    input.removeClass("is-valid");
+    input.removeClass("is-invalid");
+    input.off("input");
+}
+
 function isValid(input) {
     input.removeClass("is-invalid");
     input.addClass("is-valid");

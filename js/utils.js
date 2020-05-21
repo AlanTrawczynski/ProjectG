@@ -16,6 +16,18 @@ function getTag(id) {
         });
 }
 
+async function getTags(tagsIds) {
+    let tags = [];
+
+    for (tagId of tagsIds) {
+        await getTag(tagId).then(function (response) {
+            tags.push(response.data);
+        });
+    }
+
+    return tags;
+}
+
 function getTagByName(tagName) {
     return axios.get(`http://localhost:3000/tags?name=${tagName}`)
         .catch(function (error) {
@@ -46,6 +58,26 @@ function patchPhoto(id, data) {
     });
 }
 
+
+async function getPhotosByTagId(tagId) {
+    let res = null;
+
+    await axios.get(`http://localhost:3000/photos?tags_like=${tagId}`)
+        .then(function (response) {
+            let photos = response.data.filter(photo => photo.tags.includes(tagId));
+
+            if (photos.length > 0) {
+                res = photos;
+            }
+        })
+        .catch(function (error) {
+            console.log(`Error al pedir las fotos con etiqueta ${tagName}: ` + error);
+        });
+    
+    return res;
+}
+
+
 function getUserPhotos(userId, public = true) {
     return axios.get(`http://localhost:3000/photos?userId=${userId}&public=${public}`)
         .catch(function (error) {
@@ -67,7 +99,7 @@ function deleteVote(id) {
     return fetch('http://localhost:3000/votes/' + id, {
         method: "DELETE",
         headers: {
-            'Authorization': 'Bearer ' + getToken(),
+            'Authorization': 'Bearer ' + getToken()
         }
     }).catch(function (error) {
         console.log(`Error al eliminar el voto con id ${id}: ` + error);
