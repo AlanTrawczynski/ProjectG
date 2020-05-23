@@ -38,30 +38,39 @@ function updateEditHandlers(photo, tags) {
     deletePhotoBtn.off("click");
     editForm.off("submit");
 
+    // Add new click handler to deletePhotoBtn if photo has no comments, else diable the btn
+    getPhotoComments(photo.id).then(function (response) {
+        if (response.data.length === 0) {
+            ableDeleteBtn();
+
+            deletePhotoBtn.click({ tags: tags }, function (event) {
+                let tags = event.data.tags;
+                let photoId = $("#photo-modal-photo-id").text();
+
+                fetch('http://localhost:3000/photos/' + photoId, {
+                    method: "DELETE",
+                    headers: {
+                        'Authorization': 'Bearer ' + getToken()
+                    }
+                })
+                    .then(function () {
+                        deleteTagsIfVoid(tags.map(tag => { return tag.id })).then(function () {
+                            location.reload();
+                        });
+                    })
+                    .catch(function (error) {
+                        console.log(`Error al eliminar la foto con id ${photoId}: ` + error);
+                    });
+            });
+        }
+        else {
+            disableDeleteBtn();
+        }
+    });
+
     // Reset url autoValidation
     editForm.removeClass("autoValidationAdded");
     removeAutoValidation($("#photo-modal-edit-url"))
-
-    // Add new click handler to deletePhotoBtn
-    deletePhotoBtn.click({ tags: tags }, function (event) {
-        let tags = event.data.tags;
-        let photoId = $("#photo-modal-photo-id").text();
-
-        fetch('http://localhost:3000/photos/' + photoId, {
-            method: "DELETE",
-            headers: {
-                'Authorization': 'Bearer ' + getToken()
-            }
-        })
-            .then(function () {
-                deleteTagsIfVoid(tags.map(tag => { return tag.id })).then(function () {
-                    location.reload();
-                });
-            })
-            .catch(function (error) {
-                console.log(`Error al eliminar la foto con id ${photoId}: ` + error);
-            });
-    })
 
     // Add new submit handler to editForm
     editForm.submit({ photo: photo, tags: tags }, function (event) {
@@ -177,4 +186,19 @@ function updateEditHandlers(photo, tags) {
             });
         }
     });
+}
+
+
+function disableDeleteBtn() {
+    let deletePhotoBtn = $("#photo-modal-delete-photo-btn");
+
+    deletePhotoBtn.prop("disabled", true);
+    deletePhotoBtn.removeClass("pink-hover");
+}
+
+function ableDeleteBtn() {
+    let deletePhotoBtn = $("#photo-modal-delete-photo-btn");
+
+    deletePhotoBtn.prop("disabled", false);
+    deletePhotoBtn.addClass("pink-hover");
 }

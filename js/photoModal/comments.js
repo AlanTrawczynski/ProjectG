@@ -59,6 +59,7 @@ function postComment(event) {
                 input.val("");
                 $("#photo-modal-no-comments").hide();
                 $("#photo-modal-comments-container").prepend(generateComment(data, userId, getLoggedUsername()));
+                disableDeleteBtn();
             })
             .catch(function (error) {
                 console.log(`Error al crear el comentario del usuario con id ${userId} en la foto con id ${photoId}: ` + error);
