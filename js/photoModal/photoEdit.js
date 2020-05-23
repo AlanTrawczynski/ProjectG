@@ -25,41 +25,45 @@ function updatePhotoModalEdit(photo, tags) {
         tagsInput.addClass("auto-append-added");
     }
 
-    updateEditFormSubmit(photo, tags);
+    updateEditHandlers(photo, tags);
 }
 
 
-// Used by delete photo btn
-function deletePhoto() {
-    let photoId = $("#photo-modal-photo-id").text();
-
-    fetch('http://localhost:3000/photos/' + photoId, {
-        method: "DELETE",
-        headers: {
-            'Authorization': 'Bearer ' + getToken()
-        }
-    })
-        .then(function () {
-            location.reload();
-        })
-        .catch(function (error) {
-            console.log(`Error al eliminar el voto con id ${photoId}: ` + error);
-        });
-}
-
-
-// Submit handler must be updated with the new data after editing a photo 
-function updateEditFormSubmit(photo, tags) {
+// Handlers must be updated with current photo data
+function updateEditHandlers(photo, tags) {
+    let deletePhotoBtn = $("#photo-modal-delete-photo-btn");
     let editForm = $("#photo-modal-edit-form");
 
-    // Remove previous submit handler
-    editForm.off();
+    // Remove previous handlers
+    deletePhotoBtn.off("click");
+    editForm.off("submit");
 
     // Reset url autoValidation
     editForm.removeClass("autoValidationAdded");
     removeAutoValidation($("#photo-modal-edit-url"))
 
-    // Add new submit handler
+    // Add new click handler to deletePhotoBtn
+    deletePhotoBtn.click({ tags: tags }, function (event) {
+        let tags = event.data.tags;
+        let photoId = $("#photo-modal-photo-id").text();
+
+        fetch('http://localhost:3000/photos/' + photoId, {
+            method: "DELETE",
+            headers: {
+                'Authorization': 'Bearer ' + getToken()
+            }
+        })
+            .then(function () {
+                deleteTagsIfVoid(tags.map(tag => { return tag.id })).then(function () {
+                    location.reload();
+                });
+            })
+            .catch(function (error) {
+                console.log(`Error al eliminar la foto con id ${photoId}: ` + error);
+            });
+    })
+
+    // Add new submit handler to editForm
     editForm.submit({ photo: photo, tags: tags }, function (event) {
         event.preventDefault();
         $("#photo-modal-edit-error").hide();
@@ -141,16 +145,16 @@ function updateEditFormSubmit(photo, tags) {
                                         getPhoto(photo.id).then(function (response) {
                                             let updatedPhoto = response.data;
 
-                                            if (publicVal == photo.public) {
-                                                updateEditableData(updatedPhoto, newTagsNames)
-                                                switchPhotoModalTo(0);
-                                            }
-                                            else {
-                                                location.reload();
-                                            }
-
-                                            updateEditFormSubmit(updatedPhoto, newTags)
-                                            deleteTagIfVoid(tagsIdsToCheck);
+                                            deleteTagsIfVoid(tagsIdsToCheck).then(function () {
+                                                if (publicVal == photo.public) {
+                                                    updateEditableData(updatedPhoto, newTagsNames);
+                                                    updateEditHandlers(updatedPhoto, newTags);
+                                                    switchPhotoModalTo(0);
+                                                }
+                                                else {
+                                                    location.reload();
+                                                }
+                                            })
                                         });
 
                                     })

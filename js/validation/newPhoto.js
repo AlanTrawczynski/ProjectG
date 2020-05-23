@@ -18,7 +18,7 @@ function loadNewPhotoValidation() {
                         let date = new Date().toISOString();
                         let tagsNames = getTagsArray("newPhoto-tag");
                         let publicVal = $("#newPhoto-visibility input:checked").val() == "public" ? true : false;
-                        let userId = getLoggedUserId();
+                        let userId = parseInt(getLoggedUserId(), 10);
 
                         title.val(titleVal);
 

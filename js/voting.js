@@ -34,8 +34,8 @@ function upvote(photoId) {
             let data = {
                 "date": new Date().toISOString(),
                 "positive": true,
-                "userId": getLoggedUserId(),
-                "photoId": photoId
+                "userId": parseInt(getLoggedUserId(), 10),
+                "photoId": parseInt(photoId, 10)
             };
 
             postVote(data).then(function (response) {
@@ -86,8 +86,8 @@ function downvote(photoId) {
             let data = {
                 "date": new Date().toISOString(),
                 "positive": false,
-                "userId": getLoggedUserId(),
-                "photoId": photoId
+                "userId": parseInt(getLoggedUserId(), 10),
+                "photoId": parseInt(photoId, 10)
             };
 
             postVote(data).then(function (response) {

@@ -7,7 +7,7 @@ $(function () {
         let tagId = response.data.length != 0 ? response.data[0].id : null;
 
         if (tagId != null) {
-            getPhotosByTagId(tagId).then(function (photos) {
+            getPhotosByTagId(tagId, true).then(function (photos) {
                 let len = photos !== null ? photos.length : 0;
 
                 showResults(tagName, len);

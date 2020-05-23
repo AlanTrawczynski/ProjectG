@@ -28,11 +28,17 @@
                     <div class='profile-nf-container d-flex'>
                         <h2 id='profile-name'>Full name</h2>
                         <span id='profile-follow-btn'>
-                            <button class='btn btn-pink' type='button'>Follow</button>
+                            <button class='btn btn-sm btn-pink' type='button'>Follow</button>
                         </span>
                     </div>
-                    <h5 id='profile-email'>username@gmail.com</h5>
-                    <h5 id='profile-username'>@username</h5>
+                    <div class='d-flex align-items-center mb-2'>
+                        <i class="fa fa-envelope-o mr-2 profile-data-ico" aria-hidden="true"></i>
+                        <h5 id='profile-email' class='mb-0 profile-data-text'>username@gmail.com</h5>
+                    </div>
+                    <div class='d-flex align-items-center mb-2'>
+                        <i class="fa fa-user-o mr-2 profile-data-ico" aria-hidden="true"></i>
+                        <h5 id='profile-username' class='mb-0 profile-data-text'>username</h5>
+                    </div>
                 </div>
             </div>
         </div>   
@@ -47,13 +53,13 @@
         </ul>
 
         <div id='profile-public-gal-container' class='py-4'>
-            <div id='profile-no-public-photos-info' class='profile-no-photos-info'>No photos found.</div>
+            <div id='profile-no-public-photos-info' class='profile-no-photos'>No photos found.</div>
             <div id='profile-public-gal' class='gal'>
                 <!-- public photos -->
             </div>
         </div>
         <div id='profile-private-gal-container' class='py-4'>
-            <div id='profile-no-private-photos-info' class='profile-no-photos-info'>No photos found.</div>
+            <div id='profile-no-private-photos-info' class='profile-no-photos'>No photos found.</div>
             <div id='profile-private-gal' class='gal'>
                 <!-- private photos -->
             </div>

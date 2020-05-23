@@ -17,7 +17,7 @@ $(function () {
 function updateProfile(user) {
     $("#profile-name").text(user.name + " " + user.surname);
     $("#profile-email").text(user.email);
-    $("#profile-username").text("@" + user.user);
+    $("#profile-username").text(user.user);
 
     $("#profile-follow-btn").hide();
     $("#profile-private-photos-link").hide();

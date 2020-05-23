@@ -44,10 +44,11 @@ function getPhoto(id) {
         });
 }
 
-async function getPhotosByTagId(tagId) {
+async function getPhotosByTagId(tagId, onlyPublic = false) {
     let res = null;
+    let url = onlyPublic ? `public=true&tags_like=${tagId}` : `tags_like=${tagId}`;
 
-    await axios.get(`http://localhost:3000/photos?tags_like=${tagId}`)
+    await axios.get(`http://localhost:3000/photos?${url}`)
         .then(function (response) {
             let photos = response.data.filter(photo => photo.tags.includes(tagId));
 
@@ -79,6 +80,15 @@ function patchPhoto(id, data) {
         }
     }).catch(function (error) {
         console.log(`Error al actualizar la foto con id ${id}: ` + error);
+    });
+}
+
+
+// Comments
+function getPhotoComments(photoId) {
+    return axios.get(`http://localhost:3000/comments?photoId=${photoId}&_sort=id&_order=asc`)
+    .catch(function (error) {
+        console.log(`Error al pedir los comentarios de la foto con id ${photoId}: ` + error);
     });
 }
 

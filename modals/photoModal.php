@@ -23,6 +23,7 @@
                 <img id='photo-modal-img' src="https://images.pexels.com/photos/3935702/pexels-photo-3935702.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260">
             </div>
 
+
             <div class='photo-modal-stats container mb-4'>
                 <div class='row'>
                     <span id='photo-modal-photo-id' hidden></span>
@@ -44,6 +45,7 @@
                 </div>
             </div>
 
+
             <ul class="nav nav-pink">
                 <li id='photo-modal-info-link' class="nav-item">
                     <a class="nav-link active pointer" onclick='switchPhotoModalTo(0)'>Info</a>
@@ -56,7 +58,9 @@
                 </li>
             </ul>
 
+
             <div id='photo-modal-info' class='photo-modal-area'>
+                <!-- info -->
                 <h5 id='photo-modal-title'>Photo title</h5>
                 <p id='photo-modal-description'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin id tortor eget diam molestie rhoncus. Pellentesque bibendum mauris non arcu venenatis lacinia. Morbi in feugiat erat, ut sodales quam. Phasellus gravida molestie mauris, sed mattis enim. Morbi bibendum arcu ligula, non ullamcorper urna laoreet sit amet. Fusce sem sapien, porttitor convallis neque a, facilisis porta nisl. Maecenas felis odio, pellentesque ut eros id, feugiat scelerisque dui. Sed cursus magna quis lacus viverra dictum.</p>
                 <div id='photoModal-tags-container' class='my-2'></div>
@@ -70,12 +74,23 @@
                 </div>
             </div>
 
+
             <div id='photo-modal-comments' class='photo-modal-area'>
-                <!-- comments -->
+                <!-- comment form -->
+                <form id="photo-modal-comment-form" class='text-right mb-3' onsubmit='postComment(event)' novalidate>
+                    <textarea id='photo-modal-comment-input' placeholder='Add new comment' autocomplete="off" class="form-control" rows="2" maxlength='500'></textarea>
+                    <button class="btn btn-sm btn-pink mt-2" type="submit">Comment</button>
+                </form>
+
+                <div id='photo-modal-no-comments' class='photo-modal-no-comments'>No comments found.</div>
+                <ul id='photo-modal-comments-container' class="list-unstyled">
+                    <!-- comments -->
+                </ul>
             </div>
 
+
             <div id='photo-modal-edit' class='photo-modal-area'>
-                <!-- Photo edit form -->
+                <!-- edit form -->
                 <form id="photo-modal-edit-form" novalidate>
 
                     <div class="form-row">
@@ -116,7 +131,7 @@
 
                     <div id="photo-modal-edit-error" onclick="$(this).hide()" class="invalid-feedback pointer not-small-feedback"></div>
                     <div class='d-flex'>
-                        <button class="btn btn-grey btn-block pink-hover mr-2" type="button" onclick='deletePhoto()'>Delete Photo</button>
+                        <button id='photo-modal-delete-photo-btn' class="btn btn-grey btn-block pink-hover mr-2" type="button">Delete Photo</button>
                         <button class="btn btn-pink btn-block ml-2 mt-0" type="submit">Save changes</button>
                     </div>
             

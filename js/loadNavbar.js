@@ -16,16 +16,21 @@ $(function () {
         });
     }
     else {
-        $("#navbar-container").load("navbars/indexNavbar.php");
+        if (getPageString() === "index.php") {
+            $("#navbar-container").load("navbars/indexNavbar.php");
 
-        $.get("modals/signupModal.php", function (data) {
-            $("body").append(data);
-            loadSignupValidation();
-        });
-        $.get("modals/loginModal.php", function (data) {
-            $("body").append(data);
-            loadLoginValidation();
-        });
+            $.get("modals/signupModal.php", function (data) {
+                $("body").append(data);
+                loadSignupValidation();
+            });
+            $.get("modals/loginModal.php", function (data) {
+                $("body").append(data);
+                loadLoginValidation();
+            });
+        }
+        else {
+            window.location.href = "index.php";
+        }
     }
 });
 
@@ -39,15 +44,12 @@ function updateNavbar() {
     profile.text("@" + getLoggedUsername());
     profile.attr("href", `profile.php?userId=${getLoggedUserId()}`)
 
-    let sPath = window.location.pathname;
-    let sPage = sPath.substring(sPath.lastIndexOf('/') + 1);
-
     home.removeClass("active");
     following.removeClass("active");
     trending.removeClass("active");
     profile.removeClass("active");
 
-    switch (sPage) {
+    switch (getPageString()) {
         case "index.php":
             home.addClass("active");
             break;
@@ -72,6 +74,11 @@ function updateNavbar() {
         default:
             break;
     }
+}
+
+function getPageString() {
+    let sPath = window.location.pathname;
+    return sPath.substring(sPath.lastIndexOf('/') + 1);
 }
 
 

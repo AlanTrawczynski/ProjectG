@@ -68,7 +68,7 @@ async function waitForResponse(tagName) {
 }
 
 
-async function deleteTagIfVoid(ids) {
+async function deleteTagsIfVoid(ids) {
     for (id of ids) {
         await getPhotosByTagId(id).then(function (photos) {
             if (photos === null) {
@@ -93,16 +93,24 @@ function generatePinkTag(tagName, tagClass) {
     return `
         <div class="badge badge-pink">
             <span class='${tagClass} pointer'>${tagName}</span>
-            <span class='ml-2 pointer large-font' onclick='$(this).parent().remove()' aria-hidden="true">&times;</span>
+            <span class='ml-2 pointer' onclick='$(this).parent().remove()' aria-hidden="true">&times;</span>
         </div>`;
 }
 
 
 function generateGreyTag(tagName) {
-    return `
-        <div class="badge badge-grey">
-            <span>${tagName}</span>
-        </div>`;
+    if (isLogged()) {
+        return `
+            <div class="badge badge-grey">
+                <a href='search.php?tag=${tagName}'>${tagName}</a>
+            </div>`;
+    }
+    else {
+        return `
+            <div class="badge badge-grey">
+                <span>${tagName}</span>
+            </div>`;
+    }
 }
 
 
