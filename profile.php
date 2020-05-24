@@ -27,8 +27,8 @@
                 <div class='profile-data-container'>
                     <div class='profile-nf-container d-flex'>
                         <h2 id='profile-name'>Full name</h2>
-                        <span id='profile-follow-btn'>
-                            <button class='btn btn-sm btn-pink' type='button'>Follow</button>
+                        <span>
+                            <button id='profile-follow-btn' class='btn btn-sm btn-pink' type='button' onmouseover='toggleFollowBtnText($(this), event)' onmouseout='toggleFollowBtnText($(this), event)'>Follow</button>
                         </span>
                     </div>
                     <div class='d-flex align-items-center mb-2'>

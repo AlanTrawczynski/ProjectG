@@ -76,11 +76,6 @@ function updateNavbar() {
     }
 }
 
-function getPageString() {
-    let sPath = window.location.pathname;
-    return sPath.substring(sPath.lastIndexOf('/') + 1);
-}
-
 
 function loadSearchByTag() {
     $("#navbar-search-bar").submit(function (event) {

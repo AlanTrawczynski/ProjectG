@@ -15,12 +15,15 @@ $(function () {
 
 
 function updateProfile(user) {
+    let followBtn = $("#profile-follow-btn");
+    let privatePhotosLink = $("#profile-private-photos-link");
+
     $("#profile-name").text(user.name + " " + user.surname);
     $("#profile-email").text(user.email);
     $("#profile-username").text(user.user);
 
-    $("#profile-follow-btn").hide();
-    $("#profile-private-photos-link").hide();
+    followBtn.hide();
+    privatePhotosLink.hide();
 
     // Load public photos
     getUserPhotos(user.id).then(function (response) {
@@ -31,14 +34,12 @@ function updateProfile(user) {
             appendPhotos("profile-public-gal", publicPhotos, true);
         }
     });
-    
+
     if (user.id != getLoggedUserId()) {
-        $("#profile-follow-btn").show();
+        updateFollowBtn(followBtn, user.id);
     }
     else {
-        $("#profile-private-photos-link").show();
-
-       // Load private photos
+        // Load private photos
         getUserPhotos(user.id, false).then(function (response) {
             let privatePhotos = response.data;
 
@@ -47,6 +48,8 @@ function updateProfile(user) {
                 appendPhotos("profile-private-gal", privatePhotos, true);
             }
         });
+
+        privatePhotosLink.show();
     }
 
     showPublicPhotos();

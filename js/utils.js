@@ -1,9 +1,28 @@
+function getPageString() {
+    let sPath = window.location.pathname;
+    return sPath.substring(sPath.lastIndexOf('/') + 1);
+}
+
+
 // Users
 function getUser(id) {
     return axios.get(`http://localhost:3000/users/${id}`)
         .catch(function (error) {
             console.log(`Error al pedir el username con id ${id}: ` + error);
         });
+}
+
+function patchUser(id, data) {
+    return fetch('http://localhost:3000/users/' + id, {
+        method: "PATCH",
+        body: JSON.stringify(data),
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + getToken(),
+        }
+    }).catch(function (error) {
+        console.log(`Error al actualizar el usuario con id ${loggedUser.id}: ` + error);
+    });
 }
 
 
@@ -59,7 +78,7 @@ async function getPhotosByTagId(tagId, onlyPublic = false) {
         .catch(function (error) {
             console.log(`Error al pedir las fotos con etiqueta ${tagName}: ` + error);
         });
-    
+
     return res;
 }
 
@@ -87,9 +106,9 @@ function patchPhoto(id, data) {
 // Comments
 function getPhotoComments(photoId, start = 0) {
     return axios.get(`http://localhost:3000/comments?photoId=${photoId}&_sort=id&_order=desc&_start=${start}&_limit=10`)
-    .catch(function (error) {
-        console.log(`Error al pedir los comentarios de la foto con id ${photoId}: ` + error);
-    });
+        .catch(function (error) {
+            console.log(`Error al pedir los comentarios de la foto con id ${photoId}: ` + error);
+        });
 }
 
 

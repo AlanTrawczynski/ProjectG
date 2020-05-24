@@ -9,7 +9,7 @@
                     <img class='profile-pic mr-2' src="images/user.jpg" width='35px'>
                     <span id='photo-modal-username' class='mr-4'>@username</span>
                 <a>
-                <button class='btn btn-pink btn-sm photo-modal-show-when-logged' type='button'>Follow</button>
+                <button id='photo-modal-follow-btn' class='btn btn-pink btn-sm photo-modal-show-when-logged' type='button' onmouseover='toggleFollowBtnText($(this), event)' onmouseout='toggleFollowBtnText($(this), event)'>Follow</button>
             </div>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>

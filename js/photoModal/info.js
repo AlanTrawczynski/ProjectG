@@ -40,6 +40,8 @@ function updatePhotoModalInfo(photo, user, tags, userVote) {
             } else {
                 HLVotingBtns(photo.id, -1)
             }
+
+            updateFollowBtn($("#photo-modal-follow-btn"), user.id);
         }
     }
     else {

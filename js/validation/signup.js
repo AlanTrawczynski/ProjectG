@@ -77,7 +77,8 @@ function loadSignupValidation() {
                                             "phone": phoneNumVal,
                                             "email": emailVal,
                                             "password": passwordVal,
-                                            "user": usernameVal
+                                            "user": usernameVal,
+                                            "following": []
                                         }
 
                                         $.ajax({
