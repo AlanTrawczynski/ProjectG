@@ -1,29 +1,50 @@
-function updatePhotoModalComments() {
+function updatePhotoModalComments(skipComments = 0) {
     $("#photo-modal-no-comments").hide();
+    $("#photo-modal-load-more-btn").hide();
+    disableDeleteBtn();
 
     if (!isLogged()) {
         $("#photo-modal-comment-form").hide();
     }
 
-    let photoId = parseInt($("#photo-modal-photo-id").text(), 10);
-    let commentsContainer = $("#photo-modal-comments-container");
+    let photoId = $("#photo-modal-photo-id").text();
+
+    if (skipComments === 0) {
+        $("#photo-modal-comments-container").empty();
+    }
 
     // Append photo comments
-    commentsContainer.empty();
-    getPhotoComments(photoId).then(async function (response) {
+    getPhotoComments(photoId, skipComments).then(async function (response) {
         let comments = response.data.length === 0 ? null : response.data;
 
-        if (comments !== null) {
-            for (comment of comments) {
-                await getUser(comment.userId).then(function (response) {
-                    let user = response.data;
-            
-                    commentsContainer.prepend(generateComment(comment, user.id, user.user));
-                });
+        if (comments !== null || skipComments > 0) {
+            if (comments.length === 10) {
+                $("#photo-modal-load-more-btn").show();
             }
+
+            appendComments(comments);
         }
         else {
             $("#photo-modal-no-comments").show();
+            ableDeleteBtn();
+        }
+    });
+}
+
+
+function loadMoreComments() {
+    let appendedComments = $("#photo-modal-comments-container").children().length / 2;
+    let photoId = $("#photo-modal-photo-id").text();
+
+    getPhotoComments(photoId, appendedComments).then(async function (response) {
+        let comments = response.data.length === 0 ? null : response.data;
+
+        if (comments === null || comments.length < 10) {
+            $("#photo-modal-load-more-btn").hide();
+        }
+
+        if (comments !== null) {
+            appendComments(comments);
         }
     });
 }
@@ -38,7 +59,7 @@ function postComment(event) {
     let date = new Date().toISOString();
     let photoId = parseInt($("#photo-modal-photo-id").text(), 10);
     let userId = parseInt(getLoggedUserId(), 10);
-    
+
     if (content !== "") {
         let data = {
             "content": content,
@@ -67,6 +88,18 @@ function postComment(event) {
     }
 }
 
+
+async function appendComments(comments) {
+    let commentsContainer = $("#photo-modal-comments-container");
+    
+    for (comment of comments) {
+        await getUser(comment.userId).then(function (response) {
+            let user = response.data;
+
+            commentsContainer.append(generateComment(comment, user.id, user.user));
+        });
+    }
+}
 
 function generateComment(comment, userId, username) {
     let commentDate = new Date(comment.date);
@@ -105,4 +138,19 @@ function generateComment(comment, userId, username) {
             </div>
         </li>
         <hr>`
+}
+
+
+function disableDeleteBtn() {
+    let deletePhotoBtn = $("#photo-modal-delete-photo-btn");
+
+    deletePhotoBtn.prop("disabled", true);
+    deletePhotoBtn.removeClass("pink-hover");
+}
+
+function ableDeleteBtn() {
+    let deletePhotoBtn = $("#photo-modal-delete-photo-btn");
+
+    deletePhotoBtn.prop("disabled", false);
+    deletePhotoBtn.addClass("pink-hover");
 }

@@ -86,6 +86,8 @@
                 <ul id='photo-modal-comments-container' class="list-unstyled">
                     <!-- comments -->
                 </ul>
+
+                <button id='photo-modal-load-more-btn' class="btn btn-pink btn-block" type="button" onclick='loadMoreComments()'>Load more comments</button>
             </div>
 
 

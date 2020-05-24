@@ -85,8 +85,8 @@ function patchPhoto(id, data) {
 
 
 // Comments
-function getPhotoComments(photoId) {
-    return axios.get(`http://localhost:3000/comments?photoId=${photoId}&_sort=id&_order=asc`)
+function getPhotoComments(photoId, start = 0) {
+    return axios.get(`http://localhost:3000/comments?photoId=${photoId}&_sort=id&_order=desc&_start=${start}&_limit=10`)
     .catch(function (error) {
         console.log(`Error al pedir los comentarios de la foto con id ${photoId}: ` + error);
     });
