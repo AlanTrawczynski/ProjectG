@@ -1,60 +1,38 @@
-function toggleFollow(event) {
-    let userId = event.data.userId;
-    let btn = $(this);
+$(function () {
+    const urlPage = getUrlValue("page");
+    let currentPageNum = urlPage == null ? 1 : parseInt(urlPage, 10);
 
+    let max = 50;
+    let skip = (currentPageNum - 1) * max;
+
+    loadRecentPhotos(skip, max);
+});
+
+
+function loadRecentPhotos(skip = 0, max = 50) {
     getUser(getLoggedUserId()).then(function (response) {
-        let loggedUser = response.data;
-        let followingList = loggedUser.following;
+        let loggedUserFollowing = response.data.following;
 
-        // If loggedUser already follows user, unfollow him
-        if (followingList.includes(userId)) {
-            followingList.splice(followingList.indexOf(userId), 1);
-        }
-        // Else, follow him
-        else {
-            followingList.push(userId);
-        }
+        axios.get(`http://localhost:3000/photos?public=true&_sort=id&_order=desc`)
+        .then(function (response) {
+            if (response.status == 200) {
+                let photos = response.data.filter(photo => loggedUserFollowing.includes(photo.userId)).slice(skip);
+                let remainingPhotos = false;
 
-        patchUser(loggedUser.id, { "following": followingList }).then(function () {
-            btn.text(function (i, text) {
-                return text === "Follow" ? "Following" : "Follow";
-            });
+                if (photos.length > max) {
+                    remainingPhotos = true;
+                    photos.splice(max);
+                }
+                else if (photos.length == 0 && loggedUserFollowing.length > 0) {
+                    window.location.href = "following.php";
+                }
 
-            // If clicked btn is photo-modal-follow-btn and current page is "profile.php", update profile-follow-btn text
-            if (btn.attr('id') === "photo-modal-follow-btn" && getPageString() === "profile.php"){
-                $("#profile-follow-btn").text(function (i, text) {
-                    return text === "Follow" ? "Following" : "Follow";
-                });
+                appendPhotos("following-gal", photos);
+                updatePagination(remainingPhotos);
             }
+        })
+        .catch(function (error) {
+            console.log("Error al pedir las fotos: " + error);
         });
     });
-}
-
-
-function updateFollowBtn(btn, userId) {
-    getUser(getLoggedUserId()).then(function (response) {
-        let loggedUser = response.data;
-
-        if (loggedUser.following.includes(userId)) {
-            btn.text("Following");
-        } else {
-            btn.text("Follow");
-        }
-
-        btn.show();
-        btn.off("click");
-        btn.click({ userId: userId }, toggleFollow);
-    });
-}
-
-
-function toggleFollowBtnText(btn, event) {
-    if (btn.text() !== "Follow") {
-        if (event.type === "mouseover") {
-            btn.text("Unfollow");
-        }
-        else {
-            btn.text("Following");
-        }
-    }
 }

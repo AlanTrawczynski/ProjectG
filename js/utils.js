@@ -1,6 +1,13 @@
+// URLs
 function getPageString() {
     let sPath = window.location.pathname;
     return sPath.substring(sPath.lastIndexOf('/') + 1);
+}
+
+function getUrlValue(key) {
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    return urlParams.get(key);
 }
 
 
