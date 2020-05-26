@@ -132,10 +132,11 @@
                     </div>
 
                     <div id="photo-modal-edit-error" onclick="$(this).hide()" class="invalid-feedback pointer not-small-feedback"></div>
-                    <div class='d-flex'>
+                    <div class='d-flex mt-4'>
                         <button id='photo-modal-delete-photo-btn' class="btn btn-grey btn-block pink-hover mr-2" type="button">Delete Photo</button>
                         <button class="btn btn-pink btn-block ml-2 mt-0" type="submit">Save changes</button>
                     </div>
+                    <small id="photo-modal-delete-photo-info" class="form-text text-muted">Photos with comments cannot be deleted.</small>
             
                 </form>
             </div>

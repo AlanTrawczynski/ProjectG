@@ -1,4 +1,6 @@
 function updatePhotoModalEdit(photo, tags) {
+    $("#photo-modal-edit-error").hide();
+
     let tagsInput = $("#photo-modal-edit-tags-input");
     let tagsContainer = $("#photo-modal-edit-tags-container");
 

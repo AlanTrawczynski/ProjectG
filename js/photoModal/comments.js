@@ -146,6 +146,7 @@ function disableDeleteBtn() {
 
     deletePhotoBtn.prop("disabled", true);
     deletePhotoBtn.removeClass("pink-hover");
+    $("#photo-modal-delete-photo-info").show();
 }
 
 function ableDeleteBtn() {
@@ -153,4 +154,5 @@ function ableDeleteBtn() {
 
     deletePhotoBtn.prop("disabled", false);
     deletePhotoBtn.addClass("pink-hover");
+    $("#photo-modal-delete-photo-info").hide();
 }
