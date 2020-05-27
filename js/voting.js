@@ -105,6 +105,7 @@ function updatePhotoVotes(photoId, upvotesOffset, downvotesOffset) {
         let photo = response.data;
         let finalUpvotes = photo.upvotes + upvotesOffset;
         let finalDownvotes = photo.downvotes + downvotesOffset
+        let finalSumVotes = finalUpvotes + finalDownvotes;
 
         let data = {
             "upvotes": finalUpvotes,
@@ -114,21 +115,26 @@ function updatePhotoVotes(photoId, upvotesOffset, downvotesOffset) {
         // Update photo upvotes and downvotes in db
         patchPhoto(photoId, data);
 
-
         // Update photo score in overlay
-        $(`#gal-photo-score-${photo.id}`).text(finalUpvotes - finalDownvotes);
+        $(`#gal-photo-score-${photo.id}`).text(getPhotoPunctuation(finalUpvotes, finalDownvotes));
 
         // Update votes info in photo modal
         updateProgressBar(finalUpvotes, finalDownvotes, photo.userId == getLoggedUserId());
         $("#photo-modal-positive-votes").text(finalUpvotes);
         $("#photo-modal-negative-votes").text(finalDownvotes);
-        $("#photo-modal-total-votes").text(finalUpvotes + finalDownvotes);
+        $("#photo-modal-total-votes").text(finalSumVotes);
     });
 }
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+
+function getPhotoPunctuation(upvotes, downvotes) {
+    let sumVotes = upvotes + downvotes;
+
+    return sumVotes == 0 ? 0 : parseFloat(((upvotes - downvotes) / sumVotes).toFixed(3))
+}
 
 // HL-Highlight
 // n = 1: positive;   n = 0: None;   n = -1: negative

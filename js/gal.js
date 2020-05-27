@@ -37,6 +37,8 @@ function appendPhoto(galContainerId, photoHtml) {
 
 function generatePhoto(photo, user, isPositive, appendingInProfile) {
     let profileLink = `profile.php?userId=${user.id}`;
+    let punctuation = getPhotoPunctuation(photo.upvotes, photo.downvotes);
+    
     let photoHtml = `
             <div class='gal-photo-container'>
                 <span hidden>${photo.id}</span>
@@ -63,7 +65,7 @@ function generatePhoto(photo, user, isPositive, appendingInProfile) {
                     <button type='button' class='btn btn-vote' onclick='downvote($(this).parent().siblings().first().text())'>
                         ${negativeIco}
                     </button>
-                    <span id='gal-photo-score-${photo.id}'>${photo.upvotes - photo.downvotes}</span>
+                    <span id='gal-photo-score-${photo.id}'>${punctuation}</span>
                     <button type='button' class='btn btn-vote' onclick='upvote($(this).parent().siblings().first().text())'>
                         ${positiveIco}
                     </button>
@@ -81,7 +83,7 @@ function generatePhoto(photo, user, isPositive, appendingInProfile) {
         
         photoHtml += `
                 <div class='photo-overlay photo-overlay-r'>
-                    <span id='gal-photo-score-${photo.id}' class='mr-2'>${photo.upvotes - photo.downvotes}</span>
+                    <span id='gal-photo-score-${photo.id}' class='mr-2'>${punctuation}</span>
                 </div>
             </div>`;
     }
