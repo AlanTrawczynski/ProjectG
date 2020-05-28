@@ -28,7 +28,7 @@
 
                 <div class="form-group">
                     <label>URL<span class='required-input ml-1'>*</span></label>
-                    <input id='newPhoto-url' type="text" autocomplete="off" pattern='(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|png)' class="form-control" required>
+                    <input id='newPhoto-url' type="text" autocomplete="off" pattern='(https?:\/\/.*\.(?:png|jpeg|jpg))' class="form-control" required>
                     <div class="invalid-feedback">Please provide a valid url.</div>
                 </div>
                 

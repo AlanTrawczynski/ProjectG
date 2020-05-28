@@ -1,4 +1,4 @@
-function appendPhotos(galContainerId, photos, appendingInProfile = false) {
+function appendPhotos(galContainer, photos, appendingInProfile = false) {
     for (let photo of photos) {
         // Get photo owner info
         getUser(photo.userId).then(function (response) {
@@ -11,14 +11,14 @@ function appendPhotos(galContainerId, photos, appendingInProfile = false) {
                         let isPositive = response.data.length == 0 ? null : response.data[0].positive;
                         let photoHtml = generatePhoto(photo, user, isPositive, appendingInProfile);
 
-                        appendPhoto(galContainerId, photoHtml);
+                        appendPhoto(galContainer, photoHtml);
                     });
                 }
                 // Else there is not vote info
                 else {
                     let photoHtml = generatePhoto(photo, user, null, appendingInProfile);
 
-                    appendPhoto(galContainerId, photoHtml);
+                    appendPhoto(galContainer, photoHtml);
                 }
             }
         });
@@ -27,9 +27,9 @@ function appendPhotos(galContainerId, photos, appendingInProfile = false) {
 
 
 // Appends the photo and add event handler
-function appendPhoto(galContainerId, photoHtml) {
-    $(`#${galContainerId}`).append(photoHtml);
-    $(`#${galContainerId} > :last-child > :nth-child(2)`).click(function () {
+function appendPhoto(galContainer, photoHtml) {
+    galContainer.append(photoHtml);
+    $(`#${galContainer.attr('id')} > :last-child > :nth-child(2)`).click(function () {
         updatePhotoModal($(this).siblings().first().text());
     });
 }
@@ -37,7 +37,7 @@ function appendPhoto(galContainerId, photoHtml) {
 
 function generatePhoto(photo, user, isPositive, appendingInProfile) {
     let profileLink = `profile.php?userId=${user.id}`;
-    let punctuation = getPhotoPunctuation(photo.upvotes, photo.downvotes);
+    let score = getPhotoScore(photo.upvotes, photo.downvotes);
     
     let photoHtml = `
             <div class='gal-photo-container'>
@@ -65,7 +65,7 @@ function generatePhoto(photo, user, isPositive, appendingInProfile) {
                     <button type='button' class='btn btn-vote' onclick='downvote($(this).parent().siblings().first().text())'>
                         ${negativeIco}
                     </button>
-                    <span id='gal-photo-score-${photo.id}'>${punctuation}</span>
+                    <span id='gal-photo-score-${photo.id}'>${score}</span>
                     <button type='button' class='btn btn-vote' onclick='upvote($(this).parent().siblings().first().text())'>
                         ${positiveIco}
                     </button>
@@ -83,7 +83,7 @@ function generatePhoto(photo, user, isPositive, appendingInProfile) {
         
         photoHtml += `
                 <div class='photo-overlay photo-overlay-r'>
-                    <span id='gal-photo-score-${photo.id}' class='mr-2'>${punctuation}</span>
+                    <span id='gal-photo-score-${photo.id}' class='mr-2'>${score}</span>
                 </div>
             </div>`;
     }

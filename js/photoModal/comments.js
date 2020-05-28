@@ -78,6 +78,7 @@ function postComment(event) {
         })
             .then(function () {
                 input.val("");
+                input.focus();
                 $("#photo-modal-no-comments").hide();
                 $("#photo-modal-comments-container").prepend(generateComment(data, userId, getLoggedUsername()));
                 disableDeleteBtn();

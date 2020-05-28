@@ -27,7 +27,7 @@ function loadRecentPhotos(from = 0, max = 50) {
                     window.location.href = "index.php";
                 }
 
-                appendPhotos("index-gal", photos);
+                appendPhotos($("#index-gal"), photos);
                 updatePagination(remainingPhotos);
             }
         })

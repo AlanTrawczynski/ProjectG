@@ -70,6 +70,18 @@ function getPhoto(id) {
         });
 }
 
+async function getPhotos(ids) {
+    let photos = [];
+
+    for (id of ids) {
+        await getPhoto(id).then(function (response) {
+            photos.push(response.data);
+        })
+    }
+
+    return photos;
+}
+
 async function getPhotosByTagId(tagId, onlyPublic = false) {
     let res = null;
     let url = onlyPublic ? `public=true&tags_like=${tagId}` : `tags_like=${tagId}`;

@@ -10,99 +10,49 @@
 
 <body>
 
-    <?php include 'navbars/navbar.php'?>
+    <?php include 'modals/photoModal.php'?>
+
+    <div id='navbar-container' class='sticky-top'>
+        <!-- navbar -->
+    </div>
     
     <div class='custom-container py-4'>
 
-        <ul class="nav nav-pink">
-            <li class="nav-item">
-                <a class="nav-link active" href="#">Trending users</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Trending photos</a>
-            </li>
-        </ul>
-
-
-        <div class='container-fluid trending-top-users'>
-            
-            <div class='row'>
-                <div class='col-md-auto my-auto text-center'>
-                    <img src="images/user.jpg" class='profile-pic' width='150px'>
-                </div>
-                <div class='col container'>
-                    <div class="row h-75">
-                        <div class="col">
-                            <div class='d-flex'>
-                                <h3>Full name</h3>
-                                <span class='ml-auto'>
-                                    <button class='btn btn-pink' type='button'>Follow</button>
-                                </span>
-                            </div>
-                            <h5>@username</h5>
-                        </div>
-                    </div>
-                    <div class="row h-25">
-                        <div class="col">
-                            <div class="progress" style='height: 100%'>
-                                <div class="progress-bar custom-progress-bar" style='width: 100%' role="progressbar" aria-valuenow="528704" aria-valuemin="0" aria-valuemax="528704">528704 followers</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+        <!-- top users -->
+        <div id="trending-top-users-slider" class="carousel slide" data-ride="carousel">
+            <ol id='trending-top-users-carousel-indicators' class="carousel-indicators">
+                <li data-target="#trending-top-users-slider" data-slide-to="0" class="active"></li>
+                <li data-target="#trending-top-users-slider" data-slide-to="1"></li>
+                <li data-target="#trending-top-users-slider" data-slide-to="2"></li>
+                <li data-target="#trending-top-users-slider" data-slide-to="3"></li>
+                <li data-target="#trending-top-users-slider" data-slide-to="4"></li>
+                <li data-target="#trending-top-users-slider" data-slide-to="5"></li>
+                <li data-target="#trending-top-users-slider" data-slide-to="6"></li>
+                <li data-target="#trending-top-users-slider" data-slide-to="7"></li>
+                <li data-target="#trending-top-users-slider" data-slide-to="8"></li>
+                <li data-target="#trending-top-users-slider" data-slide-to="9"></li>
+            </ol>
+            <div id='trending-top-users-carousel-inner' class="carousel-inner">
+                <!-- inners -->
             </div>
-
-            <div class='row'>
-                <div class='col-md-auto my-auto text-center'>
-                    <img src="images/user.jpg" class='profile-pic' width='150px'>
-                </div>
-                <div class='col container'>
-                    <div class="row h-75">
-                        <div class="col">
-                            ...
-                        </div>
-                    </div>
-                    <div class="row h-25">
-                        <div class="col">
-                            <div class="progress" style='height: 100%'>
-                                <div class="progress-bar custom-progress-bar" style='width: 91%' role="progressbar" aria-valuenow="481293" aria-valuemin="0" aria-valuemax="528704">481293 followers</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class='row'>
-                <div class='col-md-auto my-auto text-center'>
-                    <img src="images/user.jpg" class='profile-pic' width='150px'>
-                </div>
-                <div class='col container'>
-                    <div class="row h-75">
-                        <div class="col">
-                            ...
-                        </div>
-                    </div>
-                    <div class="row h-25">
-                        <div class="col">
-                            <div class="progress" style='height: 100%'>
-                                <div class="progress-bar custom-progress-bar" style='width: 49%' role="progressbar" aria-valuenow="259064" aria-valuemin="0" aria-valuemax="528704">259064 followers</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class='row'>
-                <div class='col text-center' style='font-size: 500%'>
-                    ...
-                </div>
-            </div>
-        
+            <a class="carousel-control-prev" href="#trending-top-users-slider" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#trending-top-users-slider" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
         </div>
 
+        <!-- top photos -->
+        <div id='trending-gal' class='gal mt-4'>
+            <!-- photos -->
+        </div>
     </div>   
 
     <?php include 'imports/bodyImports.php'?>
+    <script src='js/trending.js'></script>
 
 </body>
 

@@ -116,7 +116,7 @@ function updatePhotoVotes(photoId, upvotesOffset, downvotesOffset) {
         patchPhoto(photoId, data);
 
         // Update photo score in overlay
-        $(`#gal-photo-score-${photo.id}`).text(getPhotoPunctuation(finalUpvotes, finalDownvotes));
+        $(`#gal-photo-score-${photo.id}`).text(getPhotoScore(finalUpvotes, finalDownvotes));
 
         // Update votes info in photo modal
         updateProgressBar(finalUpvotes, finalDownvotes, photo.userId == getLoggedUserId());
@@ -130,7 +130,7 @@ function updatePhotoVotes(photoId, upvotesOffset, downvotesOffset) {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-function getPhotoPunctuation(upvotes, downvotes) {
+function getPhotoScore(upvotes, downvotes) {
     let sumVotes = upvotes + downvotes;
 
     return sumVotes == 0 ? 0 : parseFloat(((upvotes - downvotes) / sumVotes).toFixed(3))

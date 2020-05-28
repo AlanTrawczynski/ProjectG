@@ -31,7 +31,7 @@ function updateProfile(user) {
 
         if (publicPhotos.length > 0) {
             $("#profile-no-public-photos-info").hide();
-            appendPhotos("profile-public-gal", publicPhotos, true);
+            appendPhotos($("#profile-public-gal"), publicPhotos, true);
         }
     });
 
@@ -45,7 +45,7 @@ function updateProfile(user) {
 
             if (privatePhotos.length > 0) {
                 $("#profile-no-private-photos-info").hide();
-                appendPhotos("profile-private-gal", privatePhotos, true);
+                appendPhotos($("#profile-private-gal"), privatePhotos, true);
             }
         });
 

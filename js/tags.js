@@ -68,6 +68,7 @@ async function waitForResponse(tagName) {
 }
 
 
+// Deletes all tags with ids that have no photos associated
 async function deleteTagsIfVoid(ids) {
     for (id of ids) {
         await getPhotosByTagId(id).then(function (photos) {

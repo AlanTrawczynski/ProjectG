@@ -14,7 +14,7 @@ function updatePhotoModalInfo(photo, user, tags, userVote) {
     $("#photo-modal-date").text(photo.date.split("T")[0]);
 
     // Update photo score in overlay
-    $(`#gal-photo-score-${photo.id}`).text(getPhotoPunctuation(photo.upvotes, photo.downvotes));
+    $(`#gal-photo-score-${photo.id}`).text(getPhotoScore(photo.upvotes, photo.downvotes));
 
     // Update progress bar
     updateProgressBar(photo.upvotes, photo.downvotes, isLoggedUserPhoto);

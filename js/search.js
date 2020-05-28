@@ -12,7 +12,7 @@ $(function () {
 
                 showResults(tagName, len);
                 if (len > 0) {
-                    appendPhotos("search-gal", photos);
+                    appendPhotos($("#search-gal"), photos);
                 }
             })
         }

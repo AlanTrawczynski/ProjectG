@@ -27,7 +27,7 @@ function loadRecentPhotos(skip = 0, max = 50) {
                     window.location.href = "following.php";
                 }
 
-                appendPhotos("following-gal", photos);
+                appendPhotos($("#following-gal"), photos);
                 updatePagination(remainingPhotos);
             }
         })

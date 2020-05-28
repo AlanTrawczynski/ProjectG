@@ -70,7 +70,7 @@ function checkRepeatedPassword(password, password2) {
 }
 
 function checkUrl(data) {
-    return data !== "" && new RegExp("(https?:\/\/.*\.(?:png|jpg))").test(data);
+    return data !== "" && new RegExp("(https?:\/\/.*\.(?:png|jpeg|jpg))").test(data);
 }
 
 function checkIfVoid(data) {
