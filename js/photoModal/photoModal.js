@@ -37,6 +37,7 @@ function updatePhotoModal(photoId) {
 function updatePhotoModalData(photo, user, tags, userVote) {
     switchPhotoModalTo(0);
     updatePhotoModalInfo(photo, user, tags, userVote);
+    $("#photo-modal").modal('show');
     updatePhotoModalEdit(photo, tags);
     updatePhotoModalComments();
 }

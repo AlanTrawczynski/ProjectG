@@ -51,8 +51,8 @@ $(function () {
                 return x !== 0 ? x : (b[1] + b[2]) - (a[1] + a[2]);
             });
 
-            // Get first 10 photoIds
-            trendingPhotosIds = votesByPhotoId.slice(0, 10).map(a => a[0]);
+            // Get first 12 photoIds
+            trendingPhotosIds = votesByPhotoId.slice(0, 12).map(a => a[0]);
 
             // Append trending photos
             getPhotos(trendingPhotosIds).then(function (photos) {
@@ -129,7 +129,7 @@ async function getUserBestPhoto(userId) {
 
         photos.sort(function (p1, p2) {
             let x = (p2.upvotes + p2.downvotes) - (p1.upvotes + p1.downvotes);
-            return x !== 0 ? x : getPhotoScore(p2.upvotes, p2.downvotes) - getPhotoScore(p1.upvotes, p1.downvotes)
+            return x !== 0 ? x : p2.upvotes - p1.upvotes;
         })
 
         bestPhoto = photos[0];
@@ -140,13 +140,16 @@ async function getUserBestPhoto(userId) {
 
 function generateInner(user, photo, followers, active) {
     let activeString = active ? "active" : "";
+    let profileLink = `profile.php?userId=${user.id}`;
 
     return `
         <div class="carousel-item ${activeString}">
             <img src="${photo.url}" class="d-block w-100">
             <div class="carousel-caption">
                 <p class='m-0'>${followers} followers</p>
-                <h5 class='m-0'>@${user.user}</h5>
+                <a href='${profileLink}'>
+                    <h5 class='m-0'>@${user.user}</h5>
+                </a>
             </div>
         </div>`
 }

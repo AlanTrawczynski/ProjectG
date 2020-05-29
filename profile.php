@@ -28,7 +28,7 @@
                     <div class='profile-nf-container d-flex'>
                         <h2 id='profile-name'>Full name</h2>
                         <span>
-                            <button id='profile-follow-btn' class='btn btn-sm btn-pink' type='button' onmouseover='toggleFollowBtnText($(this), event)' onmouseout='toggleFollowBtnText($(this), event)'>Follow</button>
+                            <button id='profile-follow-btn' class='btn btn-sm btn-pink' type='button' style='display: none' onmouseover='toggleFollowBtnText($(this), event)' onmouseout='toggleFollowBtnText($(this), event)'>Follow</button>
                         </span>
                     </div>
                     <div class='d-flex align-items-center mb-2'>
@@ -47,19 +47,19 @@
             <li id='profile-public-photos-link' class="nav-item">
                 <a class="nav-link active pointer" onclick='showPublicPhotos()'>Public photos</a>
             </li>
-            <li id='profile-private-photos-link' class="nav-item">
+            <li id='profile-private-photos-link' class="nav-item" style='display: none'>
                 <a class="nav-link pointer" onclick='showPrivatePhotos()'>Private photos</a>
             </li>
         </ul>
 
         <div id='profile-public-gal-container' class='py-4'>
-            <div id='profile-no-public-photos-info' class='profile-no-photos'>No photos found.</div>
+            <div id='profile-no-public-photos-info' class='profile-no-photos' style='display: none'>No photos found.</div>
             <div id='profile-public-gal' class='gal'>
                 <!-- public photos -->
             </div>
         </div>
         <div id='profile-private-gal-container' class='py-4'>
-            <div id='profile-no-private-photos-info' class='profile-no-photos'>No photos found.</div>
+            <div id='profile-no-private-photos-info' class='profile-no-photos' style='display: none'>No photos found.</div>
             <div id='profile-private-gal' class='gal'>
                 <!-- private photos -->
             </div>

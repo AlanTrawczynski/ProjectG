@@ -24,7 +24,7 @@
 
     <hr>
 
-    <nav class='nav-pink pink-pagination'>
+    <nav id='index-pagination' class='nav-pink pink-pagination'>
         <ul class="pagination justify-content-center my-4">
             <li id="index-previous-page-ico" class="page-item">
                 <a class="page-link" href='#'>

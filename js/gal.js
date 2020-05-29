@@ -29,7 +29,8 @@ function appendPhotos(galContainer, photos, appendingInProfile = false) {
 // Appends the photo and add event handler
 function appendPhoto(galContainer, photoHtml) {
     galContainer.append(photoHtml);
-    $(`#${galContainer.attr('id')} > :last-child > :nth-child(2)`).click(function () {
+    
+    galContainer.find(`> :last-child > :nth-child(2)`).click(function () {
         updatePhotoModal($(this).siblings().first().text());
     });
 }
@@ -38,11 +39,11 @@ function appendPhoto(galContainer, photoHtml) {
 function generatePhoto(photo, user, isPositive, appendingInProfile) {
     let profileLink = `profile.php?userId=${user.id}`;
     let score = getPhotoScore(photo.upvotes, photo.downvotes);
-    
+
     let photoHtml = `
             <div class='gal-photo-container'>
                 <span hidden>${photo.id}</span>
-                <div class='pointer' data-toggle="modal" data-target="#photo-modal">  
+                <div class='pointer'>  
                     <img class='gal-photo' src="${photo.url}">
                 </div>`;
 
@@ -80,7 +81,7 @@ function generatePhoto(photo, user, isPositive, appendingInProfile) {
                     <img class='profile-pic mr-2 ml-1' src="images/user.jpg" width='27.5px'>
                     <span>@${user.user}</span>
                 </a>`;
-        
+
         photoHtml += `
                 <div class='photo-overlay photo-overlay-r'>
                     <span id='gal-photo-score-${photo.id}' class='mr-2'>${score}</span>
