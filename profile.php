@@ -11,6 +11,7 @@
 <body>
 
     <?php include 'modals/photoModal.php'?>
+    <?php include 'modals/changeProfilePic.php'?>
 
     <div id='navbar-container' class='sticky-top'>
         <!-- navbar -->
@@ -21,7 +22,9 @@
         <div class='profile-container'>
 
             <div class='profile-pic-container'>
-                <img src="images/user.jpg" class='profile-pic' width='150px' height='150px'>
+                <a id='profile-avatar-link' href="#changeProfilePic-modal" data-toggle="modal">
+                    <img id='profile-avatar' src="images/user.jpg" class='profile-pic' width='150px' height='150px'>
+                </a>
             </div>
             <div class='my-auto'>
                 <div class='profile-data-container'>

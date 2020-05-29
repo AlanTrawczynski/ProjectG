@@ -78,6 +78,7 @@ function loadSignupValidation() {
                                             "email": emailVal,
                                             "password": passwordVal,
                                             "user": usernameVal,
+                                            "avatar": "",
                                             "following": []
                                         }
 

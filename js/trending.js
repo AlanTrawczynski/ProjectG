@@ -110,8 +110,8 @@ $(function () {
 });
 
 
-function appendTrendingUser(user, followers) {
-    getUserBestPhoto(user.id).then(function (photo) {
+async function appendTrendingUser(user, followers) {
+    await getUserBestPhoto(user.id).then(function (photo) {
         let innersContainer = $("#trending-top-users-carousel-inner");
         let first = innersContainer.children().length === 0;
 

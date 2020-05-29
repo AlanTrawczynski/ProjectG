@@ -6,7 +6,7 @@
         <div class="modal-header">
             <div class='photo-modal-user'>
                 <a id='photo-modal-profile-href' href="profile.php">
-                    <img class='profile-pic mr-2' src="images/user.jpg" width='35px'>
+                    <img id='photo-modal-profile-pic' class='profile-pic mr-2' src="images/user.jpg" width='35px' height='35px'>
                     <span id='photo-modal-username' class='mr-4'>@username</span>
                 <a>
                 <button id='photo-modal-follow-btn' class='btn btn-pink btn-sm photo-modal-show-when-logged' type='button' onmouseover='toggleFollowBtnText($(this), event)' onmouseout='toggleFollowBtnText($(this), event)'>Follow</button>

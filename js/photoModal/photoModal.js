@@ -1,43 +1,34 @@
-function updatePhotoModal(photoId) {
-    // Get photo
-    getPhoto(photoId).then(function (response) {
-        if (response.status == 200) {
-            let photo = response.data;
+function updatePhotoModal(event) {
+    let photo = event.data.photo;
+    let user = event.data.user;
 
-            // Get photo owner
-            getUser(photo.userId).then(function (response) {
+    // Get photo tags
+    getTags(photo.tags).then(function (tags) {
+        // If current user is logged and is not the photo owner, get his vote info
+        if (isLogged() && getLoggedUserId() != user.id) {
+            getVote(photo.id, getLoggedUserId()).then(function (response) {
                 if (response.status == 200) {
-                    let user = response.data;
+                    let vote = response.data.length > 0 ? response.data[0] : null;
 
-                    // Get photo tags
-                    getTags(photo.tags).then(function (tags) {
-
-                        // If current user is logged and is not the photo owner, get his vote info
-                        if (isLogged() && getLoggedUserId() != user.id) {
-                            getVote(photo.id, getLoggedUserId()).then(function (response) {
-                                if (response.status == 200) {
-                                    let userVote = response.data.length > 0 ? response.data[0] : null;
-
-                                    updatePhotoModalData(photo, user, tags, userVote);
-                                }
-                            });
-                        }
-                        // Else there is not vote info
-                        else {
-                            updatePhotoModalData(photo, user, tags, null);
-                        }
-                    });
+                    updatePhotoModalData(photo, user, tags, vote);
                 }
             });
+        }
+        // Else there is not vote info
+        else {
+            updatePhotoModalData(photo, user, tags, null);
         }
     });
 }
 
 
-function updatePhotoModalData(photo, user, tags, userVote) {
+function updatePhotoModalData(photo, user, tags, vote) {
     switchPhotoModalTo(0);
-    updatePhotoModalInfo(photo, user, tags, userVote);
+    
+    updatePhotoModalInfo(photo, user, tags, vote);
+
     $("#photo-modal").modal('show');
+
     updatePhotoModalEdit(photo, tags);
     updatePhotoModalComments();
 }

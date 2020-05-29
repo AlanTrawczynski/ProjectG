@@ -1,4 +1,4 @@
-function updatePhotoModalInfo(photo, user, tags, userVote) {
+function updatePhotoModalInfo(photo, user, tags, vote) {
     let isLoggedUserPhoto = user.id == getLoggedUserId();
     let sumVotes = photo.upvotes + photo.downvotes;
 
@@ -12,6 +12,9 @@ function updatePhotoModalInfo(photo, user, tags, userVote) {
     $("#photo-modal-positive-votes").text(photo.upvotes);
     $("#photo-modal-negative-votes").text(photo.downvotes);
     $("#photo-modal-date").text(photo.date.split("T")[0]);
+
+    let avatar = user.avatar === "" ? "images/user.jpg" : user.avatar;
+    $("#photo-modal-profile-pic").attr('src', avatar);
 
     // Update photo score in overlay
     $(`#gal-photo-score-${photo.id}`).text(getPhotoScore(photo.upvotes, photo.downvotes));
@@ -33,9 +36,9 @@ function updatePhotoModalInfo(photo, user, tags, userVote) {
             $(".photo-modal-show-when-logged").show();
 
             // Update voting btns highlight
-            if (userVote === null) {
+            if (vote === null) {
                 HLVotingBtns(photo.id, 0)
-            } else if (userVote.positive) {
+            } else if (vote.positive) {
                 HLVotingBtns(photo.id, 1)
             } else {
                 HLVotingBtns(photo.id, -1)

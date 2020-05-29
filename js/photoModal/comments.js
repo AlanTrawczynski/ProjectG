@@ -79,9 +79,12 @@ function postComment(event) {
             .then(function () {
                 input.val("");
                 input.focus();
-                $("#photo-modal-no-comments").hide();
-                $("#photo-modal-comments-container").prepend(generateComment(data, userId, getLoggedUsername()));
+                $("#photo-modal-no-comments").hide();      
                 disableDeleteBtn();
+                
+                getLoggedUser().then(function(response) {
+                    $("#photo-modal-comments-container").prepend(generateComment(data, response.data));
+                });
             })
             .catch(function (error) {
                 console.log(`Error al crear el comentario del usuario con id ${userId} en la foto con id ${photoId}: ` + error);
@@ -97,12 +100,12 @@ async function appendComments(comments) {
         await getUser(comment.userId).then(function (response) {
             let user = response.data;
 
-            commentsContainer.append(generateComment(comment, user.id, user.user));
+            commentsContainer.append(generateComment(comment, user));
         });
     }
 }
 
-function generateComment(comment, userId, username) {
+function generateComment(comment, user) {
     let commentDate = new Date(comment.date);
     let now = new Date();
     let dif = now - commentDate;     // ms
@@ -127,12 +130,14 @@ function generateComment(comment, userId, username) {
         commentTimeInfo = minutes > 1 ? Math.floor(minutes) + "m ago" : "1m ago";    // minutes
     }
 
+    let avatar = user.avatar === "" ? "images/user.jpg" : user.avatar;
+
     return `
         <li class="media comment my-3">
-            <img class='profile-pic mr-3' src="images/user.jpg" width='40px'>
+            <img class='profile-pic mr-3' src="${avatar}" width='40px' height='40px'>
             <div class="media-body">
                 <div class="d-flex">
-                    <a href='profile.php?userId=${userId}' class="mt-0 mb-1 mr-3 comment-username">@${username}</a>
+                    <a href='profile.php?userId=${user.id}' class="mt-0 mb-1 mr-3 comment-username">@${user.user}</a>
                     <span class='comment-time'>${commentTimeInfo}</span>
                 </div>
                 <span class='comment-content'>${comment.content}</span>
