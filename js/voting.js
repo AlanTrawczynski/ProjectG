@@ -133,7 +133,7 @@ function updatePhotoVotes(photoId, upvotesOffset, downvotesOffset) {
 function getPhotoScore(upvotes, downvotes) {
     let sumVotes = upvotes + downvotes;
 
-    return sumVotes == 0 ? 0 : parseFloat(((upvotes - downvotes) / sumVotes).toFixed(3))
+    return sumVotes == 0 ? 0 : parseFloat(((upvotes - downvotes) / sumVotes).toFixed(3));
 }
 
 // HL-Highlight

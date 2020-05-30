@@ -123,20 +123,21 @@
                     <div id='photo-modal-edit-visibility' class="form-group">
                         <div class="form-check form-check-inline ml-1">
                             <input id='photo-modal-edit-public' class="form-check-input" type="radio" name="photoVisibility" value="public">
-                            <label class="form-check-label" for="publicVisibility">Public</label>
+                            <label class="form-check-label" for="photo-modal-edit-public">Public</label>
                         </div>
                         <div class="form-check form-check-inline">
                             <input id='photo-modal-edit-private' class="form-check-input" type="radio" name="photoVisibility" value="private">
-                            <label class="form-check-label" for="privateVisibility">Private</label>
+                            <label class="form-check-label" for="photo-modal-edit-private">Private</label>
                         </div>
-                    </div>
+                        <small class="form-text text-muted photo-modal-with-comments-info">Visibility of photos with comments cannot be changed.</small>
+                    </div>               
 
                     <div id="photo-modal-edit-error" onclick="$(this).hide()" class="invalid-feedback pointer not-small-feedback"></div>
                     <div class='d-flex mt-4'>
                         <button id='photo-modal-delete-photo-btn' class="btn btn-grey btn-block pink-hover mr-2" type="button">Delete Photo</button>
                         <button class="btn btn-pink btn-block ml-2 mt-0" type="submit">Save changes</button>
                     </div>
-                    <small id="photo-modal-delete-photo-info" class="form-text text-muted">Photos with comments cannot be deleted.</small>
+                    <small class="form-text text-muted photo-modal-with-comments-info">Photos with comments cannot be deleted.</small>
             
                 </form>
             </div>

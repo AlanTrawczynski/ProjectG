@@ -66,7 +66,7 @@ function updateProfile(user) {
     privatePhotosLink.hide();
 
     // Load public photos
-    getUserPhotos(user.id).then(function (response) {
+    getUserPhotos(user.id, true).then(function (response) {
         let publicPhotos = response.data;
 
         if (publicPhotos.length > 0) {

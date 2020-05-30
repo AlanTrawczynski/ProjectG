@@ -17,9 +17,9 @@ function updatePhotoModalEdit(photo, tags) {
     }
 
     if (photo.public) {
-        $("#photo-modal-edit-public").attr("checked", "checked");
+        $("#photo-modal-edit-public").prop("checked", true);
     } else {
-        $("#photo-modal-edit-private").attr("checked", "checked");
+        $("#photo-modal-edit-private").prop("checked", true);
     }
 
     if (!tagsInput.hasClass("auto-append-added")) {

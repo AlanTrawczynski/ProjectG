@@ -30,7 +30,7 @@ function updatePhotoModalData(photo, user, tags, vote) {
     $("#photo-modal").modal('show');
 
     updatePhotoModalEdit(photo, tags);
-    updatePhotoModalComments();
+    updatePhotoModalComments(photo.public);
 }
 
 

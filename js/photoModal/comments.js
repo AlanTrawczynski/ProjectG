@@ -1,34 +1,42 @@
-function updatePhotoModalComments(skipComments = 0) {
-    $("#photo-modal-no-comments").hide();
-    $("#photo-modal-load-more-btn").hide();
-    disableDeleteBtn();
+function updatePhotoModalComments(isPublic, skipComments = 0) {
+    if (isPublic) {
+        $("#photo-modal-comments-link").show();
+        
+        $("#photo-modal-no-comments").hide();
+        $("#photo-modal-load-more-btn").hide();
+        disableDeleteAndVisibility();
 
-    if (!isLogged()) {
-        $("#photo-modal-comment-form").hide();
-    }
+        if (!isLogged()) {
+            $("#photo-modal-comment-form").hide();
+        }
 
-    let photoId = $("#photo-modal-photo-id").text();
+        let photoId = $("#photo-modal-photo-id").text();
 
-    if (skipComments === 0) {
-        $("#photo-modal-comments-container").empty();
-    }
+        if (skipComments === 0) {
+            $("#photo-modal-comments-container").empty();
+        }
 
-    // Append photo comments
-    getPhotoComments(photoId, skipComments).then(async function (response) {
-        let comments = response.data.length === 0 ? null : response.data;
+        // Append photo comments
+        getPhotoComments(photoId, skipComments).then(async function (response) {
+            let comments = response.data.length === 0 ? null : response.data;
 
-        if (comments !== null || skipComments > 0) {
-            if (comments.length === 10) {
-                $("#photo-modal-load-more-btn").show();
+            if (comments !== null || skipComments > 0) {
+                if (comments.length === 10) {
+                    $("#photo-modal-load-more-btn").show();
+                }
+
+                appendComments(comments);
             }
-
-            appendComments(comments);
-        }
-        else {
-            $("#photo-modal-no-comments").show();
-            ableDeleteBtn();
-        }
-    });
+            else {
+                $("#photo-modal-no-comments").show();
+                ableDeleteAndVisibility();
+            }
+        });
+    }
+    else {
+        $("#photo-modal-comments-link").hide();
+        ableDeleteAndVisibility();
+    }
 }
 
 
@@ -79,10 +87,10 @@ function postComment(event) {
             .then(function () {
                 input.val("");
                 input.focus();
-                $("#photo-modal-no-comments").hide();      
-                disableDeleteBtn();
-                
-                getLoggedUser().then(function(response) {
+                $("#photo-modal-no-comments").hide();
+                disableDeleteAndVisibility();
+
+                getLoggedUser().then(function (response) {
                     $("#photo-modal-comments-container").prepend(generateComment(data, response.data));
                 });
             })
@@ -95,7 +103,7 @@ function postComment(event) {
 
 async function appendComments(comments) {
     let commentsContainer = $("#photo-modal-comments-container");
-    
+
     for (comment of comments) {
         await getUser(comment.userId).then(function (response) {
             let user = response.data;
@@ -147,18 +155,26 @@ function generateComment(comment, user) {
 }
 
 
-function disableDeleteBtn() {
+function disableDeleteAndVisibility() {
     let deletePhotoBtn = $("#photo-modal-delete-photo-btn");
 
     deletePhotoBtn.prop("disabled", true);
     deletePhotoBtn.removeClass("pink-hover");
-    $("#photo-modal-delete-photo-info").show();
+
+    $("#photo-modal-edit-public").prop("disabled", true);
+    $("#photo-modal-edit-private").prop("disabled", true);
+
+    $(".photo-modal-with-comments-info").show();
 }
 
-function ableDeleteBtn() {
+function ableDeleteAndVisibility() {
     let deletePhotoBtn = $("#photo-modal-delete-photo-btn");
 
     deletePhotoBtn.prop("disabled", false);
     deletePhotoBtn.addClass("pink-hover");
-    $("#photo-modal-delete-photo-info").hide();
+
+    $("#photo-modal-edit-public").prop("disabled", false);
+    $("#photo-modal-edit-private").prop("disabled", false);
+
+    $(".photo-modal-with-comments-info").hide();
 }

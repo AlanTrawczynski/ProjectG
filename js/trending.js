@@ -70,7 +70,8 @@ $(function () {
         .then(function (response) {
             let users = response.data;
             let usersIndex = {};           // {userId: int (index of user Object in users array)}
-            let followersByUserId = {};    // {userId: int}
+            let followersByUserId = {};    // {userId: int (num of followers)}
+            let trendingUsers = [];         // [user, numOfFollowers]
 
             // Populate usersIndex
             for (let i = 0; i < users.length; i++) {
@@ -92,17 +93,20 @@ $(function () {
             // Convert followersByUser to an array like [[userId, userFollowers], ...]
             followersByUserId = Object.entries(followersByUserId);
 
-            // Sort followersByUserId by highest number of followers
-            followersByUserId.sort((a, b) => b[1] - a[1]);
+            // Sort followersByUserId by highest number of followers and get first 10
+            followersByUserId.sort((a, b) => b[1] - a[1]).splice(10);
 
-            // Append first 10 users
-            for (let i = 0; i < 10; i++){
+            // Populate trendingUsers
+            for (let i = 0; i < 10; i++) {
                 let userId = followersByUserId[i][0];
                 let followers = followersByUserId[i][1];
                 let user = users[usersIndex[userId]];
 
-                appendTrendingUser(user, followers);
+                trendingUsers.push([user, followers]);
             }
+
+            // Append trending users
+            appendTrendingUsers(trendingUsers);
         })
         .catch(function (error) {
             console.log(`Error al pedir los usuarios: ` + error);
@@ -110,35 +114,44 @@ $(function () {
 });
 
 
-async function appendTrendingUser(user, followers) {
-    await getUserBestPhoto(user.id).then(function (photo) {
-        let innersContainer = $("#trending-top-users-carousel-inner");
-        let first = innersContainer.children().length === 0;
+async function appendTrendingUsers(trendingUsers) {
+    for (trendingUser of trendingUsers) {
+        let user = trendingUser[0];
+        let followers = trendingUser[1];
 
-        let inner = generateInner(user, photo, followers, first);
+        await getUserPhotos(user.id).then(function (response) {
+            let photos = response.data;
+            let publicPhotos = photos.filter(photo => photo.public === true);
 
-        innersContainer.append(inner);
-    });
+            let averageScore = getUserAverageScore(photos);
+            let bestPhoto = getUserBestPhoto(publicPhotos);
+
+            let innersContainer = $("#trending-top-users-carousel-inner");
+            let first = innersContainer.children().length === 0;
+
+            let inner = generateInner(user, bestPhoto, followers, averageScore, first);
+            innersContainer.append(inner);
+        });
+    }
 }
 
-async function getUserBestPhoto(userId) {
-    let bestPhoto = null;
+function getUserBestPhoto(photos) {
+    photos.sort(function (p1, p2) {
+        let x = (p2.upvotes + p2.downvotes) - (p1.upvotes + p1.downvotes);
+        return x !== 0 ? x : p2.upvotes - p1.upvotes;
+    })
 
-    await getUserPhotos(userId).then(function (response) {
-        let photos = response.data;
-
-        photos.sort(function (p1, p2) {
-            let x = (p2.upvotes + p2.downvotes) - (p1.upvotes + p1.downvotes);
-            return x !== 0 ? x : p2.upvotes - p1.upvotes;
-        })
-
-        bestPhoto = photos[0];
-    });
-
-    return bestPhoto;
+    return photos[0];
 }
 
-function generateInner(user, photo, followers, active) {
+function getUserAverageScore(photos) {
+    let len = photos.length;
+    let sum = photos.map(photo => getPhotoScore(photo.upvotes, photo.downvotes)).reduce((acc, cur) => acc + cur, 0);
+
+    return parseFloat((sum / len).toFixed(3));
+}
+
+function generateInner(user, photo, followers, averageScore, active) {
     let activeString = active ? "active" : "";
     let profileLink = `profile.php?userId=${user.id}`;
 
@@ -146,10 +159,14 @@ function generateInner(user, photo, followers, active) {
         <div class="carousel-item ${activeString}">
             <img src="${photo.url}" class="d-block w-100">
             <div class="carousel-caption">
-                <p class='m-0'>${followers} followers</p>
                 <a href='${profileLink}'>
                     <h5 class='m-0'>@${user.user}</h5>
                 </a>
+                <p class='m-0'>
+                    <span class='mr-1'>${followers} followers</span>
+                    <span>|</span>
+                    <span class='ml-1'>${averageScore} pts.</span>         
+                </p>
             </div>
         </div>`
 }

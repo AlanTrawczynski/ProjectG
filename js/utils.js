@@ -84,9 +84,9 @@ async function getPhotos(ids) {
 
 async function getPhotosByTagId(tagId, onlyPublic = false) {
     let res = null;
-    let url = onlyPublic ? `public=true&tags_like=${tagId}` : `tags_like=${tagId}`;
+    let public = onlyPublic ? `&public=true` : ``;
 
-    await axios.get(`http://localhost:3000/photos?${url}`)
+    await axios.get(`http://localhost:3000/photos?tags_like=${tagId}${public}`)
         .then(function (response) {
             let photos = response.data.filter(photo => photo.tags.includes(tagId));
 
@@ -101,8 +101,19 @@ async function getPhotosByTagId(tagId, onlyPublic = false) {
     return res;
 }
 
-function getUserPhotos(userId, public = true) {
-    return axios.get(`http://localhost:3000/photos?userId=${userId}&public=${public}`)
+// public = null: returns all user photos
+function getUserPhotos(userId, public = null) {
+    let publicUrl = "";
+
+    if (public !== null) {
+        if (public) {
+            publicUrl = "&public=true";
+        } else if (!public) {
+            publicUrl = "&public=false";
+        }
+    }
+
+    return axios.get(`http://localhost:3000/photos?userId=${userId}${publicUrl}`)
         .catch(function (error) {
             console.log(`Error al pedir las fotos del usuario con id ${userId}: ` + error);
         });
