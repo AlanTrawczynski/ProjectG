@@ -37,7 +37,8 @@ function loadLoginValidation() {
 
 function handleLogin(data) {
     let token = data.accessToken;
-    storeToken(token).then(function() {
+
+    storeToken(token).then(function () {
         window.location.href = "index.php";
     });
 }
@@ -52,7 +53,10 @@ function handleLoginError(error) {
 }
 
 function incorrectLoginInput() {
+    let passwordInput = $("#login-password");
+
     $("#login-error").hide();
     $("#login-input-error").show();
-    $("#login-password").val("");
+    passwordInput.val("");
+    passwordInput.focus();
 }

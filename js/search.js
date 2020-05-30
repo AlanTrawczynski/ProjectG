@@ -1,14 +1,12 @@
 $(function () {
-    const queryString = window.location.search;
-    const urlParams = new URLSearchParams(queryString);
-    const tagName = urlParams.get('tag');
+    let tagName = getUrlValue('tag');
 
     getTagByName(tagName).then(function (response) {
-        let tagId = response.data.length != 0 ? response.data[0].id : null;
+        let tagId = response.data.length === 0 ? null : response.data[0].id;
 
         if (tagId != null) {
             getPhotosByTagId(tagId, true).then(function (photos) {
-                let len = photos !== null ? photos.length : 0;
+                let len = photos === null ? 0 : photos.length;
 
                 showResults(tagName, len);
                 if (len > 0) {

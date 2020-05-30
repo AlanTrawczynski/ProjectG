@@ -6,12 +6,12 @@ $(function () {
             let votesByPhotoId = {};    // {photoId : {upvotes: int, downvotes: int}}
             let trendingPhotosIds;
 
-            // Filter votes (remove votes from more than a week ago)
             /*
-            let now = new Date();
+            // Filter votes (remove votes from more than a week ago)
+            let currentTime = new Date();
             votes = votes.filter(function (vote) {
                 let voteDate = new Date(vote.date);
-                let daysDif = (now - voteDate) / (1000*60*60*24);
+                let daysDif = (currentTime - voteDate) / (1000*60*60*24);
 
                 return daysDif < 7;
             });
@@ -61,7 +61,7 @@ $(function () {
 
         })
         .catch(function (error) {
-            console.log(`Error al pedir las fotos: ` + error);
+            console.log(`Error al pedir los votos: ` + error);
         });
 
 
@@ -71,7 +71,7 @@ $(function () {
             let users = response.data;
             let usersIndex = {};           // {userId: int (index of user Object in users array)}
             let followersByUserId = {};    // {userId: int (num of followers)}
-            let trendingUsers = [];         // [user, numOfFollowers]
+            let trendingUsers = [];        // [[user, numOfFollowers], ...]
 
             // Populate usersIndex
             for (let i = 0; i < users.length; i++) {
@@ -80,12 +80,12 @@ $(function () {
 
             // Populate followersByUser
             for (user of users) {
-                for (userId of user.following) {
-                    if (followersByUserId.hasOwnProperty(userId)) {
-                        followersByUserId[userId]++;
+                for (followedUserId of user.following) {
+                    if (followersByUserId.hasOwnProperty(followedUserId)) {
+                        followersByUserId[followedUserId]++;
                     }
                     else {
-                        followersByUserId[userId] = 1;
+                        followersByUserId[followedUserId] = 1;
                     }
                 }
             }
@@ -93,8 +93,8 @@ $(function () {
             // Convert followersByUser to an array like [[userId, userFollowers], ...]
             followersByUserId = Object.entries(followersByUserId);
 
-            // Sort followersByUserId by highest number of followers and get first 10
-            followersByUserId.sort((a, b) => b[1] - a[1]).splice(10);
+            // Sort followersByUserId by highest number of followers
+            followersByUserId.sort((a, b) => b[1] - a[1]);
 
             // Populate trendingUsers
             for (let i = 0; i < 10; i++) {

@@ -2,7 +2,7 @@ function toggleFollow(event) {
     let userId = event.data.userId;
     let btn = $(this);
 
-    getUser(getLoggedUserId()).then(function (response) {
+    getLoggedUser().then(function (response) {
         let loggedUser = response.data;
         let followingList = loggedUser.following;
 
@@ -20,7 +20,7 @@ function toggleFollow(event) {
                 return text === "Follow" ? "Following" : "Follow";
             });
 
-            // If clicked btn is photo-modal-follow-btn and current page is "profile.php", update profile-follow-btn text
+            // If clicked btn is photo-modal-follow-btn and current page is "profile.php", update profile-follow-btn too
             if (btn.attr('id') === "photo-modal-follow-btn" && getPageString() === "profile.php"){
                 $("#profile-follow-btn").text(function (i, text) {
                     return text === "Follow" ? "Following" : "Follow";
@@ -32,7 +32,7 @@ function toggleFollow(event) {
 
 
 function updateFollowBtn(btn, userId) {
-    getUser(getLoggedUserId()).then(function (response) {
+    getLoggedUser().then(function (response) {
         let loggedUser = response.data;
 
         if (loggedUser.following.includes(userId)) {

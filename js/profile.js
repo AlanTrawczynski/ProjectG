@@ -1,7 +1,5 @@
 $(function () {
-    const queryString = window.location.search;
-    const urlParams = new URLSearchParams(queryString);
-    const userId = urlParams.get('userId');
+    let userId = getUrlValue('userId');
 
     // Update profile
     $.ajax({
@@ -13,40 +11,43 @@ $(function () {
         }
     });
 
-    // Load profile picture preview
-    $("#changeProfilePic-url").on("input", function () {
-        updateProfilePicPreview(this.value);
-    });
+    // If it is loggedUser profile enable profile picture change
+    if (userId == getLoggedUserId()) {
+        // Load profile picture preview
+        $("#changeProfilePic-url").on("input", function () {
+            updateProfilePicPreview(this.value);
+        });
 
-    // Load changeProfilePic submit handler and add auto-validation to url input
-    addAutoValidation($("#changeProfilePic-url"), checkUrl);
+        // Load changeProfilePic submit handler and add auto-validation to url input
+        addAutoValidation($("#changeProfilePic-url"), checkUrl);
 
-    $("#changeProfilePic-form").submit(function (event) {
-        event.preventDefault();
-        $("#changeProfilePic-error").hide();
+        $("#changeProfilePic-form").submit(function (event) {
+            event.preventDefault();
+            $("#changeProfilePic-error").hide();
 
-        let url = $("#changeProfilePic-url").val();
+            let url = $("#changeProfilePic-url").val();
 
-        if (checkUrl(url)) {
-            fetch('http://localhost:3000/users/' + getLoggedUserId(), {
-                method: "PATCH",
-                body: JSON.stringify({
-                    "avatar": url
-                }),
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': 'Bearer ' + getToken(),
-                }
-            })
-                .then(function () {
-                    location.reload();
+            if (checkUrl(url)) {
+                fetch('http://localhost:3000/users/' + getLoggedUserId(), {
+                    method: "PATCH",
+                    body: JSON.stringify({
+                        "avatar": url
+                    }),
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer ' + getToken(),
+                    }
                 })
-                .catch(function () {
-                    $("#changeProfilePic-error").text("An error occurred. Please try again.");
-                    $("#changeProfilePic-error").show();
-                });
-        }
-    });
+                    .then(function () {
+                        location.reload();
+                    })
+                    .catch(function () {
+                        $("#changeProfilePic-error").text("An error occurred. Please try again.");
+                        $("#changeProfilePic-error").show();
+                    });
+            }
+        });
+    }
 });
 
 
@@ -61,9 +62,6 @@ function updateProfile(user) {
     if (user.avatar !== "") {
         $("#profile-avatar").attr("src", user.avatar);
     }
-
-    followBtn.hide();
-    privatePhotosLink.hide();
 
     // Load public photos
     getUserPhotos(user.id, true).then(function (response) {
@@ -115,25 +113,29 @@ function showPrivatePhotos() {
 
 
 function updateProfilePicPreview(url) {
-    $("#changeProfilePic-preview").attr('src', 'images/user.jpg');
-    $("#changeProfilePic-submit-btn").prop('disabled', true);
-    $("#changeProfilePic-error").hide();
+    let preview = $("#changeProfilePic-preview");
+    let submitBtn = $("#changeProfilePic-submit-btn");
+    let errorContainer = $("#changeProfilePic-error");
+
+    preview.attr('src', 'images/user.jpg');
+    submitBtn.prop('disabled', true);
+    errorContainer.hide();
 
     if (checkUrl(url)) {
         $("#changeProfilePic-loading").show()
 
         $.get(url)
             .done(function () {
-                $("#changeProfilePic-preview").attr('src', url);
+                preview.attr('src', url);
 
-                $("#changeProfilePic-submit-btn").prop('disabled', false);
+                submitBtn.prop('disabled', false);
                 $("#changeProfilePic-loading").hide()
             })
             .fail(function () {
-                $("#changeProfilePic-error").text("Profile picture preview failed.");
-                $("#changeProfilePic-error").show();
+                errorContainer.text("Profile picture preview failed.");
+                errorContainer.show();
 
-                $("#changeProfilePic-submit-btn").prop('disabled', false);
+                submitBtn.prop('disabled', false);
                 $("#changeProfilePic-loading").hide()
             });
     }

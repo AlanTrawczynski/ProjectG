@@ -4,17 +4,15 @@ function updatePhotoModal(event) {
 
     // Get photo tags
     getTags(photo.tags).then(function (tags) {
-        // If current user is logged and is not the photo owner, get his vote info
+        // If current user is logged and is not the photo owner, get his vote
         if (isLogged() && getLoggedUserId() != user.id) {
             getVote(photo.id, getLoggedUserId()).then(function (response) {
-                if (response.status == 200) {
-                    let vote = response.data.length > 0 ? response.data[0] : null;
+                let vote = response.data.length > 0 ? response.data[0] : null;
 
-                    updatePhotoModalData(photo, user, tags, vote);
-                }
+                updatePhotoModalData(photo, user, tags, vote);
             });
         }
-        // Else there is not vote info
+        // Else there is not vote
         else {
             updatePhotoModalData(photo, user, tags, null);
         }
@@ -24,7 +22,7 @@ function updatePhotoModal(event) {
 
 function updatePhotoModalData(photo, user, tags, vote) {
     switchPhotoModalTo(0);
-    
+
     updatePhotoModalInfo(photo, user, tags, vote);
 
     $("#photo-modal").modal('show');

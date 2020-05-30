@@ -1,7 +1,9 @@
 function loadSignupValidation() {
     $("#signup-form").submit(function (event) {
         event.preventDefault();
-        $(".signup-hide-when-submit").hide();
+
+        $("#signup-register-error").hide();
+        $("#signup-input-error").hide();
 
         let errors = 0;
 
@@ -27,7 +29,7 @@ function loadSignupValidation() {
         username.val(usernameVal);
         phoneNum.val(phoneNumVal);
 
-        if(!($(this).hasClass("autoValidationAdded"))){
+        if (!($(this).hasClass("autoValidationAdded"))) {
             addAutoValidation(firstName, checkFirstName);
             addAutoValidation(lastName, checkLastName);
             addAutoValidation(email, checkEmail);
@@ -47,30 +49,30 @@ function loadSignupValidation() {
         errors += checkErrors(phoneNum, checkPhoneNum);
 
         if (errors === 0) {
-            // Checks if email is already taken
+            // Check if email is already taken
             axios.get(`http://localhost:3000/users?email=${emailVal}`)
                 .then(function (response) {
                     if (response.data.length !== 0) {
-                        handleInputError(response.data[0].email + " is already taken.");
+                        handleInputError(emailVal + " is already taken.");
                     }
                     else {
-                        // Checks if username is already taken
+                        // Check if username is already taken
                         axios.get(`http://localhost:3000/users?user=${usernameVal}`)
                             .then(function (response) {
                                 if (response.data.length !== 0) {
-                                    handleInputError("@" + response.data[0].user + " is already taken.")
+                                    handleInputError("@" + usernameVal + " is already taken.")
                                 }
                                 else {
-                                    // Checks if passwords match
-                                    if (!checkRepeatedPassword(passwordVal, password2Val)){
+                                    // Check if passwords match
+                                    if (!(password === password2)) {
                                         handleInputError("Passwords do not match.")
                                         isInvalid(password);
-                                        password.val("");
                                         isInvalid(password2);
+                                        password.val("");
                                         password2.val("");
                                     }
                                     else {
-                                        // Sends form data if email and username are unique and passwords match
+                                        // Send form data if email and username are unique and passwords match
                                         let signupData = {
                                             "name": firstNameVal,
                                             "surname": lastNameVal,
@@ -93,12 +95,12 @@ function loadSignupValidation() {
                                     }
                                 }
                             })
-                            .catch(function (error) {
+                            .catch(function () {
                                 handleRegisterError();
                             });
                     }
                 })
-                .catch(function (error) {
+                .catch(function () {
                     handleRegisterError();
                 });
         }
@@ -108,7 +110,8 @@ function loadSignupValidation() {
 
 function handleRegister(data) {
     let token = data.accessToken;
-    storeToken(token).then(function() {
+
+    storeToken(token).then(function () {
         window.location.href = "index.php";
     });
 }
@@ -118,8 +121,8 @@ function handleRegisterError() {
 }
 
 function handleInputError(msg) {
-    let uniqueInputsErrorContainer = $("#signup-input-error");
+    let inputErrorContainer = $("#signup-input-error");
 
-    uniqueInputsErrorContainer.text(msg);
-    uniqueInputsErrorContainer.show();
+    inputErrorContainer.text(msg);
+    inputErrorContainer.show();
 }

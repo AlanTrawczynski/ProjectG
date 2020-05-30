@@ -19,19 +19,17 @@ function resolveTag(tagName) {
     return new Promise(function (resolve, reject) {
         axios.get(`http://localhost:3000/tags?name=${tagName}`)
             .then(function (response) {
-                // If tag exists in db, gets its id
-                if (response.data.length != 0) {
+                // If tag exists, gets its id
+                if (response.data.length !== 0) {
                     let tag = response.data[0];
 
                     resolve(tag);
                 }
                 // Else creates the tag and then gets its id
                 else {
-                    let data = { "name": tagName };
-
                     fetch('http://localhost:3000/tags/', {
                         method: "POST",
-                        body: JSON.stringify(data),
+                        body: JSON.stringify({ "name": tagName }),
                         headers: {
                             'Content-Type': 'application/json',
                             'Authorization': 'Bearer ' + getToken(),
@@ -68,7 +66,7 @@ async function waitForResponse(tagName) {
 }
 
 
-// Deletes all tags with ids that have no photos associated
+// Deletes all tags that have no photos associated
 async function deleteTagsIfVoid(ids) {
     for (id of ids) {
         await getPhotosByTagId(id).then(function (photos) {
@@ -98,7 +96,6 @@ function generatePinkTag(tagName, tagClass) {
         </div>`;
 }
 
-
 function generateGreyTag(tagName) {
     if (isLogged()) {
         return `
@@ -118,7 +115,7 @@ function generateGreyTag(tagName) {
 // Allows to auto-append written tags in tagsInput to tagsContainer
 function addTagAutoAppend(tagsInput, tagsContainer, tagsClass) {
     tagsInput.keydown(function (event) {
-
+        // 32: space;   13: enter
         if (event.keyCode == 32 || event.keyCode == 13) {
             let tagsArray = getTagsArray(tagsClass);
             let tagText = $(this).val().trim().replace(/\s+/g, '');
@@ -141,14 +138,14 @@ function addTagAutoAppend(tagsInput, tagsContainer, tagsClass) {
     });
 }
 
-// Returns content of all tags that contain tagsClass class
+// Returns content of all tags with tagsClass class
 function getTagsArray(tagsClass) {
     return jQuery.map($(`.${tagsClass}`), function (element) {
         return element.textContent;
     });
 }
 
-// Adds edition to last append tag in tagsContainer
+// Allows to edit the last tag appended to tagsContainer
 function addTagEdition(tagsInput, tagsContainer) {
     tagsContainer.children().last().click(function () {
         let tagText = $(this).children()[0].textContent;

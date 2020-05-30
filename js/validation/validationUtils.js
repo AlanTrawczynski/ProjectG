@@ -24,12 +24,6 @@ function addAutoValidation(input, checker) {
     });
 }
 
-function removeAutoValidation(input) {
-    input.removeClass("is-valid");
-    input.removeClass("is-invalid");
-    input.off("input");
-}
-
 function isValid(input) {
     input.removeClass("is-invalid");
     input.addClass("is-valid");
@@ -38,6 +32,12 @@ function isValid(input) {
 function isInvalid(input) {
     input.addClass("is-invalid");
     input.removeClass("is-valid");
+}
+
+function removeAutoValidation(input) {
+    input.removeClass("is-valid");
+    input.removeClass("is-invalid");
+    input.off("input");
 }
 
 
@@ -63,10 +63,6 @@ function checkPassword(data) {
 
 function checkPhoneNum(data) {
     return data !== "" && new RegExp("^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-s./0-9]*$").test(data);
-}
-
-function checkRepeatedPassword(password, password2) {
-    return password === password2;
 }
 
 function checkUrl(data) {

@@ -2,33 +2,30 @@ function appendPhotos(galContainer, photos) {
     for (let photo of photos) {
         // Get photo owner
         getUser(photo.userId).then(function (response) {
-            if (response.status == 200) {
-                let user = response.data;
+            let user = response.data;
 
-                // If current user is logged and is not the photo owner, get his vote info
-                if (isLogged() && getLoggedUserId() != user.id) {
-                    getVote(photo.id, getLoggedUserId()).then(function (response) {
-                        let vote = response.data.length === 0 ? null : response.data[0];
+            // If current user is logged and is not the photo owner, get his vote
+            if (isLogged() && getLoggedUserId() != user.id) {
+                getVote(photo.id, getLoggedUserId()).then(function (response) {
+                    let vote = response.data.length === 0 ? null : response.data[0];
 
-                        appendPhoto(galContainer, photo, user, vote);
-                    });
-                }
-                // Else there is not vote info
-                else {
-                    appendPhoto(galContainer, photo, user, null);
-                }
+                    appendPhoto(galContainer, photo, user, vote);
+                });
+            }
+            // Else there is no vote
+            else {
+                appendPhoto(galContainer, photo, user, null);
             }
         });
     }
 }
 
 
-// Appends the photo and add event handler
 function appendPhoto(galContainer, photo, user, vote) {
     let photoHtml = generatePhoto(photo, user, vote);
 
     galContainer.append(photoHtml);
-    galContainer.find(`> :last-child > :nth-child(2)`).click({photo: photo, user: user}, updatePhotoModal);
+    galContainer.find(`> :last-child > :nth-child(2)`).click({ photo: photo, user: user }, updatePhotoModal);
 }
 
 

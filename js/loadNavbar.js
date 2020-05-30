@@ -5,13 +5,13 @@ $(function () {
             loadSearchByTag();
         });
 
-        $.get("modals/newPhotoModal.php", function (data) {
-            $("body").append(data);
+        $.get("modals/newPhotoModal.php", function (modal) {
+            $("body").append(modal);
             loadNewPhotoValidation();
         });
 
-        $.get("modals/editTagModal.php", function (data) {
-            $("body").append(data);
+        $.get("modals/editTagModal.php", function (modal) {
+            $("body").append(modal);
             loadTagEditValidation();
         });
     }
@@ -19,12 +19,12 @@ $(function () {
         if (getPageString() === "index.php") {
             $("#navbar-container").load("navbars/indexNavbar.php");
 
-            $.get("modals/signupModal.php", function (data) {
-                $("body").append(data);
+            $.get("modals/signupModal.php", function (modal) {
+                $("body").append(modal);
                 loadSignupValidation();
             });
-            $.get("modals/loginModal.php", function (data) {
-                $("body").append(data);
+            $.get("modals/loginModal.php", function (modal) {
+                $("body").append(modal);
                 loadLoginValidation();
             });
         }
@@ -63,10 +63,7 @@ function updateNavbar() {
             break;
 
         case "profile.php":
-            const queryString = window.location.search;
-            const urlParams = new URLSearchParams(queryString);
-            const urlUserId = urlParams.get('userId');
-            if (urlUserId == getLoggedUserId()) {
+            if (getUrlValue('userId') == getLoggedUserId()) {
                 profile.addClass("active");
             }
             break;
@@ -80,9 +77,10 @@ function updateNavbar() {
 function loadSearchByTag() {
     $("#navbar-search-bar").submit(function (event) {
         event.preventDefault();
+
         let tagName = $("#navbar-search-bar-input").val().trim().replace(/\s+/g, '');
 
-        if (tagName != "") {
+        if (tagName !== "") {
             window.location.href = `search.php?tag=${tagName}`;
         }
     });

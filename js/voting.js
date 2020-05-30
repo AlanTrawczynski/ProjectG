@@ -8,11 +8,9 @@ function upvote(photoId) {
 
         // If vote is already positive, delete it
         if (isPositive) {
-            deleteVote(voteId).then(function (response) {
-                if (response.status == 200) {
-                    HLVotingBtns(photoId, 0);
-                    updatePhotoVotes(photoId, -1, 0);
-                }
+            deleteVote(voteId).then(function () {
+                HLVotingBtns(photoId, 0);
+                updatePhotoVotes(photoId, -1, 0);
             });
         }
         // If vote is negative, patch it
@@ -22,11 +20,9 @@ function upvote(photoId) {
                 "positive": true
             };
 
-            patchVote(voteId, data).then(function (response) {
-                if (response.status == 200) {
-                    HLVotingBtns(photoId, 1);
-                    updatePhotoVotes(photoId, 1, -1);
-                }
+            patchVote(voteId, data).then(function () {
+                HLVotingBtns(photoId, 1);
+                updatePhotoVotes(photoId, 1, -1);
             });
         }
         // If there is no vote, post it
@@ -38,11 +34,9 @@ function upvote(photoId) {
                 "photoId": parseInt(photoId, 10)
             };
 
-            postVote(data).then(function (response) {
-                if (response.status == 201) {
-                    HLVotingBtns(photoId, 1);
-                    updatePhotoVotes(photoId, 1, 0);
-                }
+            postVote(data).then(function () {
+                HLVotingBtns(photoId, 1);
+                updatePhotoVotes(photoId, 1, 0);
             });
         }
     });
@@ -60,11 +54,9 @@ function downvote(photoId) {
 
         // If vote is already negative, delete it
         if (!isPositive && isPositive !== null) {
-            deleteVote(voteId).then(function (response) {
-                if (response.status == 200) {
-                    HLVotingBtns(photoId, 0);
-                    updatePhotoVotes(photoId, 0, -1);
-                }
+            deleteVote(voteId).then(function () {
+                HLVotingBtns(photoId, 0);
+                updatePhotoVotes(photoId, 0, -1);
             });
         }
         // If vote is positive, patch it
@@ -74,11 +66,9 @@ function downvote(photoId) {
                 "positive": false
             };
 
-            patchVote(voteId, data).then(function (response) {
-                if (response.status == 200) {
-                    HLVotingBtns(photoId, -1);
-                    updatePhotoVotes(photoId, -1, 1);
-                }
+            patchVote(voteId, data).then(function () {
+                HLVotingBtns(photoId, -1);
+                updatePhotoVotes(photoId, -1, 1);
             });
         }
         // If there is no vote, post it
@@ -90,11 +80,9 @@ function downvote(photoId) {
                 "photoId": parseInt(photoId, 10)
             };
 
-            postVote(data).then(function (response) {
-                if (response.status == 201) {
-                    HLVotingBtns(photoId, -1);
-                    updatePhotoVotes(photoId, 0, 1);
-                }
+            postVote(data).then(function () {
+                HLVotingBtns(photoId, -1);
+                updatePhotoVotes(photoId, 0, 1);
             });
         }
     });

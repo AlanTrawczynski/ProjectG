@@ -1,14 +1,14 @@
 function storeToken(token) {
-    return new Promise(function(resolve, reject) {
+    return new Promise(function (resolve, reject) {
         let userId = jwt_decode(token).sub;
 
         localStorage.setItem("token", token);
         localStorage.setItem("tokenTime", new Date().getTime());
         localStorage.setItem("userId", userId);
-    
+
         $.ajax({
             url: "http://localhost:3000/users/" + userId,
-            success: function(data) {
+            success: function (data) {
                 let username = data.user;
                 localStorage.setItem("username", username);
                 resolve();
@@ -30,19 +30,22 @@ function getToken() {
     if (token !== null) {
         let currentTime = new Date().getTime();
         let tokenTime = localStorage.getItem("tokenTime");
-        difference = (currentTime - tokenTime) / (1000 * 60 * 60);
+        let difference = (currentTime - tokenTime) / (1000 * 60 * 60);
 
         if (difference > 1) {
             token = null;
             logout();
         }
     }
+
     return token;
 }
 
 
 function getLoggedUser() {
-    return axios.get(`http://localhost:3000/users/` + getLoggedUserId());
+    return axios.get(`http://localhost:3000/users/` + getLoggedUserId()).catch(function (error) {
+        console.log(`Error al pedir los datos del usuario loggeado: ` + error);
+    });
 }
 
 function getLoggedUserId() {
@@ -58,6 +61,7 @@ function logout() {
     localStorage.removeItem("token");
     localStorage.removeItem("tokenTime");
     localStorage.removeItem("userId");
+    localStorage.removeItem("username");
 
     window.location.href = "index.php";
 }

@@ -1,35 +1,33 @@
 $(function () {
     const urlPage = getUrlValue("page");
-    let currentPageNum = urlPage == null ? 1 : parseInt(urlPage, 10);
+    let currentPage = urlPage == null ? 1 : parseInt(urlPage, 10);
 
     let max = 48;
-    let skip = (currentPageNum - 1) * max;
+    let skip = (currentPage - 1) * max;
 
-    loadRecentPhotos(skip, max);
+    loadFollowingPhotos(skip, max);
 });
 
 
-function loadRecentPhotos(skip = 0, max = 48) {
-    getUser(getLoggedUserId()).then(function (response) {
-        let loggedUserFollowing = response.data.following;
+function loadFollowingPhotos(skip = 0, max = 48) {
+    getLoggedUser().then(function (response) {
+        let following = response.data.following;    // Array of usersIds followed by loggedUser
 
         axios.get(`http://localhost:3000/photos?public=true&_sort=id&_order=desc`)
             .then(function (response) {
-                if (response.status == 200) {
-                    let photos = response.data.filter(photo => loggedUserFollowing.includes(photo.userId)).slice(skip);
-                    let remainingPhotos = false;
+                let photos = response.data.filter(photo => following.includes(photo.userId)).slice(skip);
+                let remainingPhotos = false;
 
-                    if (photos.length > max) {
-                        remainingPhotos = true;
-                        photos.splice(max);
-                    }
-                    else if (photos.length == 0 && loggedUserFollowing.length > 0) {
-                        window.location.href = "following.php";
-                    }
-
-                    appendPhotos($("#following-gal"), photos);
-                    updatePagination(remainingPhotos);
+                if (photos.length > max) {
+                    remainingPhotos = true;
+                    photos.splice(max);
                 }
+                else if (photos.length == 0 && following.length > 0) {
+                    window.location.href = "following.php";
+                }
+
+                appendPhotos($("#following-gal"), photos);
+                updatePagination(remainingPhotos);
             })
             .catch(function (error) {
                 console.log("Error al pedir las fotos: " + error);

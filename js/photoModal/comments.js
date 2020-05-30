@@ -1,7 +1,7 @@
-function updatePhotoModalComments(isPublic, skipComments = 0) {
+function updatePhotoModalComments(isPublic) {
     if (isPublic) {
         $("#photo-modal-comments-link").show();
-        
+
         $("#photo-modal-no-comments").hide();
         $("#photo-modal-load-more-btn").hide();
         disableDeleteAndVisibility();
@@ -12,15 +12,13 @@ function updatePhotoModalComments(isPublic, skipComments = 0) {
 
         let photoId = $("#photo-modal-photo-id").text();
 
-        if (skipComments === 0) {
-            $("#photo-modal-comments-container").empty();
-        }
+        $("#photo-modal-comments-container").empty();
 
         // Append photo comments
-        getPhotoComments(photoId, skipComments).then(async function (response) {
+        getPhotoComments(photoId, 0).then(async function (response) {
             let comments = response.data.length === 0 ? null : response.data;
 
-            if (comments !== null || skipComments > 0) {
+            if (comments !== null) {
                 if (comments.length === 10) {
                     $("#photo-modal-load-more-btn").show();
                 }
@@ -29,13 +27,13 @@ function updatePhotoModalComments(isPublic, skipComments = 0) {
             }
             else {
                 $("#photo-modal-no-comments").show();
-                ableDeleteAndVisibility();
+                enableDeleteAndVisibility();
             }
         });
     }
     else {
         $("#photo-modal-comments-link").hide();
-        ableDeleteAndVisibility();
+        enableDeleteAndVisibility();
     }
 }
 
@@ -101,6 +99,9 @@ function postComment(event) {
 }
 
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
 async function appendComments(comments) {
     let commentsContainer = $("#photo-modal-comments-container");
 
@@ -115,13 +116,13 @@ async function appendComments(comments) {
 
 function generateComment(comment, user) {
     let commentDate = new Date(comment.date);
-    let now = new Date();
-    let dif = now - commentDate;     // ms
+    let currentTime = new Date();
+    let dif = currentTime - commentDate;     // ms
 
     let minutes = dif / (1000 * 60);
     let hours = minutes / 60;
     let days = hours / 24;
-    let years = now.getFullYear() - commentDate.getFullYear();
+    let years = currentTime.getFullYear() - commentDate.getFullYear();
 
     let commentTimeInfo;
 
@@ -167,7 +168,7 @@ function disableDeleteAndVisibility() {
     $(".photo-modal-with-comments-info").show();
 }
 
-function ableDeleteAndVisibility() {
+function enableDeleteAndVisibility() {
     let deletePhotoBtn = $("#photo-modal-delete-photo-btn");
 
     deletePhotoBtn.prop("disabled", false);

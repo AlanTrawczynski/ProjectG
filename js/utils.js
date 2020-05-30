@@ -15,7 +15,7 @@ function getUrlValue(key) {
 function getUser(id) {
     return axios.get(`http://localhost:3000/users/${id}`)
         .catch(function (error) {
-            console.log(`Error al pedir el username con id ${id}: ` + error);
+            console.log(`Error al pedir el user con id ${id}: ` + error);
         });
 }
 
@@ -28,10 +28,9 @@ function patchUser(id, data) {
             'Authorization': 'Bearer ' + getToken(),
         }
     }).catch(function (error) {
-        console.log(`Error al actualizar el usuario con id ${loggedUser.id}: ` + error);
+        console.log(`Error al actualizar el usuario con id ${id}: ` + error);
     });
 }
-
 
 
 // Tags
@@ -101,8 +100,7 @@ async function getPhotosByTagId(tagId, onlyPublic = false) {
     return res;
 }
 
-// public = null: returns all user photos
-function getUserPhotos(userId, public = null) {
+function getUserPhotos(userId, public = null) {     // public = null: returns all user photos
     let publicUrl = "";
 
     if (public !== null) {
@@ -183,6 +181,6 @@ function postVote(data) {
             'Authorization': 'Bearer ' + getToken(),
         }
     }).catch(function (error) {
-        console.log(`Error al crear el voto con id ${id}: ` + error);
+        console.log(`Error al crear el voto: ` + error);
     });
 }

@@ -23,7 +23,7 @@ function updatePhotoModalInfo(photo, user, tags, vote) {
     updateProgressBar(photo.upvotes, photo.downvotes, isLoggedUserPhoto);
 
     // Update btns visibility
-    $(".photo-modal-show-when-logged").hide();
+    $(".photo-modal-follow-and-vote-btns").hide();
     $("#photo-modal-edit-link").hide()
 
     if (isLogged()) {
@@ -33,7 +33,7 @@ function updatePhotoModalInfo(photo, user, tags, vote) {
             $("#photo-modal-edit-link").show()
         }
         else {
-            $(".photo-modal-show-when-logged").show();
+            $(".photo-modal-follow-and-vote-btns").show();
 
             // Update voting btns highlight
             if (vote === null) {
@@ -85,7 +85,6 @@ function updateProgressBar(upvotes, downvotes, isLoggedUserPhoto) {
         }
     }
 }
-
 
 function updateProgressBarData(percentage, text, switchTo) {
     let progressBar = $("#photo-modal-votes-bar");

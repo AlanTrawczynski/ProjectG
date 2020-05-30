@@ -1,7 +1,5 @@
 function updatePagination(nextPage = false) {
-    const queryString = window.location.search;
-    const urlParams = new URLSearchParams(queryString);
-    const urlPage = urlParams.get('page');
+    let urlPage = getUrlValue('page');
     let currentPageNum = urlPage == null ? 1 : parseInt(urlPage, 10);
     let pageString = getPageString().split(".")[0];
 

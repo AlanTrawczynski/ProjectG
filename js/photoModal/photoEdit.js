@@ -68,6 +68,7 @@ function updateEditHandlers(photo, tags) {
     // Add new submit handler to editForm
     editForm.submit({ photo: photo, tags: tags }, function (event) {
         event.preventDefault();
+
         $("#photo-modal-edit-error").hide();
 
         let photo = event.data.photo;
@@ -101,7 +102,7 @@ function updateEditHandlers(photo, tags) {
                         if (badword === null) {
                             let resolvedTags = []
                             let tagsNamesToResolve = [...newTagsNames];
-                            let tagsIdsToCheck = [];
+                            let tagsIdsToCheckIfVoid = [];
 
                             for (let i = 0; i < oldTags.length; i++) {
                                 if (newTagsNames.includes(oldTags[i].name)) {
@@ -109,7 +110,7 @@ function updateEditHandlers(photo, tags) {
                                     tagsNamesToResolve.splice(tagsNamesToResolve.indexOf(oldTags[i].name), 1);
                                 }
                                 else {
-                                    tagsIdsToCheck.push(oldTags[i].id);
+                                    tagsIdsToCheckIfVoid.push(oldTags[i].id);
                                 }
                             }
 
@@ -147,7 +148,7 @@ function updateEditHandlers(photo, tags) {
                                         getPhoto(photo.id).then(function (response) {
                                             let updatedPhoto = response.data;
 
-                                            deleteTagsIfVoid(tagsIdsToCheck).then(function () {
+                                            deleteTagsIfVoid(tagsIdsToCheckIfVoid).then(function () {
                                                 if (publicVal == photo.public) {
                                                     updateEditableData(updatedPhoto, newTagsNames);
                                                     updateEditHandlers(updatedPhoto, newTags);

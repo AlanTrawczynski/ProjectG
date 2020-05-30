@@ -9,7 +9,7 @@
                     <img id='photo-modal-profile-pic' class='profile-pic mr-2' src="images/user.jpg" width='35px' height='35px'>
                     <span id='photo-modal-username' class='mr-4'>@username</span>
                 <a>
-                <button id='photo-modal-follow-btn' class='btn btn-pink btn-sm photo-modal-show-when-logged' type='button' onmouseover='toggleFollowBtnText($(this), event)' onmouseout='toggleFollowBtnText($(this), event)'>Follow</button>
+                <button id='photo-modal-follow-btn' class='btn btn-pink btn-sm photo-modal-follow-and-vote-btns' type='button' onmouseover='toggleFollowBtnText($(this), event)' onmouseout='toggleFollowBtnText($(this), event)'>Follow</button>
             </div>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -27,7 +27,7 @@
             <div class='photo-modal-stats container mb-4'>
                 <div class='row'>
                     <span id='photo-modal-photo-id' hidden></span>
-                    <div class='col-auto pl-0 photo-modal-show-when-logged'>
+                    <div class='col-auto pl-0 photo-modal-follow-and-vote-btns'>
                         <button id='photo-modal-negative-vote-btn' type='button' class='btn pink-hover' onclick='downvote($(this).parent().parent().find("#photo-modal-photo-id").text())'>
                             <i class="fa fa-minus" aria-hidden="true"></i>
                         </button>
@@ -37,7 +37,7 @@
                             <div id='photo-modal-votes-bar' class="progress-bar custom-positive-progress-bar" role="progressbar" style="width: 84.4%">25324/30000 (84,4%) positive votes</div>
                         </div>
                     </div>
-                    <div class='col-auto pr-0 photo-modal-show-when-logged'>
+                    <div class='col-auto pr-0 photo-modal-follow-and-vote-btns'>
                         <button id='photo-modal-positive-vote-btn' type='button' class='btn pink-hover ml-auto' onclick='upvote($(this).parent().parent().find("#photo-modal-photo-id").text())'>
                             <i class="fa fa-plus" aria-hidden="true"></i>
                         </button>
