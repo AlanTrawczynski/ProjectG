@@ -1,2 +1,6 @@
 <hr>
-<p>Enlace a github: <a href="https://github.com/AlanTrawczynski/ProjectG">https://github.com/AlanTrawczynski/ProjectG</a></p>
+<div class='custom-container pt-2 pb-3'>
+    <span>Enlace a GitHub:
+        <a href="https://github.eii.us.es/alatra/Proyecto-IISSI2" class='pink-hover'> https://github.eii.us.es/alatra/Proyecto-IISSI2</a>
+    </span>
+</div>

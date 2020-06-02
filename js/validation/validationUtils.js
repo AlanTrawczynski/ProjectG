@@ -76,7 +76,7 @@ function checkIfVoid(data) {
 
 // returns bad word if found, else returns null
 async function checkBadwords(text) {
-    let words = text.trim().split(" ");
+    let words = text.trim().replace(/(\r?\n)+/g, " ").split(/\s+/);
     let foundBadword = null;
 
     await axios.get(`http://localhost:3000/badwords`)

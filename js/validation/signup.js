@@ -64,7 +64,7 @@ function loadSignupValidation() {
                                 }
                                 else {
                                     // Check if passwords match
-                                    if (!(password === password2)) {
+                                    if (!(passwordVal === password2Val)) {
                                         handleInputError("Passwords do not match.")
                                         isInvalid(password);
                                         isInvalid(password2);

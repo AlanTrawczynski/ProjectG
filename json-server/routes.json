@@ -1,0 +1,8 @@
+{
+	"/users*": "/644/users$1",
+	"/tags*": "/664/tags$1",
+	"/votes*": "/664/votes$1",
+	"/photos*": "/664/photos$1",
+	"/comments*": "/664/comments$1",
+	"/badwords*": "/444/badwords$1"
+}

@@ -15,7 +15,7 @@ function loadIndexPhotos(skip = 0, max = 48) {
             let photos = response.data;
             let remainingPhotos = false;
 
-            /*
+            //*
             // Filter photos (remove photos from more than a week ago)
             let currentTime = new Date();
             photos = photos.filter(function (photo) {

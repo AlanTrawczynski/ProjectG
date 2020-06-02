@@ -48,6 +48,8 @@
         </ul>
     </nav>
 
+    <?php include 'footer.php'?>
+
     <?php include 'imports/bodyImports.php'?>
     <script src='js/following.js'></script>
 

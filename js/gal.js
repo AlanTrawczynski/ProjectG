@@ -25,7 +25,7 @@ function appendPhoto(galContainer, photo, user, vote) {
     let photoHtml = generatePhoto(photo, user, vote);
 
     galContainer.append(photoHtml);
-    galContainer.find(`> :last-child > :nth-child(2)`).click({ photo: photo, user: user }, updatePhotoModal);
+    galContainer.find(`> :last-child > :nth-child(2)`).click({ photoId: photo.id, user: user }, updatePhotoModal);
 }
 
 

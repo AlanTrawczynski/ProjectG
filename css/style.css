@@ -256,6 +256,10 @@
     margin-top: 0.5rem;
 }
 
+#photo-modal-description, .comment-content {
+    white-space: pre-line;
+}
+
 .photo-modal-stats > .row {
     height: 35px;
 }

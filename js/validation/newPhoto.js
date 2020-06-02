@@ -8,7 +8,7 @@ function loadNewPhotoValidation() {
 
         getUserPhotos(getLoggedUserId())
             .then(function (response) {
-                if (response.data.length <= 50) {
+                if (response.data.length < 50) {
                     let errors = 0;
 
                     let url = $("#newPhoto-url");

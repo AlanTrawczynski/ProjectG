@@ -1,0 +1,11 @@
+json-server db.json -m ./node_modules/json-server-auth -r routes.json
+
+/////////////////////////////////
+
+1er digito -> propietario
+2º -> logueado
+3º -> no logueado
+
+0 -> no tiene permiso
+2 -> permiso de escritura
+4 -> permiso de lectura

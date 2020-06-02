@@ -6,7 +6,7 @@ $(function () {
             let votesByPhotoId = {};    // {photoId : {upvotes: int, downvotes: int}}
             let trendingPhotosIds;
 
-            /*
+            //*
             // Filter votes (remove votes from more than a week ago)
             let currentTime = new Date();
             votes = votes.filter(function (vote) {
@@ -48,7 +48,9 @@ $(function () {
             // Sort votesByPhotoId by highest score or by number of votes
             votesByPhotoId.sort(function (a, b) {
                 let x = getPhotoScore(b[1], b[2]) - getPhotoScore(a[1], a[2]);
-                return x !== 0 ? x : (b[1] + b[2]) - (a[1] + a[2]);
+                x = x !== 0 ? x : (b[1] + b[2]) - (a[1] + a[2]);
+
+                return x !== 0 ? x : -1;;
             });
 
             // Get first 12 photoIds

@@ -25,6 +25,8 @@
         </div>
     </div>
 
+    <?php include 'footer.php'?>
+
     <?php include 'imports/bodyImports.php'?>
     <script src='js/search.js'></script>
 
