@@ -6,7 +6,7 @@ $(function () {
             let votesByPhotoId = {};    // {photoId : {upvotes: int, downvotes: int}}
             let trendingPhotosIds;
 
-            //*
+            /*
             // Filter votes (remove votes from more than a week ago)
             let currentTime = new Date();
             votes = votes.filter(function (vote) {

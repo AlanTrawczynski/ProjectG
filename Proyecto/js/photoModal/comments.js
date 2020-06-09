@@ -59,6 +59,8 @@ function loadMoreComments() {
 function postComment(event) {
     event.preventDefault();
 
+    $("#photo-modal-comment-error").hide();
+
     let input = $("#photo-modal-comment-input");
 
     let content = input.val().trim();
@@ -67,34 +69,42 @@ function postComment(event) {
     let userId = parseInt(getLoggedUserId(), 10);
 
     if (content !== "") {
-        let data = {
-            "content": content,
-            "date": date,
-            "photoId": photoId,
-            "userId": userId
-        }
+        checkBadwords(content).then(function (badword) {
+            if (badword === null) {
+                let data = {
+                    "content": content,
+                    "date": date,
+                    "photoId": photoId,
+                    "userId": userId
+                }
 
-        fetch('http://localhost:3000/comments/', {
-            method: "POST",
-            body: JSON.stringify(data),
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + getToken(),
+                fetch('http://localhost:3000/comments/', {
+                    method: "POST",
+                    body: JSON.stringify(data),
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer ' + getToken(),
+                    }
+                })
+                    .then(function () {
+                        input.val("");
+                        input.focus();
+                        $("#photo-modal-no-comments").hide();
+                        disableDeleteAndVisibility();
+
+                        getLoggedUser().then(function (response) {
+                            $("#photo-modal-comments-container").prepend(generateComment(data, response.data));
+                        });
+                    })
+                    .catch(function (error) {
+                        console.log(`Error al crear el comentario del usuario con id ${userId} en la foto con id ${photoId}: ` + error);
+                    });
             }
-        })
-            .then(function () {
-                input.val("");
-                input.focus();
-                $("#photo-modal-no-comments").hide();
-                disableDeleteAndVisibility();
-
-                getLoggedUser().then(function (response) {
-                    $("#photo-modal-comments-container").prepend(generateComment(data, response.data));
-                });
-            })
-            .catch(function (error) {
-                console.log(`Error al crear el comentario del usuario con id ${userId} en la foto con id ${photoId}: ` + error);
-            });
+            else {
+                $("#photo-modal-comment-error").text("Please, do not use offensive words: " + badword);
+                $("#photo-modal-comment-error").show();
+            }
+        });
     }
 }
 

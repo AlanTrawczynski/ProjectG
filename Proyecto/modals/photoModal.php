@@ -82,6 +82,8 @@
                     <button class="btn btn-sm btn-pink mt-2" type="submit">Comment</button>
                 </form>
 
+                <div id="photo-modal-comment-error" onclick="$(this).hide()" class="invalid-feedback pointer not-small-feedback"></div>
+
                 <div id='photo-modal-no-comments' class='photo-modal-no-comments'>No comments found.</div>
                 <ul id='photo-modal-comments-container' class="list-unstyled">
                     <!-- comments -->
