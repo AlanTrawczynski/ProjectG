@@ -1,6 +1,6 @@
 # Galería de fotos
 
-Front-end de página web desarrollado utilizando JavaScript, jQuery y Bootstrap, como trabajo para la asignatura IISSI-2 19/20.
+Front-end de aplicación web desarrollado utilizando JavaScript, jQuery y Bootstrap, como trabajo para la asignatura IISSI-2 19/20.
 
 ![Index](./readme-gifs/index.gif)
 
